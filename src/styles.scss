@@ -7,10 +7,34 @@
    font-style: normal;
    font-display: swap;
  }
+   @font-face {
+   font-family: "ubuntu-bold";
+   src: url("/assets/font/ubunt/Ubuntu-Bold.ttf") format("truetype");
+   font-weight: 400;
+   font-style: normal;
+   font-display: swap;
+ }
+
+    @font-face {
+   font-family: "ubuntu-medium";
+   src: url("/assets/font/ubunt/Ubuntu-Medium.ttf") format("truetype");
+   font-weight: 400;
+   font-style: normal;
+   font-display: swap;
+ }
+
 
  @font-face {
    font-family: "quicksand";
    src: url("/assets/font/quicksand/Quicksand-Regular.ttf") format("truetype");
+   font-style: normal;
+   font-weight: 400;
+   font-display: swap;
+ }
+
+ @font-face {
+   font-family: "quicksand-semiBold";
+   src: url("/assets/font/quicksand/Quicksand-SemiBold.ttf") format("truetype");
    font-style: normal;
    font-weight: 400;
    font-display: swap;
@@ -21,8 +45,11 @@
    margin: 0;
    padding: 0;
    box-sizing: border-box;
+   scroll-behavior: smooth;
  }
 
   body {
-   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+   font-family: quicksand;
  }
+
+ 
