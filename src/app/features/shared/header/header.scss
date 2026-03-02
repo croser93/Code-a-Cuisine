@@ -1,0 +1,6 @@
+@use '../../../../styles/variables' as *;
+
+section{
+    @include border(16px, 48px);
+    background-color: var(--bg-color);
+}

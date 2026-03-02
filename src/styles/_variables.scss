@@ -6,6 +6,7 @@
             --btn-text-color:#FAF0E6;
             --font-color: #1E5515;
             --font-color2: #008000; 
+            --font-color-default:#F5F5DC;
         }
 
 @mixin dpf ($jc: center, $ai: center,  $g: 0){
@@ -21,4 +22,8 @@
     align-items: $ai;
     gap: $g;
     flex-direction: column;
+}
+
+@mixin border($tb: 0px, $lr: 0px) {
+  padding: $tb $lr;
 }
