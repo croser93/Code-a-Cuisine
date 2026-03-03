@@ -1,0 +1,26 @@
+
+@use '../../../../styles/variables' as *;
+
+section{
+    height: calc(100vh - 84px - 62px);
+    @include dpf-col();
+    >.recipeHeader {
+        @include dpf-col($g:24px);
+        text-align: center;
+    }
+
+    
+}
+
+.content{
+    @include dpf($jc: space-around);
+    width: 100%;
+}
+
+h2{
+    font-size: 3.375rem;
+}
+
+span{
+    font-size: 1.5rem;
+}
