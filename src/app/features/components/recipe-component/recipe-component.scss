@@ -2,8 +2,9 @@
 @use '../../../../styles/variables' as *;
 
 section{
+    margin-top: 64px;
     height: calc(100vh - 84px - 62px);
-    @include dpf-col();
+    @include dpf-col($jc: flex-start);
     >.recipeHeader {
         @include dpf-col($g:24px);
         text-align: center;
@@ -13,14 +14,75 @@ section{
 }
 
 .content{
-    @include dpf($jc: space-around);
+    @include dpf($g:56px);
     width: 100%;
+    margin-top: 64px;
+    >.containerLeft{
+    >.servingContainer{
+       >.servingInput{
+        @include dpf($g:8px);
+            text-align: center;
+        >button{
+            @include dpf();
+            text-align: center;
+            font-size: 32px;
+            height: 32px;
+            width: 32px;
+            border: none;
+            background-color: transparent;
+            color: #10310B;
+            cursor: pointer;
+
+            &:hover{
+                background-color: #10310B;
+                color: var(--font-color2);
+                border-radius: 50%;
+            }
+        }
+       }
+    }
+    
+    }
+}
+
+.selectServing,
+input{
+    background-color: #FAF0E6CC;
+    width: 300px;
+    height: 36px;
+    border-radius: 20px;
+    font-size: 16px;
+    border: none;
+    padding: 0px 8px
+}
+.inputShort{
+    width: 80px;
 }
 
 h2{
     font-size: 3.375rem;
 }
 
+h5{
+    font-size: 20px;
+    color: #10310B;
+}
+
 span{
     font-size: 1.5rem;
 }
+
+.container{
+            @include dpf($g: 16px);
+        background-color: var(--lightbg-color);
+        height: 240px;
+        padding: 24px;
+        border-radius: 20px;
+        min-width: 480px;
+}
+
+  .inputContain{
+       @include dpf-col($ai: flex-start, $g:8px);
+  }
+
+  

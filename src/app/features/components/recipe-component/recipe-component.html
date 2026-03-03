@@ -5,22 +5,26 @@
     </div>
 
     <div class="content">
-        <div class="containerLeft">
-            <div >
+        <div class="containerLeft container ">
+            <div class="ingredientContainer inputContain">
                 <h5>Ingredient</h5>
                 <input type="text">      
             </div>
-            <div>
+            <div class="servingContainer inputContain">
                 <h5>Serving size</h5>
-                <div>
-                    <input type="text">
-                    <input type="text">
+                <div class="servingInput">
+                    <input type="number" class="inputShort" [(ngModel)]="amount">
+                    <select class="selectServing inputShort" [(ngModel)]="unit">
+                        <option value="piece">piece</option>
+                        <option value="ml">ml</option>
+                        <option value="gram">gram</option>
+                    </select>
                     <button>+</button>
                 </div>
             </div>
         </div>
 
-        <div>
+        <div class="containerRight container">
             <h5>List of your Ingredients</h5>
         </div>
     </div>
