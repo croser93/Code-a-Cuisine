@@ -21,7 +21,15 @@ export class RecipeComponent {
   unit: string = 'gram';
   value: string = '';
 
-  ingredientsList: Ingredient[] = [];
+  ingredientsList: Ingredient[] = [
+    {value: "Wurst",   
+      size: 100,     
+      unit: "g"  },
+      
+      {value: "Käse",   
+      size: 100,     
+      unit: "gramm"  }  
+  ];
 
   saveIngredient() {
 

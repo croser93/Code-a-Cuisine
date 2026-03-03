@@ -8,13 +8,11 @@ section{
     >.recipeHeader {
         @include dpf-col($g:24px);
         text-align: center;
-    }
-
-    
+    }    
 }
 
 .content{
-    @include dpf($g:56px);
+    @include dpf($g:56px, $ai:flex-start);
     width: 100%;
     margin-top: 64px;
     >.containerLeft{
@@ -40,9 +38,27 @@ section{
             }
         }
        }
+    }   
+}
+>.containerRight{
+    @include dpf-col($g:8px, $ai:flex-start );
+    >.ingredientsWrapper{
+        padding: 0px 24px;
+        width: 100%;
+
+        >div{
+            cursor: pointer;
+            width: 100%;
+            background-color: transparent;
+            padding: 6px;
+            border-radius: 8px;
+            &:hover{
+             background-color: #FAF0E6CC;
+                
+            }
+        }
     }
-    
-    }
+}
 }
 
 .selectServing,
@@ -78,9 +94,9 @@ span{
 }
 
 .container{
-            @include dpf($g: 16px);
+        @include dpf($g: 16px);
         background-color: var(--lightbg-color);
-        height: 240px;
+        min-height: 240px;
         padding: 24px;
         border-radius: 20px;
         min-width: 480px;
@@ -90,4 +106,7 @@ span{
        @include dpf-col($ai: flex-start, $g:8px);
   }
 
-  
+  .itemActions{
+    @include dpf();
+
+  }
