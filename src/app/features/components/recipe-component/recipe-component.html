@@ -8,7 +8,7 @@
         <div class="containerLeft container ">
             <div class="ingredientContainer inputContain">
                 <h5>Ingredient</h5>
-                <input type="text">      
+                <input type="text" [(ngModel)]="value">      
             </div>
             <div class="servingContainer inputContain">
                 <h5>Serving size</h5>
@@ -19,7 +19,7 @@
                         <option value="ml">ml</option>
                         <option value="gram">gram</option>
                     </select>
-                    <button>+</button>
+                    <button (click)="saveIngredient()">+</button>
                 </div>
             </div>
         </div>
