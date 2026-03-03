@@ -4,10 +4,18 @@
             --popup-color:#10310B;
             --btn-color:#396039;
             --btn-text-color:#FAF0E6;
-            --font-color: #1E5515;
             --font-color2: #008000; 
             --font-color-default:#F5F5DC;
+            --logo: url('/assets/img/logo.svg')
         }
+
+.light-theme {
+            --font-color: #1E5515;
+            --logo: url('/assets/img/logo-default.svg')
+        }
+
+
+
 
 @mixin dpf ($jc: center, $ai: center,  $g: 0){
     display: flex;
