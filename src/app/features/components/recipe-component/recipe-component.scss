@@ -1,6 +1,7 @@
 
 @use '../../../../styles/variables' as *;
 
+
 section{
     margin-top: 64px;
     height: calc(100vh - 84px - 62px - 64px);
@@ -13,7 +14,7 @@ section{
 }
 
 .content{
-    @include dpf($g:56px, $ai:flex-start);
+    @include dpf($g:24px, $ai:flex-start);
     width: 1080px;
     margin-top: 64px;
     >.containerLeft{
@@ -75,8 +76,16 @@ input{
     height: 36px;
     border-radius: 20px;
     font-size: 16px;
-    border: none;
-    padding: 0px 8px
+    border: 1px solid transparent;
+    padding: 0px 8px;
+    outline: none;
+    color: #10310B;
+    font-family: quicksand-medium;
+    font-size: 16px;
+    &:focus{
+    border: 2px solid #1E5515;
+    }
+
 }
 .inputShort{
     width: 80px;
@@ -131,7 +140,7 @@ span{
 }
 
  .buttonContainer{
-    width: 1060px;
+    width: 100%;
     margin-top: 24px;
     @include dpf($jc:flex-end);
 

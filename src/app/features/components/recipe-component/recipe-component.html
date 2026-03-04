@@ -1,44 +1,44 @@
 <section>
-    <div class="recipeHeader">
-        <h2>Generate recipe</h2>
-        <span>Got random stuff in your kitchen? Pop it in — we’ve got the perfect recipe waiting.</span>
-    </div>
-
-    <div class="content">
-        <div class="containerLeft container ">
-            <div class="ingredientContainer inputContain">
-                <h5>Ingredient</h5>
-                <input type="text" [(ngModel)]="value">      
-            </div>
-            <div class="servingContainer inputContain">
-                <h5>Serving size</h5>
-                <div class="servingInput">
-                    <input type="number" class="inputShort" [(ngModel)]="amount">
-                    <select class="selectServing inputShort" [(ngModel)]="unit">
-                        <option value="piece">piece</option>
-                        <option value="ml">ml</option>
-                        <option value="gram">gram</option>
-                    </select>
-                    <button (click)="saveIngredient()">+</button>
-                </div>
-            </div>
+    <div>
+        <div class="recipeHeader">
+            <h2>Generate recipe</h2>
+            <span>Got random stuff in your kitchen? Pop it in — we’ve got the perfect recipe waiting.</span>
         </div>
 
-        <div class="containerRight container">
-            <h5>List of your Ingredients</h5>
-            <div  class="ingredientsWrapper" *ngFor="let ingredient of ingredientsList; let i = index">
-                <div class="ingredientText"> • {{ ingredient.size }}{{ ingredient.unit }} {{ ingredient.value }}</div>
-                <div class="itemActions">
-                    <button><img src="assets/icon/edit.svg" alt=""></button>
-                    <button (click)="deleteIngredient(i)"><img src="assets/icon/delete.svg" alt=""></button>
+        <div class="content">
+            <div class="containerLeft container ">
+                <div class="ingredientContainer inputContain">
+                    <h5>Ingredient</h5>
+                    <input type="text" [(ngModel)]="value">      
+                </div>
+                <div class="servingContainer inputContain">
+                    <h5>Serving size</h5>
+                    <div class="servingInput">
+                        <input type="number" class="inputShort" [(ngModel)]="amount">
+                        <select class="selectServing inputShort" [(ngModel)]="unit">
+                            <option value="piece">piece</option>
+                            <option value="ml">ml</option>
+                            <option value="gram">gram</option>
+                        </select>
+                        <button (click)="saveIngredient()">+</button>
+                    </div>
                 </div>
             </div>
+
+            <div class="containerRight container">
+                <h5>List of your Ingredients</h5>
+                <div  class="ingredientsWrapper" *ngFor="let ingredient of ingredientsList; let i = index">
+                    <div class="ingredientText"> • {{ ingredient.size }}{{ ingredient.unit }} {{ ingredient.value }}</div>
+                    <div class="itemActions">
+                        <button><img src="assets/icon/edit.svg" alt=""></button>
+                        <button (click)="deleteIngredient(i)"><img src="assets/icon/delete.svg" alt=""></button>
+                    </div>
+                </div>
+            </div>   
+        </div>
+        <div class="buttonContainer">
+            <button class="bigButton btnLight">Next step</button>
         </div>
     </div>
-
-    <div class="buttonContainer">
-        <button class="bigButton btnLight">Next step</button>
-    </div>
-
 
 </section>
