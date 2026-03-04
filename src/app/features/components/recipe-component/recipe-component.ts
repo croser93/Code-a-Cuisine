@@ -28,16 +28,21 @@ export class RecipeComponent {
   ];
 
   saveIngredient() {
-
     const newIngredient: Ingredient = {
       value: this.value,   
       size: this.amount,     
       unit: this.unit        
     };
-
-    this.ingredientsList.push(newIngredient);
-    this.value = ''; 
+    if (this.value.length > 0 && this.amount > 0) {
+      this.ingredientsList.push(newIngredient);
+      this.value = ''; 
+    }
     
     console.log('Liste aktuell:', this.ingredientsList);
+  }
+
+  deleteIngredient(i:number) {
+    this.ingredientsList.splice(i, 1);
+
   }
 }

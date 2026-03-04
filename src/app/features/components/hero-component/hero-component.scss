@@ -59,12 +59,8 @@ section{
             font-family: quicksand;
             font-size: 22px;
             color: var(--font-color-default);
-    
         }
-
-
     }
-
 }
 
 h1{
@@ -80,13 +76,3 @@ h2{
     color: var(--font-color-default);
 }
 
-button{
-    padding: 12px 24px;
-    font-size: 20px;
-    font-weight: 500;
-    color: #008000;
-    background-color: var(--font-color-default);
-    border: none;
-    cursor: pointer;
-    font-family: quicksand-semiBold;
-}

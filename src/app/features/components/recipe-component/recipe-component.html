@@ -30,10 +30,15 @@
                 <div class="ingredientText"> • {{ ingredient.size }}{{ ingredient.unit }} {{ ingredient.value }}</div>
                 <div class="itemActions">
                     <button><img src="assets/icon/edit.svg" alt=""></button>
-                    <button><img src="assets/icon/delete.svg" alt=""></button>
+                    <button (click)="deleteIngredient(i)"><img src="assets/icon/delete.svg" alt=""></button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="buttonContainer">
+        <button class="bigButton btnLight">Next step</button>
+    </div>
+
 
 </section>

@@ -8,12 +8,13 @@ section{
     >.recipeHeader {
         @include dpf-col($g:24px);
         text-align: center;
-    }    
+    }
+      
 }
 
 .content{
     @include dpf($g:56px, $ai:flex-start);
-    width: 100%;
+    width: 1080px;
     margin-top: 64px;
     >.containerLeft{
     >.servingContainer{
@@ -127,31 +128,13 @@ span{
             height: 19px;
         }
     }
-
-
-
-
-    /* 1. Die Breite der gesamten Scrollbar */
-::-webkit-scrollbar {
-  width: 28px;               /* Breite für vertikale Scrollbars */
-  height: 8px;              /* Höhe für horizontale Scrollbars */
 }
 
-/* 2. Der Hintergrund (Track) */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;      /* Ein helles Grau oder transparent */
-  border-radius: 10px;      /* Abgerundete Schienen */
-}
+ .buttonContainer{
+    width: 1060px;
+    margin-top: 24px;
+    @include dpf($jc:flex-end);
 
-/* 3. Der bewegliche Balken (Thumb) */
-::-webkit-scrollbar-thumb {
-  background: #b5c3b1;      /* Dein grüner Farbton vom Bild */
-  border-radius: 10px;      /* Macht den Balken pillenförmig */
-  border: 2px solid #f1f1f1; /* Erzeugt einen Abstand zum Rand */
-}
-
-/* 4. Effekt beim Drüberfahren (Hover) */
-::-webkit-scrollbar-thumb:hover {
-  background: #8e9c8a;      /* Etwas dunkler beim Hover */
-}
   }
+
+ 
