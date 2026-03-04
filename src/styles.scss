@@ -25,6 +25,15 @@
 
 
  @font-face {
+   font-family: "quicksand-medium";
+   src: url("/assets/font/quicksand/Quicksand-Medium.ttf") format("truetype");
+   font-style: normal;
+   font-weight: 500;
+   font-display: swap;
+ }
+
+ 
+ @font-face {
    font-family: "quicksand";
    src: url("/assets/font/quicksand/Quicksand-Regular.ttf") format("truetype");
    font-style: normal;
@@ -52,6 +61,25 @@
    font-family: quicksand;
  }
 
+.bigButton{
+    padding: 12px 24px;
+    width: 186px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    font-family: quicksand-semiBold;
+}
+
+.btnDark{
+  color: #008000;
+  background-color: var(--font-color-default);
+}
+.btnLight{
+color: white;
+background-color: #055E05;
+}
  .dark { background-color: var(--bg-color);
   a { color: var(--font-color-default) }
 }
