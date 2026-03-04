@@ -1,0 +1,21 @@
+@use '../../../../styles/variables' as *;
+
+section{
+    height: calc(100vh - 84px - 62px);
+}
+
+.preferences{
+    @include dpf($g:48px);
+    >.selectPreferences{
+        @include dpf-col();
+        text-align: center;
+        >.preferenceInput{
+            @include dpf($g:16px);
+        } >.button{
+            border: none;
+            outline: none;
+            background-color: white;
+        }
+
+    }
+}
