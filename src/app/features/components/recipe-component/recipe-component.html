@@ -27,7 +27,7 @@
         <div class="containerRight container">
             <h5>List of your Ingredients</h5>
             <div  class="ingredientsWrapper" *ngFor="let ingredient of ingredientsList; let i = index">
-                <div> • {{ ingredient.size }}{{ ingredient.unit }} {{ ingredient.value }}</div>
+                <div class="ingredientText"> • {{ ingredient.size }}{{ ingredient.unit }} {{ ingredient.value }}</div>
                 <div class="itemActions">
                     <button><img src="assets/icon/edit.svg" alt=""></button>
                     <button><img src="assets/icon/delete.svg" alt=""></button>

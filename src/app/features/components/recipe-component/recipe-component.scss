@@ -3,7 +3,7 @@
 
 section{
     margin-top: 64px;
-    height: calc(100vh - 84px - 62px);
+    height: calc(100vh - 84px - 62px - 64px);
     @include dpf-col($jc: flex-start);
     >.recipeHeader {
         @include dpf-col($g:24px);
@@ -41,21 +41,27 @@ section{
     }   
 }
 >.containerRight{
-    @include dpf-col($g:8px, $ai:flex-start );
-    >.ingredientsWrapper{
-        padding: 0px 24px;
-        width: 100%;
 
-        >div{
-            cursor: pointer;
-            width: 100%;
-            background-color: transparent;
-            padding: 6px;
-            border-radius: 8px;
-            &:hover{
-             background-color: #FAF0E6CC;
-                
-            }
+  max-height: 420px;
+  overflow: auto;
+  @include dpf-col($g: 8px, $ai: flex-start, $jc: flex-start);
+  scrollbar-width: thin;
+  scrollbar-color: #1E5515 transparent;
+    
+    >.ingredientsWrapper{
+        padding: 4px 16px;
+        width: 100%;
+        @include dpf($jc:space-between);
+        cursor: pointer;
+        background-color: transparent;
+        border-radius: 8px;
+        &:hover{
+            background-color: #FAF0E6CC;
+        }
+        >.ingredientText{
+            color: #10310B;
+            font-family: quicksand-medium;
+            font-size: 18px;
         }
     }
 }
@@ -107,6 +113,45 @@ span{
   }
 
   .itemActions{
-    @include dpf();
+    @include dpf($g:8px);
+    >button{
+        background-color: transparent;
+        border: none;
+        padding: 4px;
+        cursor: pointer;
+        &:hover{
+            background-color: rgba(57, 96, 57, 0.4);
+            border-radius: 8px;
+        }
+        >img{
+            height: 19px;
+        }
+    }
 
+
+
+
+    /* 1. Die Breite der gesamten Scrollbar */
+::-webkit-scrollbar {
+  width: 28px;               /* Breite für vertikale Scrollbars */
+  height: 8px;              /* Höhe für horizontale Scrollbars */
+}
+
+/* 2. Der Hintergrund (Track) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;      /* Ein helles Grau oder transparent */
+  border-radius: 10px;      /* Abgerundete Schienen */
+}
+
+/* 3. Der bewegliche Balken (Thumb) */
+::-webkit-scrollbar-thumb {
+  background: #b5c3b1;      /* Dein grüner Farbton vom Bild */
+  border-radius: 10px;      /* Macht den Balken pillenförmig */
+  border: 2px solid #f1f1f1; /* Erzeugt einen Abstand zum Rand */
+}
+
+/* 4. Effekt beim Drüberfahren (Hover) */
+::-webkit-scrollbar-thumb:hover {
+  background: #8e9c8a;      /* Etwas dunkler beim Hover */
+}
   }

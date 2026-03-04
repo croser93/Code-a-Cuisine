@@ -25,10 +25,6 @@ export class RecipeComponent {
     {value: "Wurst",   
       size: 100,     
       unit: "g"  },
-      
-      {value: "Käse",   
-      size: 100,     
-      unit: "gramm"  }  
   ];
 
   saveIngredient() {
