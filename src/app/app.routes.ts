@@ -6,8 +6,9 @@ import { ResultComponent } from './features/components/result-component/result-c
 import { CookbookComponent } from './features/components/cookbook-component/cookbook-component';
 
 export const routes: Routes = [
-    { path: '#', component: HeroComponent },
-    { path: '', component: RecipeComponent },
+    { path: '', component: Reci
+    { path: '', component: HeroComponent, data: { theme: 'dark' } },
+    { path: 'recipe', component: RecipeComponent, data: { theme: 'light' } },
     { path: 'preferences', component: PreferenceComponent },
     { path: 'results', component: ResultComponent},
     { path: 'cookbook', component: CookbookComponent},

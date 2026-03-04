@@ -80,3 +80,10 @@
 color: white;
 background-color: #055E05;
 }
+ .dark { background-color: var(--bg-color);
+  a { color: var(--font-color-default) }
+}
+ 
+.light { background-color: white;
+          a { color: var(--bg-color) }
+}
