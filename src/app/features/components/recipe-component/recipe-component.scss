@@ -6,9 +6,12 @@ section{
     margin-top: 64px;
     height: calc(100vh - 84px - 62px - 64px);
     @include dpf-col($jc: flex-start);
-    >.recipeHeader {
-        @include dpf-col($g:24px);
-        text-align: center;
+    >div{
+        @include dpf-col();
+        >.recipeHeader {
+            @include dpf-col($g:24px);
+            text-align: center;
+        }
     }
       
 }
