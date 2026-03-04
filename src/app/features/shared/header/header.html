@@ -1,5 +1,9 @@
-<section>
+<section [ngClass]="themeservice.currentTheme()">
     <div>
-        <img src="assets/img/logo.svg" alt="">
+    <img 
+      [src]="themeservice.currentTheme() === 'dark' ? 'assets/img/logo.svg' : 'assets/img/logo-default.svg'" 
+      alt="CodeCuisine Logo"
+      class="logo"
+    >
     </div>
 </section>
