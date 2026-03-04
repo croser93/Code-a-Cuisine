@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Wichtig für [ngClass]
+import { CommonModule } from '@angular/common';
 import { ThemeService} from '../../../core/services/theme.service';
 
 @Component({
