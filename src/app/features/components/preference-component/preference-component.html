@@ -1,29 +1,27 @@
 <section>
-    <span>Choose your preferences</span>
+    <h4>Choose your preferences</h4>
     <div class="preferences">
         <div class="selectPreferences">
             <span>How many portions you need?</span>
             <div class="preferenceInput">
-                <button><img src="assets/icon/del.svg" alt=""></button>
+                <button (click)="fewer('portions')"><img src="assets/icon/del.svg" alt=""></button>
                 <div>
-                    <input type="number" readonly>
+                    <input type="number" readonly [(ngModel)]="portions">
                     <span>Portions</span>
                 </div>
-
-                <button><img src="assets/icon/add.svg" alt=""></button>
+                <button (click)="addedMore('portions')"><img src="assets/icon/add.svg" alt=""></button>
             </div>
 
         </div>
         <div class="selectPreferences">
             <span>How many are cooking</span>
             <div class="preferenceInput">
-                <button><img src="assets/icon/del.svg" alt=""></button>
+                <button (click)="fewer('person')"><img src="assets/icon/del.svg" alt=""></button>
                 <div>
-                    <input type="text">
-                    <span>Portions</span>
+                    <input type="text" readonly [(ngModel)]="person">
+                    <span>Person</span>
                 </div>
-
-                <button><img src="assets/icon/add.svg" alt=""></button>
+                <button (click)="addedMore('person')"><img src="assets/icon/add.svg" alt=""></button>
 
             </div>
         </div>

@@ -2,20 +2,54 @@
 
 section{
     height: calc(100vh - 84px - 62px);
+     @include dpf-col($jc:flex-start);
+     margin-top: 160px;
 }
 
 .preferences{
     @include dpf($g:48px);
+    margin-top: 120px;
     >.selectPreferences{
-        @include dpf-col();
+        @include dpf-col($ai:flex-start, $g:16px);
         text-align: center;
+
         >.preferenceInput{
             @include dpf($g:16px);
-        } >.button{
-            border: none;
-            outline: none;
-            background-color: white;
+            text-align: center;
+            >button{
+                border: none;
+                outline: none;
+                background-color: white;
+            }
+            div{
+                @include dpf($g:16px);
+            }
         }
 
     }
+}
+
+input{
+    outline: none;
+    border: none;
+    background-color: rgba(57, 96, 57, 0.2);
+    max-width: 32px;
+    padding: 2px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 4px;
+    font-family: quicksand-medium;
+    color: #10310B;
+}
+
+h4{
+  font-size: 28px;
+  font-family: quicksand-semiBold;
+  color: #10310B;
+}
+
+span{
+  font-size: 20px;
+  font-family: quicksand-medium;
+  color: #10310B;
 }
