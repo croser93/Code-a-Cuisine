@@ -1,0 +1,109 @@
+@use '../../../../styles/variables' as *;
+
+section{
+    height: calc(100vh - 84px - 62px);
+     @include dpf-col($jc:flex-start, $g:36px);
+}
+
+.preferences{
+    @include dpf($jc:space-between, $g:48px);
+    width: 820px;
+    >.selectPreferences{
+        @include dpf-col($ai:flex-start, $g:16px);
+        text-align: center;
+
+        >.preferenceInput{
+            @include dpf($g:16px);
+            text-align: center;
+            height: 24px;
+            >button{
+                border: none;
+                outline: none;
+                background-color: white;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+            }
+            div{
+                @include dpf($g:16px);
+            }
+        }
+
+    }
+}
+
+input{
+    outline: none;
+    border: none;
+    background-color: rgba(57, 96, 57, 0.2);
+    max-width: 32px;
+    padding: 2px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 4px;
+    font-family: quicksand-medium;
+    color: #10310B;
+}
+
+h3{
+font-size: 24px;
+  font-family: quicksand-medium;
+  color: #10310B;
+
+}
+
+h4{
+  font-size: 28px;
+  font-family: quicksand-semiBold;
+  color: #10310B;
+}
+
+span{
+  font-size: 20px;
+  font-family: quicksand-medium;
+  color: #10310B;
+}
+
+.selectionContainer{
+    @include dpf-col($ai:flex-start,$g:32px);
+    background-color: rgba(57, 96, 57, 0.2);
+    border-radius: 20px;
+    padding: 32px 24px;
+    >.menuHeader{
+       @include dpf($g:8px); 
+    }
+
+    >.preferenceContainer,
+    >.cuisineContainer,
+    >.cookingTimeContainer{
+        @include dpf($jc: flex-start, $g:24px);
+        >.cookingTime{
+            @include dpf-col();
+            >.menuText{
+                color: #1E5515;
+                font-size: 16px;
+                font-family: quicksand-medium;
+            }
+            
+    }
+    }
+    .menuButton{
+        background-color: rgba(250, 240, 230, 1);
+        padding: 6px 12px;
+        min-width: 120px;
+        height: 40px;
+        border-radius: 30px;
+        border: none;
+        text-wrap-mode: nowrap;
+        cursor: pointer;
+        >span{
+                color: #10310B;
+                font-size: 20px;
+                font-family: quicksand-semiBold;
+
+        }
+        &:hover{
+            background-color: #FAE0C6;
+        }
+    }
+}

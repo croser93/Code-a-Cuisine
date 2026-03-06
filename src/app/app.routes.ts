@@ -9,7 +9,7 @@ export const routes: Routes = [
 
     { path: '', component: HeroComponent, data: { theme: 'dark' } },
     { path: 'recipe', component: RecipeComponent, data: { theme: 'light' } },
-    { path: 'preferences', component: PreferenceComponent },
+    { path: 'preferences', component: PreferenceComponent, data: { theme: 'light' } },
     { path: 'results', component: ResultComponent},
     { path: 'cookbook', component: CookbookComponent},
     { path: '**', redirectTo: '' },

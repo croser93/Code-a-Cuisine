@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from "@angular/router";
 
 
 interface Ingredient {
@@ -12,7 +13,7 @@ interface Ingredient {
 @Component({
   selector: 'app-recipe-component',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './recipe-component.html',
   styleUrl: './recipe-component.scss',
 })
