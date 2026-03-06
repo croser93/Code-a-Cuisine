@@ -1,0 +1,26 @@
+@use '../../../../styles/variables' as *;
+section{
+    @include dpf();
+    background-color: var(--bg-color);
+    height: calc(100vh - 84px - 62px);
+}
+.loading-container{
+    @include dpf-col($g:24px);
+
+    border-radius: 20px;
+    .loadingGif{
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        height: 480px;
+        >img{
+            height: 420px;    
+        }
+    }
+    >span{
+        color: white;
+        font-size: 56px;
+        font-family: quicksand-semiBold;
+    }
+
+
+}
