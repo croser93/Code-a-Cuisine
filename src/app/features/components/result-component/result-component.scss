@@ -1,0 +1,102 @@
+
+@use '../../../../styles/variables' as *;
+
+
+section{
+
+    height: calc(100vh - 84px - 62px);
+    @include dpf-col();
+    background-color: var(--bg-color);  
+    >.containerHead{
+        @include dpf($jc: space-between, $ai:flex-start,     $g:16px);
+        width: 1440px;
+
+        >.containerLeft{
+             @include dpf-col($ai:flex-start, $g:24px);
+             >h2{
+                font-size: 54px;
+                color: #FAF0E6;
+                font-family: quicksand-semiBold;
+             }
+             .textContainer{
+                 @include dpf-col($ai:flex-start);
+                 >span{
+                    font-size: 24px;
+                    font-size: quicksand-medium;
+                    color: #FAF0E6;
+                 }
+             }
+
+            >.popupContainer{
+                @include dpf($g:16px);
+                >div{
+                    @include dpf();
+                    background-color: #FAF0E6;
+                    color: #1E5515;
+                    width: 72px;
+                    border-radius: 30px;
+                    padding: 6px 12px;                    
+                }
+             }
+
+        } 
+    }
+}
+
+.cardContainer{
+    @include dpf();
+    padding: 32px 24px;
+    border-radius: 20px;
+    background-color: #DBE0DB;
+    >.card{
+        max-width: 420px;
+        height: 300px;
+        @include dpf-col($g:16px, $jc:space-between);
+        >.cardContent{
+            @include dpf-col($g:16px, $ai:flex-start);
+            >.cardHeader{
+                @include dpf($g:16px);
+                h3{
+                    font-size: 24px;
+                    color: #1E5515;
+                    font-family: quicksand-semiBold;
+                }
+            }
+            >span{
+                font-size: 32px;
+                color: #10310B;
+                font-family: quicksand-semiBold;
+            }
+            >.cardInfo{
+                @include dpf($g:8px);
+                >span{
+                    font-size: 20px;
+                    font-size: quicksand-medium;
+                    color: #396039
+                }
+            }
+        }
+        
+        >.buttonContainer{
+            width: 100%;
+            @include dpf($jc:flex-start);
+            >button{
+                border: none;
+                background-color: #FAF0E6;
+                color: #008000;
+                padding: 16px 26px;
+                height: 60px;
+                width: 100px;
+                font-family: quicksand-semiBold;
+                font-size: 24px;
+                cursor: pointer;
+
+
+            }
+
+        }
+    }
+}
+
+
+
