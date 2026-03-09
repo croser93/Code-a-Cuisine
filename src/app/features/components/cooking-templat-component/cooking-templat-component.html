@@ -75,12 +75,11 @@
         <div class="directions">
             <img src="assets/separator/Directions.svg" alt="">
             <div class="directionsContainer">
-                    
-                <div class="directionsCard">
+                <div class="directionsCard" *ngFor="let cookingDescritpion of CookingtextList; let i = index">
                     <div class="directionsHead">
                         <div class="directionsOverview">
-                            <span>1.</span>
-                            <h5>Cook the Pasta</h5>
+                            <span>{{i +1}}.</span>
+                            <h5>{{cookingDescritpion.overhead}}</h5>
                         </div>
                         <div class="personTag">
                             <img src="assets/icon/Untitled design 2.svg" alt="">
@@ -88,12 +87,12 @@
                         </div>
                     </div>
                     <div>
-                        <span class="cookingText">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis laudantium ex rerum neque magni voluptatibus animi sunt odit non ipsam amet facere blanditiis, laboriosam, sint sapiente, tempore esse vitae soluta!</span>
+                        <span class="cookingText">{{cookingDescritpion.text}}</span>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div>
         </div>
         
