@@ -15,8 +15,9 @@ section{
 .recipeHead{
     @include dpf($jc:space-around);
     background-color: rgba(250, 240, 230, 1);
-    width: 100%;
+    width: 1800px;
     border-radius: 20px;
+    padding: 24px 0px;
     >.containerLeft{
         width: 50%;
         >.cookingTime{
@@ -37,22 +38,93 @@ section{
                 color: #396039;
                 font-family: quicksand-medium;
             }
-            >.teamContainer{
-                >.person{
-                    @include dpf();
-                    text-align: center;
-                    background-color: rgba(215, 223, 215, 1);
-                    padding: 2px 4px;
-                    border-radius: 6px;
-                    >span{
-                        font-size: 18px;
-                        font-family: quicksand-medium;
-                    }
-    
-                }
 
-
-            }
         }
     }
+}
+
+.personTag{
+    @include dpf();
+    text-align: center;
+    background-color: rgba(215, 223, 215, 1);
+    padding: 2px 4px;
+    border-radius: 6px;
+    >span{
+        font-size: 18px;
+        font-family: quicksand-medium;
+    }
+}
+.ingredients{
+    >img{
+        width: 1800px; 
+    }
+    >.ingredientsContainer{
+     @include dpf($jc:space-around);
+     padding: 24px;
+     >div{
+        @include dpf-col();
+        min-width: 480px;
+        >h5{
+           color: #008000;
+           font-size: 24px;
+           font-size: quicksand-semiBold;
+        }
+        >.ingredientsWrapper{
+            padding: 24px;
+            >li{
+                font-size: 24px;
+                font-family: quicksand-medium;
+                color:#10310B;
+            }
+
+        }
+     }
+    
+    }
+}
+
+.directions{
+    >img{
+        width: 1800px;
+    }
+    .directionsContainer{
+        .directionsCard{
+            @include dpf-col($jc: space-between, $ai:flex-start, $g:8px);
+            max-width: 740px;
+            min-height: 180px;
+            padding: 24px 48px;
+            border: 1px solid black;
+            border-radius: 20px;
+            >.directionsHead{
+                width: 100%;
+                @include dpf($jc:space-between);
+                >.directionsOverview{
+                    @include dpf($jc:flex-start ,$g:6px);
+                    >span{
+                        background-color: #FAF0E6;
+                        @include dpf();
+                        height: 32px;
+                        width: 32px;
+                        border-radius: 50%;
+                        font-size: 18px;
+                        font-family: quicksand-medium;
+                        color:#10310B;
+                    }
+                    >h5{
+                        font-size: 24px;
+                        font-family: quicksand-medium;
+                        color:#10310B;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+.cookingText{
+    font-size: 18px;
+    font-family: quicksand-medium;
+    color:#10310B;
+                    
 }
