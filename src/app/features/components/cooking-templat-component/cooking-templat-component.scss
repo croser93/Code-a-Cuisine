@@ -1,0 +1,58 @@
+@use '../../../../styles/variables' as *;
+
+
+section{
+    @include dpf();
+    >.content{
+        background-color: rgba(250, 240, 230, 0.3);
+        min-height: 100vh;
+        border: 4px solid rgba(250, 240, 230, 1);
+        border-radius: 20px;
+        @include dpf-col();
+    }
+}
+
+.recipeHead{
+    @include dpf($jc:space-around);
+    background-color: rgba(250, 240, 230, 1);
+    width: 100%;
+    border-radius: 20px;
+    >.containerLeft{
+        width: 50%;
+        >.cookingTime{
+            @include dpf($jc:flex-start, $g:8px);
+            font-size: 20px;
+            color: #396039;
+            font-family: quicksand-medium;
+        }
+        >h2{
+            font-size: 54px;
+            color: #1E5515;
+            font-size: quicksand-semiBold;
+        }
+        >.cookingPerson{
+            @include dpf($jc:flex-start, $g:16px);
+            >span{
+                font-size: 20px;
+                color: #396039;
+                font-family: quicksand-medium;
+            }
+            >.teamContainer{
+                >.person{
+                    @include dpf();
+                    text-align: center;
+                    background-color: rgba(215, 223, 215, 1);
+                    padding: 2px 4px;
+                    border-radius: 6px;
+                    >span{
+                        font-size: 18px;
+                        font-family: quicksand-medium;
+                    }
+    
+                }
+
+
+            }
+        }
+    }
+}
