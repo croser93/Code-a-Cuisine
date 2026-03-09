@@ -6,11 +6,11 @@
                 <div class="containerLeft">
                     <div class="cookingTime">
                         <img src="assets/icon/clock.svg" alt="clock">
-                        <span>Coocking time: 20min</span>
+                        <span>Coocking time: {{cookingIngredientList.info.time}} min</span>
                     </div>
                     <h2>Pasta with spinach and cherry tommatoes</h2>
                     <div class="cookingPerson">
-                        <span>coocking person: 2</span>
+                        <span>coocking person: {{cookingIngredientList.info.poeple}}</span>
                         <div class="teamContainer">
                             <div>
                                 <img src="assets/icon/cook1.svg" alt="">
@@ -21,7 +21,14 @@
                 <div class="containerRight">
                     <div class="popUpBar">
                         <div class="popUp">
-                            <span>Vegetarian</span>
+                            <span>{{cookingIngredientList.info.diet}}</span>
+                        </div>
+                        <div class="popUp">
+                            <span>{{cookingIngredientList.info.cookingtime}}</span>
+                        </div>
+                        <div class="popUp">
+                            <img src="assets/icon/favorite.svg" alt="">
+                            <span>{{cookingIngredientList.info.likes}}</span>
                         </div>
                     </div>
 
@@ -35,10 +42,10 @@
                                 <th>Carbs</th>
                             </tr>
                             <tr>
-                                <td>630 kcal</td>
-                                <td>18g</td>
-                                <td>24g</td>
-                                <td>58g</td>
+                                <td>{{cookingIngredientList.nutriInfo.energie}}</td>
+                                <td>{{cookingIngredientList.nutriInfo.protein}}</td>
+                                <td>{{cookingIngredientList.nutriInfo.fat}}</td>
+                                <td>{{cookingIngredientList.nutriInfo.carbs}}</td>
                             </tr>
                         </table>
                     </div>
@@ -75,18 +82,18 @@
                     <img src="assets/separator/Directions.svg" alt="">
                 </div>
                 <div class="directionsContainer">
-                    <div class="directionsCard" *ngFor="let cookingDescritpion of CookingtextList; let i = index">
+                    <div class="directionsCard" *ngFor="let stepItem of cookingIngredientList.CookingtextList; let i = index">
                         <div class="directionsHead">
                             <div class="directionsOverview">
                                 <span>{{i +1}}.</span>
-                                <h5>{{cookingDescritpion.overhead}}</h5>
+                                <h5>{{stepItem.overhead}}</h5>
                             </div>
                             <div>
                                 <img src="assets/icon/cook1.svg" alt="">
                             </div>
                         </div>
                         <div>
-                            <span class="cookingText">{{cookingDescritpion.text}}</span>
+                            <span class="cookingText">{{stepItem.step}}</span>
                         </div>
                     </div>
                 </div>
