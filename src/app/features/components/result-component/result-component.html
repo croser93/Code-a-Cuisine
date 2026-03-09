@@ -1,1 +1,48 @@
-<p>result-component works!</p>
+<section>
+    <div class="content content-beg content-border">
+        <div class="containerHead">
+            <div class="containerLeft">
+                <h2>The recipe results</h2>
+                <div class="textContainer">
+                    <span>We took what you have and let your our AI do the thinking.</span>
+                    <span>Here are 3 easy recipes you can make right now!</span>
+                </div>
+                    <!-- Hier ergebniss von ausgewählten ergebniss des preferences -->
+                <div class="popupContainer">
+                    <div>Italian</div> 
+                    <div>Quick</div>
+                </div>
+
+            </div>
+            <div class="containerRight">
+                <img src="assets/img/Visual.svg" alt="ki-img">
+            </div>
+        </div>
+
+        <div class="cardContainer" >
+            <div class="card" *ngFor="let recipe of recipeList, let i = index">
+                <div class="cardContent">
+                    <div class="cardHeader">
+                        <img src="assets/icon/icon.svg" alt="">
+                        <h3>Recipe {{i + 1}}</h3>
+                    </div>
+                    <span>{{recipe.text}}</span>
+                    <div class="cardInfo">
+                        <img src="assets/icon/clock.svg" alt="">
+                        <span>Cooking time: {{recipe.time}}</span>
+                    </div>
+                </div>
+                <div class="buttonContainer">
+                    <button>View</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="linkContainer">
+            <div class="link">
+                <a routerLink="/recipe">Generate new recipe</a>
+                <img src="assets/icon/Arrow 18.svg" alt="arrow">
+            </div>
+        </div>
+    </div>
+</section>

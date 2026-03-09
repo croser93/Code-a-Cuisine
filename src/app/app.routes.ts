@@ -13,7 +13,7 @@ export const routes: Routes = [
     { path: 'recipe', component: RecipeComponent, data: { theme: 'light' } },
     { path: 'preferences', component: PreferenceComponent, data: { theme: 'light' } },
     { path: 'loading-screen', component: LoadingScreen, data: { theme: 'dark' } },
-    { path: 'results', component: ResultComponent},
+    { path: 'results', component: ResultComponent, data: { theme: 'light' }},
     { path: 'cookbook', component: CookbookComponent},
     { path: '**', redirectTo: '' },
 ];

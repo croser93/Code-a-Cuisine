@@ -72,6 +72,15 @@
     font-family: quicksand-semiBold;
 }
 
+.content-beg {
+  max-width: 1920px;
+  width: 100%;
+}
+
+.content-border{
+  padding: 0px 24px;
+}
+
 .btnDark{
   color: #008000;
   background-color: var(--font-color-default);
