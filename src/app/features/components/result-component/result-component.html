@@ -18,20 +18,17 @@
         </div>
     </div>
 
-
-
-
-    <div class="cardContainer">
-        <div class="card">
+    <div class="cardContainer" >
+        <div class="card" *ngFor="let recipe of recipeList, let i = index">
             <div class="cardContent">
                 <div class="cardHeader">
                     <img src="assets/icon/icon.svg" alt="">
-                    <h3>Recipe 1</h3>
+                    <h3>Recipe {{i + 1}}</h3>
                 </div>
-                <span>Pasta with spinach and cherry tomatoes</span>
+                <span>{{recipe.text}}</span>
                 <div class="cardInfo">
                     <img src="assets/icon/clock.svg" alt="">
-                    <span>Cooking time: 20min</span>
+                    <span>Cooking time: {{recipe.time}}</span>
                 </div>
             </div>
             <div class="buttonContainer">
@@ -40,7 +37,10 @@
         </div>
     </div>
 
-    <div>
-        <a href="">Generate new recipe</a>
+    <div class="linkContainer">
+        <div class="link">
+            <a href="">Generate new recipe</a>
+            <img src="assets/icon/Arrow 18.svg" alt="arrow">
+        </div>
     </div>
 </section>

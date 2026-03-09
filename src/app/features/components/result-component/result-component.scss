@@ -45,10 +45,12 @@ section{
 
 .cardContainer{
     @include dpf();
-    padding: 32px 24px;
-    border-radius: 20px;
-    background-color: #DBE0DB;
+    width: 100%;
+    @include dpf($g:16px, $jc:space-between);
     >.card{
+        background-color: #DBE0DB;
+        border-radius: 20px;
+        padding: 32px 24px;
         max-width: 420px;
         height: 300px;
         @include dpf-col($g:16px, $jc:space-between);
@@ -90,12 +92,32 @@ section{
                 font-family: quicksand-semiBold;
                 font-size: 24px;
                 cursor: pointer;
-
-
             }
 
         }
     }
+}
+
+.linkContainer{
+    width: 100%;
+    @include dpf($jc:flex-end);
+    >.link{
+        @include dpf($g:16px);
+        text-align: center;
+        padding: 24px;
+        cursor: pointer;
+        &:hover{
+            background-color:rgba(255,255,255, $alpha: 0.4);
+        }
+        >a{
+            font-size: 20px;
+            text-decoration: none;
+            color: #DBE0DB;
+        }
+
+    }
+
+
 }
 
 
