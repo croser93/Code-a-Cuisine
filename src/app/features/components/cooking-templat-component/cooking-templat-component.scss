@@ -4,11 +4,16 @@
 section{
     @include dpf();
     >.content{
-        background-color: rgba(250, 240, 230, 0.3);
         min-height: 100vh;
-        border: 4px solid rgba(250, 240, 230, 1);
-        border-radius: 20px;
         @include dpf-col();
+        >.mainContent{
+            @include dpf-col();
+            background-color: rgba(250, 240, 230, 0.3);
+            border: 4px solid rgba(250, 240, 230, 1);
+            border-radius: 20px;
+            padding: 24px 0px;
+            
+        }
     }
 }
 
@@ -132,4 +137,70 @@ section{
     font-family: quicksand-medium;
     color:#10310B;
                     
+}
+
+.cardFooter{
+     @include dpf($g:8px);
+     padding: 24px;
+     >span{
+        font-size: 20px;
+        color:#10310B;
+        font-family: quicksand-medium;
+        &:first-child{
+            font-size: quicksand-semiBold;
+            font-size: 24px;
+            font-weight: 600;
+        }
+     }
+     >button{
+        @include dpf();
+         cursor: pointer;
+         outline: none;
+         border:none;
+         background-color: transparent;
+         border-radius: 50%;
+         padding: 4px;
+         &:hover{
+            background-color: #FAF0E6;
+         }
+     }
+}
+
+.cookbookContainer{
+    @include dpf($g:24px);
+    background-color: rgba(57, 96, 57, 0.1);
+    width: 100%;
+    padding: 40px;
+    border-radius: 20px;
+    margin-top: 64px;
+    >span{
+        font-size: 24px;
+         font-size: quicksand-semiBold;
+         color: rgba(16, 49, 11, 1);
+         font-weight: 800;
+
+
+    }
+}
+
+.linkContainer{
+    width: 100%;
+    margin-top: 64px;
+    @include dpf($jc:flex-end);
+    >.link{
+        @include dpf($g:16px);
+        text-align: center;
+        padding: 24px;
+        cursor: pointer;
+        &:hover{
+            background-color: rgba(57, 96, 57, 0.1);
+        }
+        >a{
+            font-size: 20px;
+            text-decoration: none;
+            color:#10310B;
+            font-weight: 600;
+        }
+
+    }
 }
