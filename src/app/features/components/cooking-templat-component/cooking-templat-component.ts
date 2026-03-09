@@ -6,6 +6,18 @@ interface Cookingtext {
   text: string;
 }
 
+interface Ingredient {
+  size: string;
+  text: string;
+}
+
+interface RecipeIngredients {
+  yourIngredients?: Ingredient[];
+  extraIngredients?: Ingredient[];
+}
+
+
+
 @Component({
   selector: 'app-cooking-templat-component',
   imports: [FormsModule, CommonModule,],
@@ -27,5 +39,18 @@ export class CookingTemplatComponent {
       text: "Lower the heat to low, stir until mixed, and remove from the heat. Season to taste, top with parmesan cheese, and enjoy. ",     
   },
   ];
+
+  cookingIngredientList: RecipeIngredients = {
+  yourIngredients: [
+    { size: "80g", text: "Pasta noodles" },
+    { size: "100g", text: "Baby spinach" },
+    { size: "150g", text: "Cherry tomatoes" },
+    { size: "1 piece", text: "Egg" }
+  ],
+  extraIngredients: [
+    { size: "40g", text: "Parmesan cheese" },
+    { size: "30ml", text: "Olive oil" }
+  ]
+};
 
 }

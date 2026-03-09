@@ -48,23 +48,17 @@
                     <div>
                         <h5>Your ingredients</h5>
                         <div class="ingredientsWrapper">
-                            <li>80g <span>pasta</span></li>
-                            <li>80g <span>pasta</span></li>
-                            <li>80g <span>pasta</span></li>
-                            <li>80g <span>pasta</span></li>
-                            <li>80g <span>pasta</span></li>
-                            <li>80g <span>pasta</span></li>
+                            <li *ngFor="let ingredients of cookingIngredientList.yourIngredients">{{ingredients.size }}
+                                <span>{{ingredients.text }}</span>
+                            </li>
                         </div>
                     </div>
                     <div>
                         <h5>Extra ingredients</h5>
                         <div class="ingredientsWrapper">
-                            <li>80g <span>pasta</span></li>
-                            <li>80g <span>pasta</span></li>
-                            <li>80g <span>pasta</span></li>
-                            <li>80g <span>pasta</span></li>
-                            <li>80g <span>pasta</span></li>
-                            <li>80g <span>pasta</span></li>
+                            <li *ngFor="let ingredients of cookingIngredientList.extraIngredients">{{ingredients.size }}
+                                <span>{{ingredients.text }}</span>
+                            </li>
                         </div>
                     </div>
                 </div> 
