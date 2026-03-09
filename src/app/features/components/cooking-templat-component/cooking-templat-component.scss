@@ -12,15 +12,19 @@ section{
             border: 4px solid rgba(250, 240, 230, 1);
             border-radius: 20px;
             padding: 24px 0px;
-            
         }
     }
 }
 
+
+
+
+
+
 .recipeHead{
     @include dpf($jc:space-around);
     background-color: rgba(250, 240, 230, 1);
-    width: 1800px;
+    width: 95%;
     border-radius: 20px;
     padding: 24px 0px;
     >.containerLeft{
@@ -43,26 +47,56 @@ section{
                 color: #396039;
                 font-family: quicksand-medium;
             }
-
         }
     }
+    >.containerRight{
+        @include dpf-col($ai:flex-start, $g:16px);
+        >.popUpBar{
+            @include dpf($g:8px, $jc:flex-start);
+            >.popUp{
+                padding: 6px 12px;
+                border-radius: 30px;
+                background-color: rgba(57, 96, 57, 0.2);
+                >span{
+                    font-size: 18px;
+                    color: #10310B;
+                    font-family: quicksand-medium;
+                }
+            }
+        }
+        .nutriInfo{
+            font-size: 24px;
+            color: #10310B;
+            font-family: quicksand-medium;
+        }
+
+        table{
+        margin-top: 16px;
+        }
+        tr{
+        display: flex;
+        gap: 16px;
+        text-align: center;
+        }
+        th{
+        font-size: 22px;
+        color:#10310B;
+        width: 80px;
+        }
+        td{
+        font-size: 20px;
+        color:#10310B;
+        text-align: center;
+        width: 80px;
+        text-wrap-mode: nowrap;
+        }
+        }
 }
 
-.personTag{
-    @include dpf();
-    text-align: center;
-    background-color: rgba(215, 223, 215, 1);
-    padding: 2px 4px;
-    border-radius: 6px;
-    >span{
-        font-size: 18px;
-        font-family: quicksand-medium;
-    }
-}
 .ingredients{
-    >img{
-        width: 1800px; 
-    }
+    margin-top: 64px;
+    @include dpf-col();
+    width: 100%;
     >.ingredientsContainer{
      @include dpf($jc:space-around);
      padding: 24px;
@@ -83,15 +117,19 @@ section{
             }
 
         }
-     }
-    
+     }   
     }
 }
 
+.separator{
+    background-color: #FAF0E6;
+    @include dpf();
+    width: 95%;
+    border-radius: 20px
+}
+
 .directions{
-    >img{
-        width: 1800px;
-    }
+    @include dpf-col();
     .directionsContainer{
     display: flex;
     flex-wrap: wrap;

@@ -12,19 +12,21 @@
                     <div class="cookingPerson">
                         <span>coocking person: 2</span>
                         <div class="teamContainer">
-                            <div class="personTag">
-                                <img src="assets/icon/Untitled design 2.svg" alt="">
-                                <span>Chef 1</span>
+                            <div>
+                                <img src="assets/icon/cook1.svg" alt="">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="containerRight">
-                    <div>
-
+                    <div class="popUpBar">
+                        <div class="popUp">
+                            <span>Vegetarian</span>
+                        </div>
                     </div>
+
                     <div>
-                        <span>Nuttritional information</span>
+                        <span class="nutriInfo">Nuttritional information</span>
                         <table>
                             <tr>
                                 <th>Energie</th>
@@ -40,35 +42,38 @@
                             </tr>
                         </table>
                     </div>
+
                 </div>
             </div>
 
             <div class="ingredients">
+                <div class="separator">
                     <img src="assets/separator/Ingedients.svg" alt="">
-                    <div class="ingredientsContainer">
-                        <div>
-                            <h5>Your ingredients</h5>
-                            <div class="ingredientsWrapper">
-                                <li *ngFor="let ingredients of cookingIngredientList.yourIngredients">{{ingredients.size }}
-                                    <span>{{ingredients.text }}</span>
-                                </li>
-                            </div>
+                </div>
+                <div class="ingredientsContainer">
+                    <div>
+                        <h5>Your ingredients</h5>
+                        <div class="ingredientsWrapper">
+                            <li *ngFor="let ingredients of cookingIngredientList.yourIngredients">{{ingredients.size }}
+                                <span>{{ingredients.text }}</span>
+                            </li>
                         </div>
-                        <div>
-                            <h5>Extra ingredients</h5>
-                            <div class="ingredientsWrapper">
-                                <li *ngFor="let ingredients of cookingIngredientList.extraIngredients">{{ingredients.size }}
-                                    <span>{{ingredients.text }}</span>
-                                </li>
-                            </div>
+                    </div>
+                    <div>
+                        <h5>Extra ingredients</h5>
+                        <div class="ingredientsWrapper">
+                            <li *ngFor="let ingredients of cookingIngredientList.extraIngredients">{{ingredients.size }}
+                                <span>{{ingredients.text }}</span>
+                            </li>
                         </div>
-                    </div> 
+                    </div>
                 </div> 
-
-            
+            </div> 
 
             <div class="directions">
-                <img src="assets/separator/Directions.svg" alt="">
+                <div class="separator">
+                    <img src="assets/separator/Directions.svg" alt="">
+                </div>
                 <div class="directionsContainer">
                     <div class="directionsCard" *ngFor="let cookingDescritpion of CookingtextList; let i = index">
                         <div class="directionsHead">
@@ -76,9 +81,8 @@
                                 <span>{{i +1}}.</span>
                                 <h5>{{cookingDescritpion.overhead}}</h5>
                             </div>
-                            <div class="personTag">
-                                <img src="assets/icon/Untitled design 2.svg" alt="">
-                                <span>Chef 1</span>
+                            <div>
+                                <img src="assets/icon/cook1.svg" alt="">
                             </div>
                         </div>
                         <div>
