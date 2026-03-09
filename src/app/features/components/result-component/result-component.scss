@@ -3,43 +3,45 @@
 
 
 section{
-
     height: calc(100vh - 84px - 62px);
-    @include dpf-col();
     background-color: var(--bg-color);  
-    >.containerHead{
-        @include dpf($jc: space-between, $ai:flex-start,     $g:16px);
-        width: 1440px;
+    @include dpf();
+    >.content{
+        @include dpf-col($g:32px);
+        >.containerHead{
+            width: 100%;
+            @include dpf($jc: space-between, $ai:flex-start, $g:16px);
 
-        >.containerLeft{
-             @include dpf-col($ai:flex-start, $g:24px);
-             >h2{
-                font-size: 54px;
-                color: #FAF0E6;
-                font-family: quicksand-semiBold;
-             }
-             .textContainer{
-                 @include dpf-col($ai:flex-start);
-                 >span{
-                    font-size: 24px;
-                    font-size: quicksand-medium;
+            >.containerLeft{
+                @include dpf-col($ai:flex-start, $g:24px);
+                >h2{
+                    font-size: 54px;
                     color: #FAF0E6;
-                 }
-             }
-
-            >.popupContainer{
-                @include dpf($g:16px);
-                >div{
-                    @include dpf();
-                    background-color: #FAF0E6;
-                    color: #1E5515;
-                    width: 72px;
-                    border-radius: 30px;
-                    padding: 6px 12px;                    
+                    font-family: quicksand-semiBold;
                 }
-             }
+                .textContainer{
+                    @include dpf-col($ai:flex-start);
+                    >span{
+                        font-size: 24px;
+                        font-size: quicksand-medium;
+                        color: #FAF0E6;
+                    }
+                }
 
-        } 
+                >.popupContainer{
+                    @include dpf($g:16px);
+                    >div{
+                        @include dpf();
+                        background-color: #FAF0E6;
+                        color: #1E5515;
+                        width: 72px;
+                        border-radius: 30px;
+                        padding: 6px 12px;                    
+                    }
+                }
+
+            } 
+        }
     }
 }
 

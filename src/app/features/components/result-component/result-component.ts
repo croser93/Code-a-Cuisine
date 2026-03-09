@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from "@angular/router";
 
 interface Recipe {
   text: string;
@@ -10,7 +11,7 @@ interface Recipe {
 
 @Component({
   selector: 'app-result-component',
-   imports: [FormsModule, CommonModule],
+   imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './result-component.html',
   styleUrl: './result-component.scss',
 })
