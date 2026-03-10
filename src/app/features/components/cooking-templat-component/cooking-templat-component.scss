@@ -47,6 +47,9 @@ section{
                 color: #396039;
                 font-family: quicksand-medium;
             }
+        >.teamContainer{
+             @include dpf($g:16px);
+        } 
         }
     }
     >.containerRight{

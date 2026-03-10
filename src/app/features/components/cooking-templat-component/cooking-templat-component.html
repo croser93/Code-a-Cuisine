@@ -1,4 +1,3 @@
-
 <section>
     <div class="content content-beg content-border">
         <div class="mainContent">
@@ -10,10 +9,10 @@
                     </div>
                     <h2>Pasta with spinach and cherry tommatoes</h2>
                     <div class="cookingPerson">
-                        <span>coocking person: {{cookingIngredientList.info.poeple}}</span>
+                        <span>coocking person: {{cookingIngredientList.info.people}}</span>
                         <div class="teamContainer">
-                            <div>
-                                <img src="assets/icon/cook1.svg" alt="">
+                            <div *ngFor="let dummy of getCookIcons(cookingIngredientList.info.people); let i = index">
+                                <img [src]="'assets/icon/cook' + (i + 1) + '.svg'" alt="Cook Icon">
                             </div>
                         </div>
                     </div>
@@ -74,15 +73,16 @@
                             </li>
                         </div>
                     </div>
-                </div> 
-            </div> 
+                </div>
+            </div>
 
             <div class="directions">
                 <div class="separator">
                     <img src="assets/separator/Directions.svg" alt="">
                 </div>
                 <div class="directionsContainer">
-                    <div class="directionsCard" *ngFor="let stepItem of cookingIngredientList.CookingtextList; let i = index">
+                    <div class="directionsCard"
+                        *ngFor="let stepItem of cookingIngredientList.CookingtextList; let i = index">
                         <div class="directionsHead">
                             <div class="directionsOverview">
                                 <span>{{i +1}}.</span>
@@ -118,7 +118,4 @@
             </div>
         </div>
     </div>
-
-
 </section>
-
