@@ -5,11 +5,13 @@ import { Footer } from './features/shared/footer/footer';
 import { ThemeService } from './core/services/theme.service';
 import { filter } from 'rxjs/operators';
 import { LoadingScreen } from './features/shared/loading-screen/loading-screen';
+import { Supabase } from './core/services/supabase';
+import { JsonPipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer],
+  imports: [RouterOutlet, Header, Footer, JsonPipe],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -34,5 +36,7 @@ export class App {
       this.themeService.currentTheme.set(theme);
     });
   }
+
+  dbservice = inject(Supabase)
 }
 
