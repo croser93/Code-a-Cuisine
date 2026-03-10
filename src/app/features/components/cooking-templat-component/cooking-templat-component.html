@@ -1,0 +1,121 @@
+<section>
+    <div class="content content-beg content-border">
+        <div class="mainContent">
+            <div class="recipeHead">
+                <div class="containerLeft">
+                    <div class="cookingTime">
+                        <img src="assets/icon/clock.svg" alt="clock">
+                        <span>Coocking time: {{cookingIngredientList.info.time}} min</span>
+                    </div>
+                    <h2>Pasta with spinach and cherry tommatoes</h2>
+                    <div class="cookingPerson">
+                        <span>coocking person: {{cookingIngredientList.info.people}}</span>
+                        <div class="teamContainer">
+                            <div *ngFor="let dummy of getCookIcons(cookingIngredientList.info.people); let i = index">
+                                <img [src]="'assets/icon/cook' + (i + 1) + '.svg'" alt="Cook Icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="containerRight">
+                    <div class="popUpBar">
+                        <div class="popUp">
+                            <span>{{cookingIngredientList.info.diet}}</span>
+                        </div>
+                        <div class="popUp">
+                            <span>{{cookingIngredientList.info.cookingtime}}</span>
+                        </div>
+                        <div class="popUp">
+                            <img src="assets/icon/favorite.svg" alt="">
+                            <span>{{cookingIngredientList.info.likes}}</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="nutriInfo">Nuttritional information</span>
+                        <table>
+                            <tr>
+                                <th>Energie</th>
+                                <th>Protein</th>
+                                <th>Fat</th>
+                                <th>Carbs</th>
+                            </tr>
+                            <tr>
+                                <td>{{cookingIngredientList.nutriInfo.energie}}</td>
+                                <td>{{cookingIngredientList.nutriInfo.protein}}</td>
+                                <td>{{cookingIngredientList.nutriInfo.fat}}</td>
+                                <td>{{cookingIngredientList.nutriInfo.carbs}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="ingredients">
+                <div class="separator">
+                    <img src="assets/separator/Ingedients.svg" alt="">
+                </div>
+                <div class="ingredientsContainer">
+                    <div>
+                        <h5>Your ingredients</h5>
+                        <div class="ingredientsWrapper">
+                            <li *ngFor="let ingredients of cookingIngredientList.yourIngredients">{{ingredients.size }}
+                                <span>{{ingredients.text }}</span>
+                            </li>
+                        </div>
+                    </div>
+                    <div>
+                        <h5>Extra ingredients</h5>
+                        <div class="ingredientsWrapper">
+                            <li *ngFor="let ingredients of cookingIngredientList.extraIngredients">{{ingredients.size }}
+                                <span>{{ingredients.text }}</span>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="directions">
+                <div class="separator">
+                    <img src="assets/separator/Directions.svg" alt="">
+                </div>
+                <div class="directionsContainer">
+                    <div class="directionsCard"
+                        *ngFor="let stepItem of cookingIngredientList.CookingtextList; let i = index">
+                        <div class="directionsHead">
+                            <div class="directionsOverview">
+                                <span>{{i +1}}.</span>
+                                <h5>{{stepItem.overhead}}</h5>
+                            </div>
+                            <div>
+                                <img src="assets/icon/cook1.svg" alt="">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="cookingText">{{stepItem.step}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cardFooter">
+                <span>just finished this meal?</span>
+                <span>Give at a heart, so that the other know this is delicious.</span>
+                <button><img src="assets/icon/Heart.svg" alt="heart-Icon"></button>
+            </div>
+        </div>
+
+        <div class="cookbookContainer">
+            <span>Find inpiration for your next culinary adventure</span>
+            <button class="bigButton btnLight">Cookbook</button>
+        </div>
+
+        <div class="linkContainer">
+            <div class="link">
+                <a routerLink="/recipe">Generate new recipe</a>
+                <img src="assets/icon/Arrow-dark.svg" alt="arrow">
+            </div>
+        </div>
+    </div>
+</section>
