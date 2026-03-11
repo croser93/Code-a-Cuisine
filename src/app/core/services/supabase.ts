@@ -2,6 +2,8 @@ import { Injectable, signal } from '@angular/core';
 import { createClient } from '@supabase/supabase-js'
 import { environment } from '../../../environments/environment.development';
 
+
+
 export interface Ingredient {
   value: string;
   size: number;
@@ -28,13 +30,15 @@ export class Supabase {
 
   currentIngredients: Ingredient[] = [];
 
-  // async getProducts() {
-  //   let { data: products, error } = await this.supabase
-  //     .from('Ingredients and Preferences')
-  //     .select('*')
-  //   if (!products) return
-  //   this.ingredientsAndPreferences.set(products)
-  // }
+  async selectedRecipe() {
+    let { data: products, error } = await this.supabase
+      .from('selection Recipe')
+      .select('*')
+      .order('id', { ascending: false })
+
+    if (!products) return
+    return products
+  }
 
   async pushData(preferences: UserPreferences) {
     const combinedData = {
@@ -55,3 +59,4 @@ export class Supabase {
   }
 
 }
+
