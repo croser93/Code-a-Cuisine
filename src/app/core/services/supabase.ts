@@ -22,11 +22,14 @@ export interface UserPreferences {
   providedIn: 'root',
 })
 export class Supabase {
-  supabaseUrl = environment.supabaseUrl
-  supabaseKey = environment.supabaseKey
-  supabase = createClient(this.supabaseUrl, this.supabaseKey)
+  supabaseUrl = environment.supabaseUrl;
+  supabaseKey = environment.supabaseKey;
+  supabase = createClient(this.supabaseUrl, this.supabaseKey);
+
 
   ingredientsAndPreferences = signal<{ id: number, created_at: string, Name: string }[]>([])
+  
+  recipeData = signal<any[]>([]);
 
   currentIngredients: Ingredient[] = [];
 
@@ -37,6 +40,7 @@ export class Supabase {
       .order('id', { ascending: false })
 
     if (!products) return
+    this.recipeData.set(products);
     return products
   }
 
