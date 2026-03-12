@@ -11,8 +11,7 @@ import { Supabase } from '../../../core/services/supabase';
 export class LoadingScreen implements OnInit {
   constructor(private router: Router, private supabase: Supabase) { }
 
-  async ngOnInit() {
-    await this.supabase.selectedRecipe();
+  ngOnInit() {
     this.startRedirectTimer();
   }
 
