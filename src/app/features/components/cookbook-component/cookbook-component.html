@@ -1,1 +1,36 @@
-<p>cookbook-component works!</p>
+<div class="cookbookContainer">
+
+    <header class="cookbookHeader">
+        <div class="headerLeft">
+            <h1 class="mainTitle">Cookbook</h1>
+            <p class="subtitle">From quick bites to gourmet delights, explore them all in our ultimate cookbook and get
+                inspired for your next culinary adventure.</p>
+        </div>
+        <div class="headerRight">
+            <h2 class="sectionTitle">Most liked recipes</h2>
+            <div class="recipeCards">
+                <div class="recipeCard" *ngFor="let recipe of topRecipes">
+                    <div class="recipeCardTop">
+                        <span class="recipeTime">Cooking time: {{recipe.time}}</span>
+                        <span class="recipeLikes">{{recipe.likes}}</span>
+                    </div>
+                    <p class="recipeTitle">{{recipe.title}}</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="cuisineGrid">
+        <div class="cuisineItem" *ngFor="let cuisine of cuisines">
+            <h3 class="cuisineTitle">{{cuisine.name}}</h3>
+            <a class="cuisineLink">
+                <img [src]="'assets/img/' + cuisine.image" [alt]="cuisine.name" class="cuisineImage">
+            </a>
+        </div>
+    </main>
+
+    <footer class="cookbookFooter">
+        <a routerLink="/generate" class="generateLink">Generate new recipe &rarr;</a>
+    </footer>
+
+</div>
