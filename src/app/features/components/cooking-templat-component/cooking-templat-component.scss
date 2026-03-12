@@ -103,7 +103,7 @@ section{
     @include dpf-col();
     width: 100%;
     >.ingredientsContainer{
-     @include dpf($jc:space-around);
+     @include dpf($jc:space-around, $ai:flex-start);
      padding: 24px;
      >div{
         @include dpf-col();

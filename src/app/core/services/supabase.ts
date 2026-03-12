@@ -30,6 +30,7 @@ export class Supabase {
   ingredientsAndPreferences = signal<{ id: number, created_at: string, Name: string }[]>([])
   
   recipeData = signal<any[]>([]);
+  currentSelectedRecipe: any = null;
 
   currentIngredients: Ingredient[] = [];
 
@@ -38,6 +39,7 @@ export class Supabase {
       .from('selection Recipe')
       .select('*')
       .order('id', { ascending: false })
+      .limit(1);
 
     if (!products) return
     this.recipeData.set(products);

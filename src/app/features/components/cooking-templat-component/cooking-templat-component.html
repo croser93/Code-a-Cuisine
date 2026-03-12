@@ -5,13 +5,13 @@
                 <div class="containerLeft">
                     <div class="cookingTime">
                         <img src="assets/icon/clock.svg" alt="clock">
-                        <span>Coocking time: {{cookingIngredientList.info.time}} min</span>
+                        <span>Coocking time: {{recipe.info.time}} min</span>
                     </div>
-                    <h2>Pasta with spinach and cherry tommatoes</h2>
+                    <h2>{{recipe.title}}</h2>
                     <div class="cookingPerson">
-                        <span>coocking person: {{cookingIngredientList.info.people}}</span>
+                        <span>coocking person: {{recipe.info.person}}</span>
                         <div class="teamContainer">
-                            <div *ngFor="let dummy of getCookIcons(cookingIngredientList.info.people); let i = index">
+                            <div *ngFor="let dummy of getCookIcons(recipe.info.person); let i = index">
                                 <img [src]="'assets/icon/cook' + (i + 1) + '.svg'" alt="Cook Icon">
                             </div>
                         </div>
@@ -20,14 +20,14 @@
                 <div class="containerRight">
                     <div class="popUpBar">
                         <div class="popUp">
-                            <span>{{cookingIngredientList.info.diet}}</span>
+                            <span>{{recipe.info.confidence}}</span>
                         </div>
                         <div class="popUp">
-                            <span>{{cookingIngredientList.info.cookingtime}}</span>
+                            <span>{{recipe.info.selectedtime}}</span>
                         </div>
                         <div class="popUp">
                             <img src="assets/icon/favorite.svg" alt="">
-                            <span>{{cookingIngredientList.info.likes}}</span>
+                            <span>{{recipe.info.likes}}</span>
                         </div>
                     </div>
 
@@ -41,10 +41,10 @@
                                 <th>Carbs</th>
                             </tr>
                             <tr>
-                                <td>{{cookingIngredientList.nutriInfo.energie}}</td>
-                                <td>{{cookingIngredientList.nutriInfo.protein}}</td>
-                                <td>{{cookingIngredientList.nutriInfo.fat}}</td>
-                                <td>{{cookingIngredientList.nutriInfo.carbs}}</td>
+                                <td>{{recipe.nutritional.energie}}</td>
+                                <td>{{recipe.nutritional.protein}}</td>
+                                <td>{{recipe.nutritional.fat}}</td>
+                                <td>{{recipe.nutritional.carbs}}</td>
                             </tr>
                         </table>
                     </div>
@@ -60,16 +60,16 @@
                     <div>
                         <h5>Your ingredients</h5>
                         <div class="ingredientsWrapper">
-                            <li *ngFor="let ingredients of cookingIngredientList.yourIngredients">{{ingredients.size }}
-                                <span>{{ingredients.text }}</span>
+                            <li *ngFor="let ingredients of recipe.ingredients.available, let i = index">{{ingredients.size }}
+                                <span>{{recipe.ingredients.available[i]}}</span>
                             </li>
                         </div>
                     </div>
                     <div>
                         <h5>Extra ingredients</h5>
                         <div class="ingredientsWrapper">
-                            <li *ngFor="let ingredients of cookingIngredientList.extraIngredients">{{ingredients.size }}
-                                <span>{{ingredients.text }}</span>
+                            <li *ngFor="let ingredients of recipe.ingredients.missing, let i = index">{{ingredients.size }}
+                                <span>{{recipe.ingredients.missing[i]}}</span>
                             </li>
                         </div>
                     </div>
@@ -86,14 +86,14 @@
                         <div class="directionsHead">
                             <div class="directionsOverview">
                                 <span>{{i +1}}.</span>
-                                <h5>{{stepItem.overhead}}</h5>
+                                <h5>{{recipe.directions.steps[i].title}}</h5>
                             </div>
                             <div>
                                 <img src="assets/icon/cook1.svg" alt="">
                             </div>
                         </div>
                         <div>
-                            <span class="cookingText">{{stepItem.step}}</span>
+                            <span class="cookingText">{{recipe.directions.steps[i].instructions}}</span>
                         </div>
                     </div>
                 </div>

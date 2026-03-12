@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Supabase } from '../../../core/services/supabase';
 
 interface InfoItem {
   time?: string;
@@ -44,6 +45,16 @@ interface RecipeIngredients {
   styleUrl: './cooking-templat-component.scss',
 })
 export class CookingTemplatComponent {
+  recipe: any;
+
+  constructor(private supabase: Supabase) {}
+
+  ngOnInit() {
+    this.recipe = this.supabase.currentSelectedRecipe;
+
+      console.log(this.recipe);
+    }
+  
 
 
 getCookIcons(count: number = 0): number[] {

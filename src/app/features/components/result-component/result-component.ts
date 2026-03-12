@@ -25,9 +25,6 @@ interface Recipe {
 
 export class ResultComponent implements OnInit {
   recipeList: Recipe[] = [];
-  selectedDish: any[] = [];
-  
-
   constructor(private supabase: Supabase, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit() {
@@ -49,8 +46,7 @@ export class ResultComponent implements OnInit {
 }
 
 getSelectedDish(i : number){
-  console.log(i)
-  this.selectedDish.push(this.recipeList[i])
+  this.supabase.currentSelectedRecipe = this.recipeList[i];
 }
 
 }
