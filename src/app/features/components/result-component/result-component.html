@@ -7,10 +7,9 @@
                     <span>We took what you have and let your our AI do the thinking.</span>
                     <span>Here are 3 easy recipes you can make right now!</span>
                 </div>
-                    <!-- Hier ergebniss von ausgewählten ergebniss des preferences -->
                 <div class="popupContainer">
-                    <div>Italian</div> 
-                    <div>Quick</div>
+                    <div>{{recipeList[1].info.cuisine}}</div> 
+                    <div>{{recipeList[1].info.confidence}}</div>
                 </div>
 
             </div>
@@ -24,16 +23,18 @@
                 <div class="cardContent">
                     <div class="cardHeader">
                         <img src="assets/icon/icon.svg" alt="">
-                        <h3>Recipe {{i + 1}}</h3>
+                        <h3>Recipe {{i + 1 || "##"}}</h3>
                     </div>
-                    <span>{{recipe.text}}</span>
+                    <span>{{recipeList[i].title || "##"}}</span>
                     <div class="cardInfo">
                         <img src="assets/icon/clock.svg" alt="">
-                        <span>Cooking time: {{recipe.time}}</span>
+                        <span>Cooking time: {{recipeList[i].info.time || "##"}}</span>
                     </div>
                 </div>
                 <div class="buttonContainer">
-                   <a routerLink="/cooking-template"><button>View</button></a>
+                   <a routerLink="/cooking-template">
+                    <button (click)="getSelectedDish(i)">View</button>
+                </a>
                 </div>
             </div>
         </div>

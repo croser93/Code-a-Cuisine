@@ -1,33 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
+import { Supabase } from '../../../core/services/supabase';
+
 
 interface Recipe {
-  text: string;
-  time: string;
+  title: string;
+  info: {
+    time: string;
+    cuisine: string;
+    confidence: string;
+  };
 }
 
 
 @Component({
   selector: 'app-result-component',
-   imports: [FormsModule, CommonModule, RouterLink],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './result-component.html',
   styleUrl: './result-component.scss',
 })
 
 
-export class ResultComponent {
+export class ResultComponent implements OnInit {
+  recipeList: Recipe[] = [];
+  constructor(private supabase: Supabase, private cdr: ChangeDetectorRef) { }
 
-   recipeList: Recipe[] = [
-    {text: "pasta with spinach and cherry tomatoes",   
-      time: "20",     
-  },
-      {text: "Creamy garlic shrimp pasta",   
-      time: "22",     
-  },
-      {text: "Pasta alla trapanese (Sicilian Tomato Pesto)",   
-      time: "40",     
-  },
-  ];
+  async ngOnInit() {
+   await this.supabase.selectedRecipe();
+   this.workUpRecipeList()
+   this.cdr.detectChanges()
+  }
+
+  workUpRecipeList(){
+    const data = this.supabase.recipeData();
+    if (data.length > 0){
+      const entry = data[0];
+      this.recipeList = [
+          entry.recipe1, 
+          entry.recipe2, 
+          entry.recipe3
+    ];
+  }
+}
+
+getSelectedDish(i : number){
+  this.supabase.currentSelectedRecipe = this.recipeList[i];
+}
+
 }
