@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Supabase } from '../../../core/services/supabase';
 
 @Component({
   selector: 'app-loading-screen',
@@ -7,20 +8,16 @@ import { Router } from '@angular/router';
   templateUrl: './loading-screen.html',
   styleUrl: './loading-screen.scss',
 })
-export class LoadingScreen {
-  constructor(private router: Router) { }
+export class LoadingScreen implements OnInit {
+  constructor(private router: Router, private supabase: Supabase) { }
 
-  ngOnInit(): void {
-
+  ngOnInit() {
     this.startRedirectTimer();
   }
 
   startRedirectTimer() {
     setTimeout(() => {
-
       this.router.navigate(['/results']); 
     }, 5000);
   }
-
-
 }

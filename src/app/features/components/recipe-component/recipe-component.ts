@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
+import { Supabase } from '../../../core/services/supabase';
 
 
 interface Ingredient {
@@ -23,27 +24,35 @@ export class RecipeComponent {
   value: string = '';
 
   ingredientsList: Ingredient[] = [
-    {value: "Wurst",   
-      size: 100,     
-      unit: "g"  },
+    {
+      value: "Wurst",
+      size: 100,
+      unit: "g"
+    },
   ];
+
+  constructor(private supabase: Supabase) { }
 
   saveIngredient() {
     const newIngredient: Ingredient = {
-      value: this.value,   
-      size: this.amount,     
-      unit: this.unit        
+      value: this.value,
+      size: this.amount,
+      unit: this.unit
     };
     if (this.value.length > 0 && this.amount > 0) {
       this.ingredientsList.push(newIngredient);
-      this.value = ''; 
+      this.value = '';
     }
-    
+
     console.log('Liste aktuell:', this.ingredientsList);
   }
 
-  deleteIngredient(i:number) {
+  deleteIngredient(i: number) {
     this.ingredientsList.splice(i, 1);
 
+  }
+
+  saveToService() {
+    this.supabase.currentIngredients = this.ingredientsList;
   }
 }
