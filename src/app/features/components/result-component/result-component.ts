@@ -6,7 +6,7 @@ import { Supabase } from '../../../core/services/supabase';
 
 
 interface Recipe {
-  titel: string;
+  title: string;
   info: {
     time: string;
     cuisine: string;
