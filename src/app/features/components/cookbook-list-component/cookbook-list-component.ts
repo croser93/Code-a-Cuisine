@@ -17,6 +17,7 @@ export class CookbookListComponent {
   }));
 
   constructor(private supabase: Supabase) {};
+  cookbookList : any
 
   async ngOnInit() {
    await this.supabase.fetchCookbookList('indian');
@@ -25,8 +26,8 @@ export class CookbookListComponent {
   }
 
   log(){
-    const data = this.supabase.cookbookData();
-    console.log(data)
+    this.cookbookList = this.supabase.cookbookData();
+    console.log(this.cookbookList)
   }
 
 }

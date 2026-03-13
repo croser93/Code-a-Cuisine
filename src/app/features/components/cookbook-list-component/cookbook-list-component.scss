@@ -38,12 +38,12 @@
 
 .recipeListItem {
   @include dpf(space-between, $g:16px);
-  width: 100%;
+  width: 90%;
   padding: 10px 0;
   text-decoration: none;
   color: inherit;
   transition: transform 0.2s;
-  padding: 24px;
+  padding: 8px 16px;
   
   &:hover {
     transform: translateX(10px);
@@ -52,7 +52,7 @@
   }
 
   .recipeInfoLeft {
-    @include dpf-col(flex-start, flex-start, $g:8px);
+    @include dpf-col(flex-start, flex-start,);
     
     .timeContainer {
       @include dpf(flex-start, $g:8px);
@@ -102,7 +102,7 @@
       font-weight: 500;
 
       &.likesTag {
-        @include dpf(5px);
+        @include dpf($g:8px);
         background-color: #DBE0DB;
 
         .iconHeart {

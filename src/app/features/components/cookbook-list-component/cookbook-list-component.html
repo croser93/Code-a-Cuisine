@@ -1,42 +1,50 @@
-<div class="cookbookListContainer">
-    <header class="listHeader">
-        <div class="titleContainer">
-            <img class="imgHead" src="assets/separator/italian.svg" alt="" class="headerIcon">
-            <h2 class="mainTitle">Italian cuisine</h2>
-        </div>
-    </header>
+<section>
 
-    <main class="recipeList">
-        <a class="recipeListItem" *ngFor="let recipe of dummyRecipes; let i = index" routerLink="/recipe-detail">
-            <div class="recipeInfoLeft">
-                <div class="timeContainer">
-                    <img src="assets/icon/schedule.svg" alt="Clock" class="iconClock">
-                    <span class="cookingTime">Cooking time: #time#min</span>
-                </div>
-                <div class="titleContainer">
-                    <span class="listIndex">{{ i + 1 }}.</span>
-                    <h2 class="recipeTitle">#title#</h2>
-                </div>
+    <div class="returnContainer">
+        <img class="arrow180deg" src="assets/icon/Arrow-dark.svg" alt="">
+        <a routerLink="/cookbook">cookbook</a>
+    </div>
+
+    <div class="cookbookListContainer">
+        <header class="listHeader">
+            <div class="titleContainer">
+                <img class="imgHead" src="assets/separator/italian.svg" alt="" class="headerIcon">
+                <h2 class="mainTitle">Italian cuisine</h2>
             </div>
+        </header>
 
-            <div class="recipeTagsRight">
-                <span class="tag vegetarianTag" *ngIf="recipe.vegetarian">#vegetarian#</span>
-                <span class="tag quickTag" *ngIf="recipe.quick">#quick#</span>
-                <div class="tag likesTag">
-                    <img src="assets/icon/favorite.svg" alt="Heart" class="iconHeart">
-                    <span class="likeCount">#like#</span>
+        <main class="recipeList">
+            <a class="recipeListItem" *ngFor="let recipe of cookbookList; let i = index" routerLink="/recipe-detail">
+                <div class="recipeInfoLeft">
+                    <div class="timeContainer">
+                        <img src="assets/icon/schedule.svg" alt="Clock" class="iconClock">
+                        <span class="cookingTime">cooking time: {{cookbookList[i].recipe.recipe.info.time}}min</span>
+                    </div>
+                    <div class="titleContainer">
+                        <span class="listIndex">{{ i + 1 }}.</span>
+                        <h2 class="recipeTitle">{{cookbookList[i].recipe.recipe.title}}</h2>
+                    </div>
                 </div>
-            </div>
-        </a>
-    </main>
 
-    <nav class="pagination">
-        <span class="pageBtn">&lt;</span>
-        <span class="pageBtn active">1</span>
-        <span class="pageBtn">2</span>
-        <span class="pageBtn">3</span>
-        <span class="pageDots">...</span>
-        <span class="pageBtn">8</span>
-        <span class="pageBtn">&gt;</span>
-    </nav>
-</div>
+                <div class="recipeTagsRight">
+                    <span class="tag vegetarianTag">{{cookbookList[i].recipe.recipe.info.confidence}}</span>
+                    <span class="tag quickTag" >{{cookbookList[i].recipe.recipe.info.selectedtime}}</span>
+                    <div class="tag likesTag">
+                        <img src="assets/icon/favorite.svg" alt="Heart" class="iconHeart">
+                        <span class="likeCount">{{cookbookList[i].recipe.recipe.info.likes}}</span>
+                    </div>
+                </div>
+            </a>
+        </main>
+
+        <nav class="pagination">
+            <span class="pageBtn">&lt;</span>
+            <span class="pageBtn active">1</span>
+            <span class="pageBtn">2</span>
+            <span class="pageBtn">3</span>
+            <span class="pageDots">...</span>
+            <span class="pageBtn">8</span>
+            <span class="pageBtn">&gt;</span>
+        </nav>
+    </div>
+</section>
