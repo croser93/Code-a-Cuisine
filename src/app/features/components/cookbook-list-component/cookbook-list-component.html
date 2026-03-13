@@ -1,1 +1,42 @@
-<p>cookbook-list-component works!</p>
+<div class="cookbookListContainer">
+    <header class="listHeader">
+        <div class="titleContainer">
+            <img class="imgHead" src="assets/separator/italian.svg" alt="" class="headerIcon">
+            <h2 class="mainTitle">Italian cuisine</h2>
+        </div>
+    </header>
+
+    <main class="recipeList">
+        <a class="recipeListItem" *ngFor="let recipe of dummyRecipes; let i = index" routerLink="/recipe-detail">
+            <div class="recipeInfoLeft">
+                <div class="timeContainer">
+                    <img src="assets/icon/schedule.svg" alt="Clock" class="iconClock">
+                    <span class="cookingTime">Cooking time: #time#min</span>
+                </div>
+                <div class="titleContainer">
+                    <span class="listIndex">{{ i + 1 }}.</span>
+                    <h2 class="recipeTitle">#title#</h2>
+                </div>
+            </div>
+
+            <div class="recipeTagsRight">
+                <span class="tag vegetarianTag" *ngIf="recipe.vegetarian">#vegetarian#</span>
+                <span class="tag quickTag" *ngIf="recipe.quick">#quick#</span>
+                <div class="tag likesTag">
+                    <img src="assets/icon/favorite.svg" alt="Heart" class="iconHeart">
+                    <span class="likeCount">#like#</span>
+                </div>
+            </div>
+        </a>
+    </main>
+
+    <nav class="pagination">
+        <span class="pageBtn">&lt;</span>
+        <span class="pageBtn active">1</span>
+        <span class="pageBtn">2</span>
+        <span class="pageBtn">3</span>
+        <span class="pageDots">...</span>
+        <span class="pageBtn">8</span>
+        <span class="pageBtn">&gt;</span>
+    </nav>
+</div>
