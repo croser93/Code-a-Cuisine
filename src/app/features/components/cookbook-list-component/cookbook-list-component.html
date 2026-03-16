@@ -1,0 +1,62 @@
+<section>
+
+    <div class="returnContainer">
+        <img class="arrow180deg" src="assets/icon/Arrow-dark.svg" alt="">
+        <a routerLink="/cookbook">cookbook</a>
+    </div>
+
+    <div class="cookbookListContainer">
+        <header class="listHeader">
+            <div class="titleContainer">
+                <img class="imgHead" [src]="'assets/separator/' + selectedCuisine + '.svg'" alt="" class="headerIcon">
+                <h2 class="mainTitle">{{selectedCuisine}} cuisine</h2>
+            </div>
+        </header>
+
+        <main class="recipeList">
+            @for (recipe of cookbookList; track i; let i = $index) {
+            <div class="recipeListItem" (click)=" selectCookbookrecipe(i)">
+                <div class="recipeInfoLeft">
+                    <div class="timeContainer">
+                        <img src="assets/icon/schedule.svg" alt="Clock" class="iconClock">
+                        <span class="cookingTime">cooking time: {{cookbookList[i].recipe.recipe.info.time}}min</span>
+                    </div>
+                    <div class="titleContainer">
+                        <span class="listIndex">{{ (currentPage * pageSize) + i + 1 }}.</span>
+                        <h2 class="recipeTitle">{{cookbookList[i].recipe.recipe.title}}</h2>
+                    </div>
+                </div>
+
+                <div class="recipeTagsRight">
+                    <span class="tag vegetarianTag">{{cookbookList[i].recipe.recipe.info.confidence}}</span>
+                    <span class="tag quickTag" >{{cookbookList[i].recipe.recipe.info.selectedtime}}</span>
+                    <div class="tag likesTag">
+                        <img src="assets/icon/favorite.svg" alt="Heart" class="iconHeart">
+                        <span class="likeCount">{{cookbookList[i].recipe.recipe.info.likes}}</span>
+                    </div>
+                </div>
+            </div>
+        }
+        </main>
+
+   @if (recipeCount > 15) {
+  <nav class="pagination">
+    <button class="pageBtn" 
+            [disabled]="currentPage === 0" 
+            (click)="changePage(currentPage - 1)">🡄</button>
+
+    @for (item of [].constructor(totalPages); track $index) {
+      <span class="pageBtn" 
+            [class.active]="currentPage === $index"
+            (click)="changePage($index)">
+        {{ $index + 1 }}
+      </span>
+    }
+
+    <button class="pageBtn" 
+            [disabled]="currentPage === totalPages - 1" 
+            (click)="changePage(currentPage + 1)">🡆</button>
+  </nav>
+}
+    </div>
+</section>

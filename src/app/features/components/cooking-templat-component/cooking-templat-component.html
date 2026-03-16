@@ -65,14 +65,16 @@
                             </li>
                         </div>
                     </div>
-                    <div>
-                        <h5>Extra ingredients</h5>
-                        <div class="ingredientsWrapper">
-                            <li *ngFor="let ingredients of recipe.ingredients.missing, let i = index">{{ingredients.size }}
-                                <span>{{recipe.ingredients.missing[i]}}</span>
-                            </li>
+                    @if(recipe.ingredients.missing){
+                        <div>
+                            <h5>Extra ingredients</h5>
+                            <div class="ingredientsWrapper">
+                                <li *ngFor="let ingredients of recipe.ingredients.missing, let i = index">{{ingredients.size }}
+                                    <span>{{recipe.ingredients.missing[i]}}</span>
+                                </li>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
 
@@ -108,7 +110,7 @@
 
         <div class="cookbookContainer">
             <span>Find inpiration for your next culinary adventure</span>
-            <button class="bigButton btnLight">Cookbook</button>
+           <a routerLink="/cookbook"><button class="bigButton btnLight">Cookbook</button></a>
         </div>
 
         <div class="linkContainer">

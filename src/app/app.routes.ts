@@ -6,6 +6,8 @@ import { ResultComponent } from './features/components/result-component/result-c
 import { CookbookComponent } from './features/components/cookbook-component/cookbook-component';
 import { LoadingScreen } from './features/shared/loading-screen/loading-screen';
 import { CookingTemplatComponent } from './features/components/cooking-templat-component/cooking-templat-component';
+import { CookbookListComponent } from './features/components/cookbook-list-component/cookbook-list-component';
+
 
 
 export const routes: Routes = [
@@ -16,6 +18,7 @@ export const routes: Routes = [
     { path: 'loading-screen', component: LoadingScreen, data: { theme: 'dark' } },
     { path: 'results', component: ResultComponent, data: { theme: 'light' }},
     { path: 'cooking-template', component: CookingTemplatComponent, data: { theme: 'light' }},
-    { path: 'cookbook', component: CookbookComponent},
+    { path: 'cookbook', component: CookbookComponent, data: { theme: 'light' }},
+    { path: 'cookbook-list/:type', component: CookbookListComponent, data: { theme: 'light' }},
     { path: '**', redirectTo: '' },
 ];

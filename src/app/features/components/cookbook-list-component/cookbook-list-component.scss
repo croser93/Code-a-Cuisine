@@ -1,0 +1,142 @@
+@import '../../../../styles/variables';
+
+.cookbookListContainer {
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.listHeader {
+  @include dpf(space-between, $g:40px);
+  margin-bottom: 60px;
+  .titleContainer {
+    @include dpf(); 
+    position: relative;
+    width: 100%;
+    background-color: #FAF0E6;
+    padding: 30px 0;
+    border-radius: 20px;
+
+    >img{
+      position: absolute;
+    }
+    >.mainTitle {
+      position: relative;
+      z-index: 2;
+      font-size: 40px;
+      color: #10310B;
+      font-weight: bold;
+      font-family: quicksand;
+      text-transform: capitalize;
+    }
+  }
+}
+
+.recipeList {
+  @include dpf-col(flex-start, $g:16px);
+  margin-bottom: 60px;
+}
+
+.recipeListItem {
+  @include dpf(space-between, $g:16px);
+  width: 90%;
+  padding: 10px 0;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s;
+  padding: 8px 16px;
+  
+  &:hover {
+    transform: translateX(10px);
+    background-color: #FAF0E6;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .recipeInfoLeft {
+    @include dpf-col(flex-start, flex-start,);
+    
+    .timeContainer {
+      @include dpf(flex-start, $g:8px);
+      font-size: 14px;
+      color: #666;
+      padding-left: 45px;
+
+      .iconClock {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .titleContainer {
+      @include dpf(flex-start, $g:16px);
+
+      .listIndex {
+        background-color: #F3E5D8;
+        color: #333;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        @include dpf();
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .recipeTitle {
+        font-size: 20px;
+        color: #333;
+        font-family: quicksand;
+        font-weight: 500;
+        margin: 0;
+      }
+    }
+  }
+
+  .recipeTagsRight {
+    @include dpf(flex-start, $g:16px);
+
+    .tag {
+      background-color: #DBE0DB;
+      color: #396039;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+
+      &.likesTag {
+        @include dpf($g:8px);
+        background-color: #DBE0DB;
+
+        .iconHeart {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+}
+
+.pagination {
+  @include dpf($g:16px);
+  margin-top: 40px;
+
+  .pageBtn, .pageDots {
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    background-color: transparent;
+    border:none
+    
+  }
+
+  .pageBtn {
+    &.active {
+      font-weight: bold;
+      color: #1E5515;
+    }
+    
+    &:hover {
+      color: #396039;
+    }
+  }
+}
