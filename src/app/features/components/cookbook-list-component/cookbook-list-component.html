@@ -15,7 +15,7 @@
 
         <main class="recipeList">
             @for (recipe of cookbookList; track i; let i = $index) {
-            <a class="recipeListItem" routerLink="/recipe-detail">
+            <div class="recipeListItem" (click)=" selectCookbookrecipe(i)">
                 <div class="recipeInfoLeft">
                     <div class="timeContainer">
                         <img src="assets/icon/schedule.svg" alt="Clock" class="iconClock">
@@ -35,7 +35,7 @@
                         <span class="likeCount">{{cookbookList[i].recipe.recipe.info.likes}}</span>
                     </div>
                 </div>
-            </a>
+            </div>
         }
         </main>
 

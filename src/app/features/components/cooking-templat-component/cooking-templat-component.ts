@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../../core/services/supabase';
+import { RouterLink } from "@angular/router";
 
 interface InfoItem {
   time?: string;
@@ -40,7 +41,7 @@ interface RecipeIngredients {
 
 @Component({
   selector: 'app-cooking-templat-component',
-  imports: [FormsModule, CommonModule,],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './cooking-templat-component.html',
   styleUrl: './cooking-templat-component.scss',
 })

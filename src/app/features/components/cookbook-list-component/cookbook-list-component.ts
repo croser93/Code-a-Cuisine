@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { RouterLink, ActivatedRoute } from "@angular/router";
+import { RouterLink, Router, ActivatedRoute } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../../core/services/supabase';
 
@@ -19,9 +19,12 @@ export class CookbookListComponent {
   constructor(
     private supabase: Supabase, 
     private route: ActivatedRoute,
+    private router: Router,
     private cdr: ChangeDetectorRef) {};
-  cookbookList : any
-  selectedCuisine: any
+
+    cookbookList : any
+    selectedCuisine: any
+  
 
   async ngOnInit() {
   this.selectedCuisine = this.route.snapshot.paramMap.get('type');
@@ -35,6 +38,12 @@ export class CookbookListComponent {
   log(){
     this.cookbookList = this.supabase.cookbookData();
     console.log(this.cookbookList)
+  }
+
+  selectCookbookrecipe(index: any){
+    this.supabase.currentSelectedRecipe = this.cookbookList[index].recipe.recipe;
+    console.log(this.supabase.currentSelectedRecipe)
+    this.router.navigate(['/cooking-template']);
   }
 
 }

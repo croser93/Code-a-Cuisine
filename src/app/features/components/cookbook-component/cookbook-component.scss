@@ -7,8 +7,6 @@
 }
 
 .cookbookHeader {
-  @include dpf(space-between, 40px);
-  background-color: rgba(57, 96, 57, 0.04);
   border-radius: 20px;
   padding: 40px;
   margin-bottom: 60px;
@@ -38,7 +36,7 @@
     overflow: hidden;
 
     .sectionTitle {
-      @include dpf(flex-start, 10px);
+      @include dpf(flex-start, $g:8px);
       font-size: 24px;
       margin: 0 0 20px 0;
      color: #396039;
@@ -51,8 +49,6 @@
     }
 
     .recipeCards {
-      @include dpf(flex-start, 20px);
-      overflow-x: auto;
       padding-bottom: 10px;
       cursor: pointer;
 
@@ -64,20 +60,16 @@
       scrollbar-width: none;
 
       .recipeCard {
-        @include dpf-col(flex-start, 15px);
-        background-color: rgba(219, 224, 219, 0.7);
         border-radius: 12px;
         padding: 20px;
         min-width: 250px;
 
         .recipeCardTop {
-          @include dpf(space-between, 0);
+          @include dpf(space-between, $g:8px);
           font-size: 16px;
           color: #666;
 
           .recipeTime {
-            @include dpf(flex-start, 5px);
-            color: #396039;
           }
 
           .recipeLikes {
@@ -102,18 +94,13 @@
 }
 
 .cuisineGrid {
-  @include dpf(space-between, 40px);
-  flex-wrap: wrap;
   margin-bottom: 60px;
 
   .cuisineItem {
-    @include dpf-col(flex-start, 15px);
-    width: 400px;
 
     .cuisineTitle {
       font-size: 28px;
       color: var(--bg-color);
-      margin: 0;
       font-weight: 600;
       text-transform: capitalize;
     }
