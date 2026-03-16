@@ -7,9 +7,11 @@
 }
 
 .cookbookHeader {
+  background-color: rgba(57, 96, 57, 0.04);
   border-radius: 20px;
   padding: 40px;
   margin-bottom: 60px;
+  display: flex;
 
   .headerLeft {
     flex: 1;
@@ -36,7 +38,7 @@
     overflow: hidden;
 
     .sectionTitle {
-      @include dpf(flex-start, $g:8px);
+      @include dpf($ai:flex-start, $g:8px);
       font-size: 24px;
       margin: 0 0 20px 0;
      color: #396039;
@@ -49,8 +51,10 @@
     }
 
     .recipeCards {
+      overflow-x: auto;
       padding-bottom: 10px;
       cursor: pointer;
+      @include dpf($g:8px);
 
       &::-webkit-scrollbar {
         display: none;
@@ -60,16 +64,19 @@
       scrollbar-width: none;
 
       .recipeCard {
+        background-color: rgba(219, 224, 219, 0.7);
         border-radius: 12px;
         padding: 20px;
         min-width: 250px;
+        height: 170px;
 
         .recipeCardTop {
-          @include dpf(space-between, $g:8px);
+          @include dpf($jc:space-between, $g:8px);
           font-size: 16px;
           color: #666;
 
           .recipeTime {
+            color: #396039;
           }
 
           .recipeLikes {
@@ -94,11 +101,13 @@
 }
 
 .cuisineGrid {
+  flex-wrap: wrap;
+  @include dpf($jc:space-between, $g:24px);
   margin-bottom: 60px;
 
   .cuisineItem {
-
     .cuisineTitle {
+      margin-bottom: 8px;
       font-size: 28px;
       color: var(--bg-color);
       font-weight: 600;
@@ -110,8 +119,8 @@
       border-radius: 10px;
       overflow: hidden;
       transition: transform 0.2s ease-in-out;
-      width: 400px;
-      height: 400px;
+      width: 360px;
+      height: 360px;
       cursor: pointer;
 
       &:hover {
