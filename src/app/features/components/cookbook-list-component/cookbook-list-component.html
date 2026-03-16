@@ -8,13 +8,14 @@
     <div class="cookbookListContainer">
         <header class="listHeader">
             <div class="titleContainer">
-                <img class="imgHead" src="assets/separator/italian.svg" alt="" class="headerIcon">
-                <h2 class="mainTitle">Italian cuisine</h2>
+                <img class="imgHead" [src]="'assets/separator/' + selectedCuisine + '.svg'" alt="" class="headerIcon">
+                <h2 class="mainTitle">{{selectedCuisine}} cuisine</h2>
             </div>
         </header>
 
         <main class="recipeList">
-            <a class="recipeListItem" *ngFor="let recipe of cookbookList; let i = index" routerLink="/recipe-detail">
+            @for (recipe of cookbookList; track i; let i = $index) {
+            <a class="recipeListItem" routerLink="/recipe-detail">
                 <div class="recipeInfoLeft">
                     <div class="timeContainer">
                         <img src="assets/icon/schedule.svg" alt="Clock" class="iconClock">
@@ -35,6 +36,7 @@
                     </div>
                 </div>
             </a>
+        }
         </main>
 
         <nav class="pagination">

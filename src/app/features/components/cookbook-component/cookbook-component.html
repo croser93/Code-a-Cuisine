@@ -22,7 +22,7 @@
 
     <main class="cuisineGrid">
         <div class="cuisineItem" *ngFor="let cuisine of cuisines">
-            <h3 class="cuisineTitle">{{cuisine.name}}</h3>
+            <h3 class="cuisineTitle">{{cuisine.name}} cousine</h3>
             <a [routerLink]="['/cookbook-list', cuisine.name.toLowerCase()]" class="cuisineLink">
                 <img [src]="'assets/img/' + cuisine.image" [alt]="cuisine.name" class="cuisineImage">
             </a>

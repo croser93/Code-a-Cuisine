@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { RouterLink, ActivatedRoute } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../../core/services/supabase';
@@ -16,14 +16,19 @@ export class CookbookListComponent {
     quick: true
   }));
 
-  constructor(private supabase: Supabase, private route: ActivatedRoute) {};
+  constructor(
+    private supabase: Supabase, 
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef) {};
   cookbookList : any
+  selectedCuisine: any
 
   async ngOnInit() {
-  const cuisineFromUrl = this.route.snapshot.paramMap.get('type');
-  if(cuisineFromUrl){
-   await this.supabase.fetchCookbookList(cuisineFromUrl);
+  this.selectedCuisine = this.route.snapshot.paramMap.get('type');
+  if(this.selectedCuisine){
+   await this.supabase.fetchCookbookList(this.selectedCuisine);
    this.log();
+   this.cdr.detectChanges();
   }
   }
 
