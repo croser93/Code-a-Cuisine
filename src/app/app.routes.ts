@@ -19,6 +19,6 @@ export const routes: Routes = [
     { path: 'results', component: ResultComponent, data: { theme: 'light' }},
     { path: 'cooking-template', component: CookingTemplatComponent, data: { theme: 'light' }},
     { path: 'cookbook', component: CookbookComponent, data: { theme: 'light' }},
-    { path: 'cookbook-list', component: CookbookListComponent, data: { theme: 'light' }},
+    { path: 'cookbook-list/:type', component: CookbookListComponent, data: { theme: 'light' }},
     { path: '**', redirectTo: '' },
 ];

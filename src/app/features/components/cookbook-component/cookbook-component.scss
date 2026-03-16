@@ -81,8 +81,9 @@
           }
 
           .recipeLikes {
+            @include dpf($g: 8px);
             background-color: #D1DED1;
-            color: rgba(57, 96, 57, 0.3);
+            color: #1E5515;
             padding: 4px 10px;
             border-radius: 20px;
             font-weight: bold;

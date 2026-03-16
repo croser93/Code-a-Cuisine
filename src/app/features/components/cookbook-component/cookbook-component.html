@@ -12,7 +12,7 @@
                 <div class="recipeCard" *ngFor="let recipe of topRecipes">
                     <div class="recipeCardTop">
                         <span class="recipeTime">Cooking time: {{recipe.time}}</span>
-                        <span class="recipeLikes">{{recipe.likes}}</span>
+                        <span class="recipeLikes"><img src="assets/icon/favorite.svg" alt="">{{recipe.likes}}</span>
                     </div>
                     <p class="recipeTitle">{{recipe.title}}</p>
                 </div>
@@ -23,7 +23,7 @@
     <main class="cuisineGrid">
         <div class="cuisineItem" *ngFor="let cuisine of cuisines">
             <h3 class="cuisineTitle">{{cuisine.name}}</h3>
-            <a routerLink="/cookbook-list" class="cuisineLink">
+            <a [routerLink]="['/cookbook-list', cuisine.name.toLowerCase()]" class="cuisineLink">
                 <img [src]="'assets/img/' + cuisine.image" [alt]="cuisine.name" class="cuisineImage">
             </a>
         </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { RouterLink, ActivatedRoute } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { Supabase } from '../../../core/services/supabase';
 
@@ -16,13 +16,15 @@ export class CookbookListComponent {
     quick: true
   }));
 
-  constructor(private supabase: Supabase) {};
+  constructor(private supabase: Supabase, private route: ActivatedRoute) {};
   cookbookList : any
 
   async ngOnInit() {
-   await this.supabase.fetchCookbookList('indian');
+  const cuisineFromUrl = this.route.snapshot.paramMap.get('type');
+  if(cuisineFromUrl){
+   await this.supabase.fetchCookbookList(cuisineFromUrl);
    this.log();
-
+  }
   }
 
   log(){

@@ -12,7 +12,6 @@ interface Recipe {
 interface Cuisine {
   name: string;
   image: string;
-  link: string;
 }
 
 @Component({
@@ -30,11 +29,11 @@ export class CookbookComponent {
   ];
 
   cuisines: Cuisine[] = [
-    { name: 'Italian cuisine', image: 'italian.svg', link: '#' },
-    { name: 'German cuisine', image: 'german.svg', link: '#' },
-    { name: 'Japanese cuisine', image: 'japanese.svg', link: '#' },
-    { name: 'Gourmet cuisine', image: 'gourmet.svg', link: '#' },
-    { name: 'Indian cuisine', image: 'indian.svg', link: '#' },
-    { name: 'Fusion cuisine', image: 'fusion.svg', link: '#' }
+    { name: 'Italian', image: 'italian.svg' },
+    { name: 'German', image: 'german.svg' },
+    { name: 'Japanese', image: 'japanese.svg' },
+    { name: 'Gourmet', image: 'gourmet.svg' },
+    { name: 'Indian', image: 'indian.svg' },
+    { name: 'Fusion', image: 'fusion.svg' }
   ];
 }
