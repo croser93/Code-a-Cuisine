@@ -77,9 +77,14 @@ export class Supabase {
       .from('Cookbook')
       .select('*', { count: 'exact' })
       .in('selectedCuisines', [cuisine])
-      
+      .range(start, end)
+    
+    if (error){
+      console.error('fetchtError' + error)
+    }
 
-    if (!products) return
+    if (!products) 
+      return
     this.cookbookData.set(products);
     this.counter.set(count ?? 0);
     return products

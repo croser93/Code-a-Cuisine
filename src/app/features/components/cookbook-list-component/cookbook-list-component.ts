@@ -24,6 +24,9 @@ export class CookbookListComponent {
 
     cookbookList : any
     selectedCuisine: any
+    recipeCount: any
+    pageSize = 15;
+    currentPage = 0;
   
 
   async ngOnInit() {
@@ -37,6 +40,8 @@ export class CookbookListComponent {
 
   log(){
     this.cookbookList = this.supabase.cookbookData();
+    this.recipeCount = this.supabase.counter();
+
     console.log(this.cookbookList)
     console.log(this.supabase.counter())
   }
@@ -46,5 +51,20 @@ export class CookbookListComponent {
     console.log(this.supabase.currentSelectedRecipe)
     this.router.navigate(['/cooking-template']);
   }
+
+  get totalPages(): number {
+  return Math.ceil(this.recipeCount / this.pageSize);
+}
+
+async changePage(newPage: number) {
+  if (newPage >= 0 && newPage < this.totalPages) {
+    this.currentPage = newPage;
+    await this.supabase.fetchCookbookList(this.selectedCuisine, this.currentPage);
+    this.log()
+    this.cdr.detectChanges();
+    window.scrollTo(0, 0);
+    
+  }
+}
 
 }
