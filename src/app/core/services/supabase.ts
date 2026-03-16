@@ -31,6 +31,7 @@ export class Supabase {
   
   recipeData = signal<any[]>([]);
   cookbookData = signal<any[]>([]);
+  counter = signal<number>(0);
   currentSelectedRecipe: any = null;
 
   currentIngredients: Ingredient[] = [];
@@ -67,15 +68,20 @@ export class Supabase {
       .select()
   }
 
-    async fetchCookbookList(cuisine: string){
-    let { data: products, error } = await this.supabase
+    async fetchCookbookList(cuisine: string, page: number = 0){
+    const pageSize = 15;
+    const start = page * pageSize;
+    const end = start + pageSize - 1;
+
+    let { data: products, count, error } = await this.supabase
       .from('Cookbook')
-      .select('*')
+      .select('*', { count: 'exact' })
       .in('selectedCuisines', [cuisine])
-      .limit(10);
+      
 
     if (!products) return
     this.cookbookData.set(products);
+    this.counter.set(count ?? 0);
     return products
   }
 

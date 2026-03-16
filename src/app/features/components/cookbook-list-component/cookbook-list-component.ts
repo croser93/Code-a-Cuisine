@@ -38,6 +38,7 @@ export class CookbookListComponent {
   log(){
     this.cookbookList = this.supabase.cookbookData();
     console.log(this.cookbookList)
+    console.log(this.supabase.counter())
   }
 
   selectCookbookrecipe(index: any){
