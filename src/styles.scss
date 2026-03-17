@@ -58,18 +58,18 @@
  }
 
   body {
-   font-family: quicksand;
+   font-family: var(--font-primary-regular);
  }
 
 .bigButton{
     padding: 12px 24px;
     min-width: 186px;
     height: 60px;
-    font-size: 20px;
+    font-size: 1.25rem; /* 20px */
     font-weight: 500;
     border: none;
     cursor: pointer;
-    font-family: quicksand-semiBold;
+    font-family: var(--font-primary-semibold);
     transition: transform 0.2s ease-in-out;
     &:hover{
       transform: scale(1.05);
@@ -86,12 +86,12 @@
 }
 
 .btnDark{
-  color: #008000;
+  color: var(--color-secondary);
   background-color: var(--font-color-default);
 }
 .btnLight{
-color: white;
-background-color: #055E05;
+  color: white;
+  background-color: var(--color-btn-light);
 }
  .dark { background-color: var(--bg-color);
   a { color: var(--font-color-default) }
@@ -114,8 +114,8 @@ background-color: #055E05;
   }
   >a{
     text-decoration: none;
-    color: #1E5515;
-    font-size: 16px;
-    font-family: quicksand;
+    color: var(--color-primary-medium);
+    font-size: 1rem; /* 16px */
+    font-family: var(--font-primary-regular);
   }
 }

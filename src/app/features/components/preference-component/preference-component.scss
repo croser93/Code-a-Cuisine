@@ -42,29 +42,29 @@ input {
     max-width: 32px;
     padding: 2px;
     text-align: center;
-    font-size: 16px;
+    font-size: 1rem; /* 16px */
     border-radius: 4px;
-    font-family: quicksand-medium;
-    color: #10310B;
+    font-family: var(--font-primary-medium);
+    color: var(--color-primary-dark);
 }
 
 h3 {
-    font-size: 24px;
-    font-family: quicksand-medium;
-    color: #10310B;
+    font-size: 1.5rem; /* 24px */
+    font-family: var(--font-primary-medium);
+    color: var(--color-primary-dark);
 
 }
 
 h4 {
-    font-size: 28px;
-    font-family: quicksand-semiBold;
-    color: #10310B;
+    font-size: 1.75rem; /* 28px */
+    font-family: var(--font-primary-semibold);
+    color: var(--color-primary-dark);
 }
 
 span {
-    font-size: 20px;
-    font-family: quicksand-medium;
-    color: #10310B;
+    font-size: 1.25rem; /* 20px */
+    font-family: var(--font-primary-medium);
+    color: var(--color-primary-dark);
 }
 
 .selectionContainer {
@@ -86,9 +86,9 @@ span {
             @include dpf-col();
 
             >.menuText {
-                color: #1E5515;
-                font-size: 16px;
-                font-family: quicksand-medium;
+                color: var(--color-primary-medium);
+                font-size: 1rem; /* 16px */
+                font-family: var(--font-primary-medium);
             }
 
         }
@@ -105,9 +105,9 @@ span {
         cursor: pointer;
 
         >span {
-            color: #10310B;
-            font-size: 20px;
-            font-family: quicksand-semiBold;
+            color: var(--color-primary-dark);
+            font-size: 1.25rem; /* 20px */
+            font-family: var(--font-primary-semibold);
 
         }
 
@@ -123,7 +123,7 @@ span {
 }
 
 button:disabled {
-    background-color: #396039 !important;
+    background-color: var(--color-primary-light) !important;
     cursor: not-allowed !important;
     pointer-events: none !important;
     opacity: 0.5; 

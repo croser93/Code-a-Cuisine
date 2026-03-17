@@ -28,16 +28,16 @@ section{
         >button{
             @include dpf();
             text-align: center;
-            font-size: 32px;
+            font-size: 2rem; /* 32px */
             height: 32px;
             width: 32px;
             border: none;
             background-color: transparent;
-            color: #10310B;
+            color: var(--color-primary-dark);
             cursor: pointer;
 
             &:hover{
-                background-color: #10310B;
+                background-color: var(--color-primary-dark);
                 color: var(--font-color2);
                 border-radius: 50%;
             }
@@ -64,9 +64,9 @@ section{
             background-color: #FAF0E6CC;
         }
         >.ingredientText{
-            color: #10310B;
-            font-family: quicksand-medium;
-            font-size: 18px;
+            color: var(--color-primary-dark);
+            font-family: var(--font-primary-medium);
+            font-size: 1.125rem; /* 18px */
         }
     }
 }
@@ -78,15 +78,14 @@ input{
     width: 300px;
     height: 36px;
     border-radius: 20px;
-    font-size: 16px;
+    font-size: 1rem; /* 16px */
     border: 1px solid transparent;
     padding: 0px 8px;
     outline: none;
-    color: #10310B;
-    font-family: quicksand-medium;
-    font-size: 16px;
+    color: var(--color-primary-dark);
+    font-family: var(--font-primary-medium);
     &:focus{
-    border: 2px solid #1E5515;
+    border: 2px solid var(--color-primary-medium);
     }
 
 }
@@ -96,19 +95,19 @@ input{
 
 h2{
     font-size: 3.375rem;
-    color: #1E5515;
+    color: var(--color-primary-medium);
 }
 
 h5{
-    font-size: 20px;
-    color: #10310B;
+    font-size: 1.25rem; /* 20px */
+    color: var(--color-primary-dark);
 }
 
 span{
     font-size: 1.5rem;
-    color: #10310B;
+    color: var(--color-primary-dark);
     font-weight: 400;
-    font-family: quicksand;
+    font-family: var(--font-primary-regular);
 
 }
 
