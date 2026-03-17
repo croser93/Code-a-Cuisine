@@ -27,19 +27,20 @@
 
             <div class="containerRight container">
                 <h5>List of your Ingredients</h5>
-                <div class="ingredientsWrapper" *ngFor="let ingredient of ingredientsList; let i = index">
-                    <div class="ingredientText"> • {{ ingredient.size }}{{ ingredient.unit }} {{ ingredient.value }}
+                @for (ingredient of ingredientsList; track ingredient; let i = $index){
+                    <div class="ingredientsWrapper">
+                        <div class="ingredientText"> • {{ ingredient.size }}{{ ingredient.unit }} {{ ingredient.value }}
+                        </div>
+                        <div class="itemActions">
+                            <button><img src="assets/icon/edit.svg" alt=""></button>
+                            <button (click)="deleteIngredient(i)"><img src="assets/icon/delete.svg" alt=""></button>
+                        </div>
                     </div>
-                    <div class="itemActions">
-                        <button><img src="assets/icon/edit.svg" alt=""></button>
-                        <button (click)="deleteIngredient(i)"><img src="assets/icon/delete.svg" alt=""></button>
-                    </div>
-                </div>
+                }
             </div>
         </div>
         <div class="buttonContainer">
-            <a routerLink="/preferences"><button (click)="saveToService()" class="bigButton btnLight">Next
-                    step</button></a>
+            <a routerLink="/preferences"><button (click)="saveToService()" class="bigButton btnLight">Next step</button></a>
         </div>
     </div>
 

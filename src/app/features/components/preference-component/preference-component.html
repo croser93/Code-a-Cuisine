@@ -37,31 +37,37 @@
             <h3>Cooking time:</h3>
         </div>
         <div class="cookingTimeContainer">
-            <div class="cookingTime" *ngFor="let cookingtime of cookingTimeList">
-                <button class="menuButton" [class.active]="userPreferences.selectedCookingTime === cookingtime.time"
-                    (click)="selectCookingTime(cookingtime.time)"> <span>{{cookingtime.time}}</span></button>
-                <span class="menuText">{{cookingtime.value}}</span>
-            </div>
+            @for (cookingtime of cookingTimeList; track cookingtime){
+                <div class="cookingTime">
+                    <button class="menuButton" [class.active]="userPreferences.selectedCookingTime === cookingtime.time"
+                        (click)="selectCookingTime(cookingtime.time)"> <span>{{cookingtime.time}}</span></button>
+                    <span class="menuText">{{cookingtime.value}}</span>
+                </div>
+            }
         </div>
         <div class="menuHeader">
             <img src="assets/icon/public.svg" alt="">
             <h3>Cuisine</h3>
         </div>
         <div class="cuisineContainer">
-            <div *ngFor="let cuisine of cuisineList">
-                <button class="menuButton" [class.active]="userPreferences.selectedCuisines === cuisine.country"
-                    (click)="selectCuisine(cuisine.country)"> <span>{{cuisine.country}}</span></button>
-            </div>
+            @for (cuisine of cuisineList; track cuisine){
+                <div >
+                    <button class="menuButton" [class.active]="userPreferences.selectedCuisines === cuisine.country"
+                        (click)="selectCuisine(cuisine.country)"> <span>{{cuisine.country}}</span></button>
+                </div>
+            }
         </div>
         <div class="menuHeader">
             <img src="assets/icon/fork_spoon.svg" alt="">
             <h3>Diet preferences</h3>
         </div>
         <div class="preferenceContainer">
-            <div *ngFor="let preference of dietPreferencesList">
-                <button class="menuButton" [class.active]="userPreferences.selectedDietPreference === preference.diet"
-                    (click)="selectDietPreference(preference.diet)"><span>{{preference.diet}}</span></button>
-            </div>
+            @for (preference of dietPreferencesList; track preference){
+                <div >
+                    <button class="menuButton" [class.active]="userPreferences.selectedDietPreference === preference.diet"
+                        (click)="selectDietPreference(preference.diet)"><span>{{preference.diet}}</span></button>
+                </div>
+            }
         </div>
     </div>
 

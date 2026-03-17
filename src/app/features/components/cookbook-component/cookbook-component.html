@@ -15,24 +15,28 @@
         <div class="headerRight">
             <h2 class="sectionTitle">Most liked recipes</h2>
             <div class="recipeCards">
-                <div class="recipeCard" *ngFor="let recipe of topRecipes">
-                    <div class="recipeCardTop">
-                        <span class="recipeTime">Cooking time: {{recipe.time}}</span>
-                        <span class="recipeLikes"><img src="assets/icon/favorite.svg" alt="">{{recipe.likes}}</span>
+                @for (recipe of topRecipes; track recipe){
+                    <div class="recipeCard">
+                        <div class="recipeCardTop">
+                            <span class="recipeTime">Cooking time: {{recipe.time}}</span>
+                            <span class="recipeLikes"><img src="assets/icon/favorite.svg" alt="">{{recipe.likes}}</span>
+                        </div>
+                        <p class="recipeTitle">{{recipe.title}}</p>
                     </div>
-                    <p class="recipeTitle">{{recipe.title}}</p>
-                </div>
+                }
             </div>
         </div>
     </header>
 
     <main class="cuisineGrid">
-        <div class="cuisineItem" *ngFor="let cuisine of cuisines">
-            <h3 class="cuisineTitle">{{cuisine.name}} cousine</h3>
-            <a [routerLink]="['/cookbook-list', cuisine.name.toLowerCase()]" class="cuisineLink">
-                <img [src]="'assets/img/' + cuisine.image" [alt]="cuisine.name" class="cuisineImage">
-            </a>
-        </div>
+        @for (cuisine of cuisines; track cuisine ){
+            <div class="cuisineItem">
+                <h3 class="cuisineTitle">{{cuisine.name}} cousine</h3>
+                <a [routerLink]="['/cookbook-list', cuisine.name.toLowerCase()]" class="cuisineLink">
+                    <img [src]="'assets/img/' + cuisine.image" [alt]="cuisine.name" class="cuisineImage">
+                </a>
+            </div>
+        }
     </main>
 
     <footer class="cookbookFooter">

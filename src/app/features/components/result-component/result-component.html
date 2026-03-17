@@ -19,24 +19,26 @@
         </div>
 
         <div class="cardContainer" >
-            <div class="card" *ngFor="let recipe of recipeList, let i = index">
-                <div class="cardContent">
-                    <div class="cardHeader">
-                        <img src="assets/icon/icon.svg" alt="">
-                        <h3>Recipe {{i + 1 || "##"}}</h3>
+            @for(recipe of recipeList; track recipe; let i = $index){
+                <div class="card">
+                    <div class="cardContent">
+                        <div class="cardHeader">
+                            <img src="assets/icon/icon.svg" alt="">
+                            <h3>Recipe {{i + 1 || "##"}}</h3>
+                        </div>
+                        <span>{{recipeList[i].title || "##"}}</span>
+                        <div class="cardInfo">
+                            <img src="assets/icon/clock.svg" alt="">
+                            <span>Cooking time: {{recipeList[i].info.time || "##"}}</span>
+                        </div>
                     </div>
-                    <span>{{recipeList[i].title || "##"}}</span>
-                    <div class="cardInfo">
-                        <img src="assets/icon/clock.svg" alt="">
-                        <span>Cooking time: {{recipeList[i].info.time || "##"}}</span>
+                    <div class="buttonContainer">
+                    <a routerLink="/cooking-template">
+                        <button (click)="getSelectedDish(i)">View</button>
+                    </a>
                     </div>
                 </div>
-                <div class="buttonContainer">
-                   <a routerLink="/cooking-template">
-                    <button (click)="getSelectedDish(i)">View</button>
-                </a>
-                </div>
-            </div>
+            }
         </div>
 
         <div class="linkContainer">

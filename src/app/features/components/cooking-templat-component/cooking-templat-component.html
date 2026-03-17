@@ -16,9 +16,11 @@
                     <div class="cookingPerson">
                         <span>coocking person: {{recipe.info.person}}</span>
                         <div class="teamContainer">
-                            <div *ngFor="let dummy of getCookIcons(recipe.info.person); let i = index">
-                                <img [src]="'assets/icon/cook' + (i + 1) + '.svg'" alt="Cook Icon">
-                            </div>
+                            @for (data of getCookIcons(recipe.info.person); track data; let i = $index){
+                                <div>
+                                    <img [src]="'assets/icon/cook' + (i + 1) + '.svg'" alt="Cook Icon">
+                                </div>
+                            }        
                         </div>
                     </div>
                 </div>
@@ -65,18 +67,22 @@
                     <div>
                         <h5>Your ingredients</h5>
                         <div class="ingredientsWrapper">
-                            <li *ngFor="let ingredients of recipe.ingredients.available, let i = index">{{ingredients.size }}
-                                <span>{{recipe.ingredients.available[i]}}</span>
-                            </li>
+                            @for ( ingredients of recipe.ingredients.available; track ingredients; let i = $index){
+                                <li>{{ingredients.size }}
+                                    <span>{{recipe.ingredients.available[i]}}</span>
+                                </li>
+                            }
                         </div>
                     </div>
                     @if(recipe.ingredients.missing){
                         <div>
                             <h5>Extra ingredients</h5>
                             <div class="ingredientsWrapper">
-                                <li *ngFor="let ingredients of recipe.ingredients.missing, let i = index">{{ingredients.size }}
+                            @for(ingredients of recipe.ingredients.missing; track ingredients ;let i = $index){
+                                <li>{{ingredients.size }}
                                     <span>{{recipe.ingredients.missing[i]}}</span>
                                 </li>
+                            }
                             </div>
                         </div>
                     }
@@ -88,21 +94,22 @@
                     <img src="assets/separator/Directions.svg" alt="">
                 </div>
                 <div class="directionsContainer">
-                    <div class="directionsCard"
-                        *ngFor="let stepItem of cookingIngredientList.CookingtextList; let i = index">
-                        <div class="directionsHead">
-                            <div class="directionsOverview">
-                                <span>{{i +1}}.</span>
-                                <h5>{{recipe.directions.steps[i].title}}</h5>
+                    @for (stepItem of cookingIngredientList.CookingtextList; track stepItem; let i = $index){
+                        <div class="directionsCard">
+                            <div class="directionsHead">
+                                <div class="directionsOverview">
+                                    <span>{{i +1}}.</span>
+                                    <h5>{{recipe.directions.steps[i].title}}</h5>
+                                </div>
+                                <div>
+                                    <img src="assets/icon/cook1.svg" alt="">
+                                </div>
                             </div>
                             <div>
-                                <img src="assets/icon/cook1.svg" alt="">
+                                <span class="cookingText">{{recipe.directions.steps[i].instructions}}</span>
                             </div>
                         </div>
-                        <div>
-                            <span class="cookingText">{{recipe.directions.steps[i].instructions}}</span>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
 
