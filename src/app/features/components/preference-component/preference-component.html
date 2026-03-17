@@ -72,7 +72,6 @@
     </div>
 
     <div>
-        <a routerLink="/loading-screen"><button (click)="generateRecipe()" class="bigButton btnLight">Generate a
-                recipe</button></a>
+        <button [disabled]="!isSelectionComplete()" (click)="generateRecipe()" class="bigButton btnLight">Generate a recipe</button>
     </div>
 </section>

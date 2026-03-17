@@ -39,9 +39,12 @@
                 }
             </div>
         </div>
-        <div class="buttonContainer">
-            <a routerLink="/preferences"><button (click)="saveToService()" class="bigButton btnLight">Next step</button></a>
-        </div>
+
+        @if (ingredientsList.length > 2) {
+            <div class="buttonContainer">
+                <a routerLink="/preferences"><button (click)="saveToService()" class="bigButton btnLight">Next step</button></a>
+            </div>
+        }
     </div>
 
 </section>
