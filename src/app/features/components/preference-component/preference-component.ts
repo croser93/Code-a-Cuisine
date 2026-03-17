@@ -23,12 +23,14 @@ interface DietPreferences {
   styleUrl: './preference-component.scss',
 })
 export class PreferenceComponent {
-  portions: number = 1;
+  portions: number = 2;
   person: number = 1;
 
   addedMore(type: 'portions' | 'person') {
-    if (this[type] >= 1 && this[type] <= 19)
+    if (this[type] >= 1 && this[type] <= 3)
       this[type]++;
+    else if (this.portions >= 3 && this.portions <= 11)
+      this.portions++
   }
 
   fewer(type: 'portions' | 'person') {

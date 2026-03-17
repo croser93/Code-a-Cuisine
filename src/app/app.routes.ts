@@ -16,7 +16,7 @@ export const routes: Routes = [
     { path: 'recipe', component: RecipeComponent, data: { theme: 'light' } },
     { path: 'preferences', component: PreferenceComponent, data: { theme: 'light' } },
     { path: 'loading-screen', component: LoadingScreen, data: { theme: 'dark' } },
-    { path: 'results', component: ResultComponent, data: { theme: 'light' }},
+    { path: 'results', component: ResultComponent, data: { theme: 'dark' }},
     { path: 'cooking-template', component: CookingTemplatComponent, data: { theme: 'light' }},
     { path: 'cookbook', component: CookbookComponent, data: { theme: 'light' }},
     { path: 'cookbook-list/:type', component: CookbookListComponent, data: { theme: 'light' }},

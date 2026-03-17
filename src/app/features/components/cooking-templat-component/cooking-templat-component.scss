@@ -33,7 +33,7 @@ section{
             @include dpf($jc:flex-start, $g:8px);
             font-size: 20px;
             color: #396039;
-            font-family: quicksand-medium;
+            font-family: var(--font-primary-medium);
         }
         >h2{
             font-size: 54px;
@@ -45,7 +45,7 @@ section{
             >span{
                 font-size: 20px;
                 color: #396039;
-                font-family: quicksand-medium;
+                font-family: var(--font-primary-medium);
             }
         >.teamContainer{
              @include dpf($g:16px);
@@ -65,14 +65,14 @@ section{
                 >span{
                     font-size: 18px;
                     color: #10310B;
-                    font-family: quicksand-medium;
+                    font-family: var(--font-primary-medium);
                 }
             }
         }
         .nutriInfo{
             font-size: 24px;
             color: #10310B;
-            font-family: quicksand-medium;
+            font-family: var(--font-primary-medium);
         }
 
         table{
@@ -117,7 +117,7 @@ section{
             padding: 24px;
             >li{
                 font-size: 24px;
-                font-family: quicksand-medium;
+                font-family: var(--font-primary-medium);
                 color:#10310B;
             }
 
@@ -160,12 +160,12 @@ section{
                         width: 32px;
                         border-radius: 50%;
                         font-size: 18px;
-                        font-family: quicksand-medium;
+                        font-family: var(--font-primary-medium);
                         color:#10310B;
                     }
                     >h5{
                         font-size: 24px;
-                        font-family: quicksand-medium;
+                        font-family: var(--font-primary-medium);
                         color:#10310B;
                     }
                 }
@@ -177,7 +177,7 @@ section{
 
 .cookingText{
     font-size: 18px;
-    font-family: quicksand-medium;
+    font-family: var(--font-primary-medium);
     color:#10310B;
                     
 }
@@ -188,7 +188,7 @@ section{
      >span{
         font-size: 20px;
         color:#10310B;
-        font-family: quicksand-medium;
+        font-family: var(--font-primary-medium);
         &:first-child{
             font-size: quicksand-semiBold;
             font-size: 24px;

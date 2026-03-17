@@ -9,17 +9,25 @@
             <div class="containerLeft container ">
                 <div class="ingredientContainer inputContain">
                     <h5>Ingredient</h5>
-                    <input type="text" [(ngModel)]="value">
+                    <input type="text" maxlength="25" [(ngModel)]="value">
                 </div>
                 <div class="servingContainer inputContain">
                     <h5>Serving size</h5>
                     <div class="servingInput">
-                        <input type="number" class="inputShort" [(ngModel)]="amount">
-                        <select class="selectServing inputShort" [(ngModel)]="unit">
-                            <option value="piece">piece</option>
-                            <option value="ml">ml</option>
-                            <option value="gram">gram</option>
-                        </select>
+                        <input type="number" placeholder="100" class="inputShort" [(ngModel)]="amount">
+                        <div class="customSelectContainer inputShort">
+                            <div class="customSelect selectServing" (click)="toggleDropdown()">
+                                <span>{{ unit || 'gram' }}</span>
+                                <div class="arrow" [class.up]="isDropdownOpen"></div>
+                            </div>
+                            @if(isDropdownOpen){
+                                <ul class="dropdownOptions">
+                                    @for(opt of unitOptions; track opt){
+                                        <li (click)="selectUnit(opt)">{{ opt }}</li>
+                                    }
+                                </ul>
+                            }
+                        </div>
                         <button (click)="saveIngredient()">+</button>
                     </div>
                 </div>

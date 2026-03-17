@@ -29,7 +29,7 @@
                         <span>{{recipeList[i].title || "##"}}</span>
                         <div class="cardInfo">
                             <img src="assets/icon/clock.svg" alt="">
-                            <span>Cooking time: {{recipeList[i].info.time || "##"}}</span>
+                            <span>Cooking time: {{recipeList[i].info.time || "##"}} min</span>
                         </div>
                     </div>
                     <div class="buttonContainer">
@@ -41,11 +41,12 @@
             }
         </div>
 
-        <div class="linkContainer">
-            <div class="link">
-                <a routerLink="/recipe">Generate new recipe</a>
-                <img src="assets/icon/Arrow 18.svg" alt="arrow">
+        <a routerLink="/recipe">Generate new recipe
+            <div class="linkContainer">
+                <div class="link">
+                    <img src="assets/icon/Arrow 18.svg" alt="arrow">
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 </section>

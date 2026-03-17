@@ -23,7 +23,7 @@ section{
                     @include dpf-col($ai:flex-start);
                     >span{
                         font-size: 24px;
-                        font-size: quicksand-medium;
+                        font-family: var(--font-primary-medium);
                         color: #FAF0E6;
                     }
                 }
@@ -46,9 +46,9 @@ section{
 }
 
 .cardContainer{
-    @include dpf();
+
     width: 100%;
-    @include dpf($g:16px, $jc:space-between);
+    @include dpf($g:16px, $jc:space-around);
     >.card{
         background-color: #DBE0DB;
         border-radius: 20px;
@@ -84,7 +84,7 @@ section{
                 @include dpf($g:8px);
                 >span{
                     font-size: 20px;
-                    font-size: quicksand-medium;
+                    font-family: var(--font-primary-medium);
                     color: #396039
                 }
             }

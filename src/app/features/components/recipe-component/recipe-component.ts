@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
@@ -19,32 +19,51 @@ interface Ingredient {
   styleUrl: './recipe-component.scss',
 })
 export class RecipeComponent {
-  amount: number = 100;
-  unit: string = 'gram';
+  amount: any = '';
+  unit: string = '';
   value: string = '';
 
-  ingredientsList: Ingredient[] = [
-    {
-      value: "Wurst",
-      size: 100,
-      unit: "g"
-    },
-  ];
+  unitMap: { [key: string]: string } = {
+  gram: 'g',
+  ml: 'ml',
+  piece: ''
+};
 
-  constructor(private supabase: Supabase) { }
+  isDropdownOpen: boolean = false;
+  unitOptions: string[] = ['piece', 'ml', 'gram'];
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  selectUnit(option: string) {
+    this.unit = option;
+    this.isDropdownOpen = false;
+  }
+
+  ingredientsList: Ingredient[] = [];
+
+  constructor(private supabase: Supabase, private eRef: ElementRef) { }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: Event) {
+    // Wenn außerhalb geklickt wird, Dropdown schließen
+    if (!this.eRef.nativeElement.querySelector('.customSelectContainer')?.contains(event.target)) {
+      this.isDropdownOpen = false;
+    }
+  }
 
   saveIngredient() {
     const newIngredient: Ingredient = {
       value: this.value,
       size: this.amount,
-      unit: this.unit
+      unit: this.unitMap[this.unit]
     };
     if (this.value.length > 0 && this.amount > 0) {
       this.ingredientsList.push(newIngredient);
+      console.log(this.ingredientsList)
       this.value = '';
     }
-
-    console.log('Liste aktuell:', this.ingredientsList);
   }
 
   deleteIngredient(i: number) {
