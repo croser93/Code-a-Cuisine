@@ -35,7 +35,6 @@ section {
                         cursor: pointer;
                         background-color: rgba(57, 96, 57, 0.2);
                         border-radius: 5px;
-    
                     }
                 }
             }
@@ -130,7 +129,7 @@ span {
 
         &.active,
         &:active {
-            background-color: #EEB583;
+            background-color: rgba(57, 96, 57, 0.4);
         }
     }
 }
