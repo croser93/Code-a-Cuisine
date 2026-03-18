@@ -29,6 +29,12 @@ export class RecipeComponent {
   piece: ''
 };
 
+  reverseUnitMap: { [key: string]: string } = {
+  'g': 'gram',
+  'ml': 'ml',
+  '': 'piece'
+};
+
   isDropdownOpen: boolean = false;
   unitOptions: string[] = ['piece', 'ml', 'gram'];
 
@@ -43,21 +49,69 @@ export class RecipeComponent {
 
   ingredientsList: Ingredient[] = [];
 
+  // Edit Mode state
+  editingIndex: number | null = null;
+  isEditDropdownOpen: boolean = false;
+  editingIngredient: Ingredient = { value: '', size: 0, unit: 'gram' };
+
+  startEdit(index: number, ingredient: Ingredient) {
+    this.editingIndex = index;
+    this.editingIngredient = { 
+        value: ingredient.value, 
+        size: ingredient.size, 
+        unit: this.reverseUnitMap[ingredient.unit] || 'gram'
+    };
+    this.isEditDropdownOpen = false;
+  }
+
+  toggleEditDropdown() {
+    this.isEditDropdownOpen = !this.isEditDropdownOpen;
+  }
+
+  selectEditUnit(option: string) {
+    this.editingIngredient.unit = option;
+    this.isEditDropdownOpen = false;
+  }
+
+  saveEdit() {
+    if (this.editingIndex !== null) {
+      if (this.editingIngredient.value.length > 0 && this.editingIngredient.size > 0) {
+        this.ingredientsList[this.editingIndex] = {
+          value: this.editingIngredient.value,
+          size: this.editingIngredient.size,
+          unit: this.unitMap[this.editingIngredient.unit]
+        };
+      }
+      this.editingIndex = null;
+    }
+  }
+
   constructor(private supabase: Supabase, private eRef: ElementRef) { }
 
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
-    // Wenn außerhalb geklickt wird, Dropdown schließen
-    if (!this.eRef.nativeElement.querySelector('.customSelectContainer')?.contains(event.target)) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.customSelectContainer')) {
       this.isDropdownOpen = false;
     }
+    if (!target.closest('.customSelectColumn')) {
+      this.isEditDropdownOpen = false;
+    }
   }
+
+  onlyNumbers(event: KeyboardEvent) {
+  const char = event.key;
+
+  if (!/[0-9]/.test(char)) {
+    event.preventDefault();
+  }
+}
 
   saveIngredient() {
     const newIngredient: Ingredient = {
       value: this.value,
       size: this.amount,
-      unit: this.unitMap[this.unit]
+      unit: this.unitMap[this.unit || 'gram']
     };
     if (this.value.length > 0 && this.amount > 0) {
       this.ingredientsList.push(newIngredient);

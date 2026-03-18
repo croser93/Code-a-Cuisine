@@ -1,78 +1,86 @@
-
 @use '../../../../styles/variables' as *;
 
 
-section{
+section {
     margin-top: 64px;
     height: calc(100vh - 84px - 62px - 64px);
     @include dpf-col($jc: flex-start);
-    >div{
+
+    >div {
         @include dpf-col();
+
         >.recipeHeader {
-            @include dpf-col($g:24px);
+            @include dpf-col($g: 24px);
             text-align: center;
         }
     }
-      
+
 }
 
-.content{
-    @include dpf($g:24px, $ai:flex-start);
+.content {
+    @include dpf($g: 24px, $ai: flex-start);
     width: 1080px;
     margin-top: 64px;
-    >.containerLeft{
-    >.servingContainer{
-       >.servingInput{
-        @include dpf($g:8px);
-            text-align: center;
-        >button{
-            @include dpf();
-            text-align: center;
-            font-size: 2rem;
-            height: 32px;
-            width: 32px;
-            border: none;
-            background-color: transparent;
-            color: var(--color-primary-dark);
-            cursor: pointer;
 
-            &:hover{
-                background-color: var(--color-primary-dark);
-                color: var(--font-color2);
-                border-radius: 50%;
+    >.containerLeft {
+        >.servingContainer {
+            >.servingInput {
+                @include dpf($g: 8px);
+                text-align: center;
+
+                >button {
+                    @include dpf();
+                    text-align: center;
+                    font-size: 2rem;
+                    height: 32px;
+                    width: 32px;
+                    border: none;
+                    background-color: transparent;
+                    color: var(--color-primary-dark);
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--color-primary-dark);
+                        color: var(--font-color2);
+                        border-radius: 50%;
+                    }
+                }
             }
         }
-       }
-    }   
-}
->.containerRight{
+    }
 
-  max-height: 420px;
-  overflow: auto;
-  @include dpf-col($g: 8px, $ai: flex-start, $jc: flex-start);
-  scrollbar-width: thin;
-  scrollbar-color: #1E5515 transparent;
-    
-    >.ingredientsWrapper{
-        padding: 4px 16px;
-        width: 100%;
-        @include dpf($jc:space-between);
-        cursor: pointer;
-        background-color: transparent;
-        border-radius: 8px;
-        &:hover{
-            background-color: #FAF0E6CC;
-        }
-        >.ingredientText{
-            color: var(--color-primary-dark);
-            font-family: var(--font-primary-medium);
-            font-size: 1.125rem;
+    >.containerRight {
+
+        max-height: 420px;
+        overflow: auto;
+        @include dpf-col($g: 8px, $ai: flex-start, $jc: flex-start);
+        scrollbar-width: thin;
+        scrollbar-color: #1E5515 transparent;
+
+        >.ingredientsWrapper {
+            padding: 4px 16px;
+            width: 100%;
+            @include dpf($jc: space-between);
+            cursor: pointer;
+            border-radius: 8px;
+
+
+            >.ingredientText {
+                color: var(--color-primary-dark);
+                font-family: var(--font-primary-medium);
+                font-size: 1.125rem;
+            }
         }
     }
 }
+.bghover{
+        &:hover {
+        cursor: pointer;
+        background-color: #FAF0E6CC;
+    }
 }
 
-input{
+input {
     background-color: #FAF0E6CC;
     width: 300px;
     height: 36px;
@@ -83,7 +91,8 @@ input{
     outline: none;
     color: var(--color-primary-dark);
     font-family: var(--font-primary-medium);
-    &:focus{
+
+    &:focus {
         border: 2px solid var(--color-primary-medium);
     }
 }
@@ -91,6 +100,7 @@ input{
 .customSelectContainer {
     position: relative;
     cursor: pointer;
+
     &.inputShort {
         width: 80px;
     }
@@ -98,7 +108,7 @@ input{
 
 .customSelect {
     @include dpf($jc: space-between);
-    background-color: #FAF0E6; 
+    background-color: #FAF0E6;
     width: 100%;
     height: 36px;
     border-radius: 20px;
@@ -107,7 +117,7 @@ input{
     color: var(--color-primary-dark);
     font-family: var(--font-primary-medium);
     font-size: 1rem;
-    
+
     .arrow {
         width: 0;
         height: 0;
@@ -116,12 +126,12 @@ input{
         border-top: 6px solid var(--color-primary-dark);
         transition: transform 0.2s ease;
         margin-top: 2px;
-        
+
         &.up {
             transform: rotate(180deg);
         }
     }
-    
+
     &:hover,
     &.active {
         border: 1px solid var(--color-primary-medium);
@@ -141,7 +151,7 @@ input{
     display: flex;
     flex-direction: column;
     gap: 8px;
-    
+
     li {
         font-family: var(--font-primary-medium);
         font-size: 1rem;
@@ -149,11 +159,11 @@ input{
         text-align: center;
         padding: 0p 4px;
         border-radius: 20px;
-        
+
         &:hover {
             color: var(--color-primary-medium);
-            background-color: rgb(250, 240, 230, 0.5); 
-            
+            background-color: rgb(250, 240, 230, 0.5);
+
         }
     }
 }
@@ -162,6 +172,7 @@ input[type="number"] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
+
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -169,62 +180,136 @@ input[type="number"] {
         margin: 0;
     }
 }
-.inputShort{
+
+.inputShort {
     width: 80px;
 }
 
-h2{
+h2 {
     font-size: 3.375rem;
     color: var(--color-primary-medium);
 }
 
-h5{
+h5 {
     font-size: 1.25rem;
     color: var(--color-primary-dark);
 }
 
-span{
+span {
     color: var(--color-primary-dark);
     font-weight: 400;
     font-family: var(--font-primary-regular);
 
 }
 
-.container{
-        @include dpf($g: 16px);
-        background-color: rgba(57, 96, 57, 0.3);
-        min-height: 280px;
-        padding: 24px;
-        border-radius: 20px;
-        min-width: 480px;
+.container {
+    @include dpf($g: 16px);
+    background-color: rgba(57, 96, 57, 0.3);
+    min-height: 280px;
+    padding: 24px;
+    border-radius: 20px;
+    min-width: 480px;
 }
 
-  .inputContain{
-       @include dpf-col($ai: flex-start, $g:8px);
-  }
+.inputContain {
+    @include dpf-col($ai: flex-start, $g: 8px);
+}
 
-  .itemActions{
-    @include dpf($g:8px);
-    >button{
+.itemActions {
+    @include dpf($g: 8px);
+
+    >button {
         background-color: transparent;
         border: none;
         padding: 4px;
         cursor: pointer;
-        &:hover{
+
+        &:hover {
             background-color: rgba(57, 96, 57, 0.4);
             border-radius: 8px;
         }
-        >img{
+
+        >img {
             height: 19px;
         }
     }
 }
 
- .buttonContainer{
+.buttonContainer {
     width: 100%;
     margin-top: 24px;
-    @include dpf($jc:flex-end);
+    @include dpf($jc: flex-end);
 
-  }
+}
 
- 
+
+.inlineEditWrapper {
+    @include dpf($jc: space-between, $ai: flex-start);
+    width: 100%;
+    padding: 0 16px;
+
+    .servingInput {
+        @include dpf($g: 8px);
+        text-align: center;
+    }
+
+    .inlineInputs {
+        @include dpf($ai: flex-start, $g:8px);
+    }
+
+    .editPill {
+        background-color: var(--color-bg-light);
+        border: none;
+
+        &:focus {
+            border: 2px solid var(--color-primary-medium);
+        }
+    }
+
+    .editText {
+        background-color: transparent;
+        text-align: left;
+        padding: 0 12px;
+        border: none;
+        outline: none;
+        font-size: 1.125rem;
+        color: var(--color-primary-dark);
+        font-family: var(--font-primary-medium);
+        width: 150px;
+        height: 36px;
+    }
+
+    .customSelectColumn {
+        @include dpf-col($ai: stretch, $g: 4px);
+        width: 90px;
+
+        .customSelect {
+            background-color: var(--color-bg-light);
+            font-size: 1rem;
+        }
+
+        .inlineDropdownOptions {
+            list-style: none;
+            padding: 4px 0 0 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            li {
+                font-family: var(--font-primary-medium);
+                font-size: 1rem;
+                color: var(--color-primary-dark);
+                text-align: center;
+                cursor: pointer;
+                padding: 2px 4px;
+                border-radius: 20px;
+
+                &:hover {
+                    color: var(--color-primary-medium);
+                    background-color: rgb(250, 240, 230, 0.5);
+                }
+            }
+        }
+    }
+}
