@@ -197,10 +197,10 @@ section{
          outline: none;
          border:none;
          background-color: transparent;
-         border-radius: 50%;
-         padding: 4px;
+         padding: 2px;
          &:hover{
-            background-color: #FAF0E6;
+            background-color: rgba(215, 223, 215, 0.6);
+            border-radius: 8px;
          }
      }
 }

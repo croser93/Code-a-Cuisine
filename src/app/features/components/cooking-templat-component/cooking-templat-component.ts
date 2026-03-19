@@ -47,6 +47,7 @@ interface RecipeIngredients {
 })
 export class CookingTemplatComponent {
   recipe: any;
+  selectAddLike:boolean = false;
 
   constructor(private supabase: Supabase) {}
 
@@ -56,6 +57,19 @@ export class CookingTemplatComponent {
       console.log(this.recipe);
     }
   
+    addLike(){
+      if(!this.selectAddLike){
+        this.recipe.info.likes += 1
+        this.selectAddLike = true
+        console.log(this.recipe.info.likes)
+      }
+      else{
+        this.recipe.info.likes -= 1
+        this.selectAddLike = false
+        console.log(this.recipe.info.likes)
+      }
+
+    }
 
 
 getCookIcons(count: number = 0): number[] {

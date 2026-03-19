@@ -16,7 +16,7 @@
                     <div class="cookingPerson">
                         <span>coocking person: {{recipe.info.person}}</span>
                         <div class="teamContainer">
-                            @for (data of getCookIcons(recipe.info.person); track data; let i = $index){
+                            @for (data of getCookIcons(recipe.info.person); track $index; let i = $index){
                                 <div>
                                     <img [src]="'assets/icon/cook' + (i + 1) + '.svg'" alt="Cook Icon">
                                 </div>
@@ -67,7 +67,7 @@
                     <div>
                         <h5>Your ingredients</h5>
                         <div class="ingredientsWrapper">
-                            @for ( ingredients of recipe.ingredients.available; track ingredients; let i = $index){
+                            @for ( ingredients of recipe.ingredients.available; track $index; let i = $index){
                                 <li>{{ingredients.size }}
                                     <span>{{recipe.ingredients.available[i]}}</span>
                                 </li>
@@ -78,7 +78,7 @@
                         <div>
                             <h5>Extra ingredients</h5>
                             <div class="ingredientsWrapper">
-                            @for(ingredients of recipe.ingredients.missing; track ingredients ;let i = $index){
+                            @for(ingredients of recipe.ingredients.missing; track $index ;let i = $index){
                                 <li>{{ingredients.size }}
                                     <span>{{recipe.ingredients.missing[i]}}</span>
                                 </li>
@@ -94,7 +94,7 @@
                     <img src="assets/separator/Directions.svg" alt="">
                 </div>
                 <div class="directionsContainer">
-                    @for (stepItem of cookingIngredientList.CookingtextList; track stepItem; let i = $index){
+                    @for (stepItem of cookingIngredientList.CookingtextList; track $index; let i = $index){
                         <div class="directionsCard">
                             <div class="directionsHead">
                                 <div class="directionsOverview">
@@ -116,7 +116,7 @@
             <div class="cardFooter">
                 <span>just finished this meal?</span>
                 <span>Give at a heart, so that the other know this is delicious.</span>
-                <button><img src="assets/icon/Heart.svg" alt="heart-Icon"></button>
+                <button (click)="addLike()"><img [src]="selectAddLike ? 'assets/icon/Heart-filled.svg' : 'assets/icon/Heart.svg' " alt="heart-Icon"></button>
             </div>
         </div>
 
