@@ -21,6 +21,31 @@ section{
         font-size: 3.5rem;
         font-family: var(--font-primary-semibold);
     }
+}
 
-
+.dialog{
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid white;
+    background-color: #396039;
+    height: 340px;
+    width: 580px;
+    border-radius: 20px;
+    display: flex;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    >.dialogContainer{
+        @include dpf-col($ai:flex-start, $jc:space-between );
+        padding: 44px 64px;
+        >h5{
+            font-size: 28px;
+            font-family: quicksand-semiBold;
+            }
+        >span{
+            font-size: 18px;
+            font-family: quicksand;
+        }
+    }
 }
