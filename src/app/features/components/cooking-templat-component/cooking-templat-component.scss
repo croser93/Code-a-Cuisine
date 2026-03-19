@@ -6,6 +6,7 @@ section{
     >.content{
         min-height: 100vh;
         @include dpf-col();
+        margin-top: 32px;
         >.mainContent{
             @include dpf-col();
             background-color: rgba(250, 240, 230, 0.3);
@@ -15,11 +16,6 @@ section{
         }
     }
 }
-
-
-
-
-
 
 .recipeHead{
     @include dpf($jc:space-around);
@@ -215,36 +211,12 @@ section{
     width: 100%;
     padding: 40px;
     border-radius: 20px;
-    margin-top: 64px;
+    margin: 64px 0px;
     >span{
         font-size: 24px;
          font-size: quicksand-semiBold;
          color: rgba(16, 49, 11, 1);
          font-weight: 800;
-
-
     }
 }
 
-.linkContainer{
-    width: 100%;
-    margin-top: 64px;
-    @include dpf($jc:flex-end);
-    >.link{
-        @include dpf($g:16px);
-        text-align: center;
-        padding: 24px;
-        cursor: pointer;
-        &:hover{
-            background-color: rgba(57, 96, 57, 0.1);
-        }
-        >a{
-            font-size: 20px;
-            text-decoration: none;
-            color:#10310B;
-            font-weight: 600;
-            
-        }
-
-    }
-}

@@ -23,7 +23,7 @@
     >.mainTitle {
       position: relative;
       z-index: 2;
-      font-size: 2.5rem; /* 40px */
+      font-size: 2.5rem;
       color: var(--color-primary-dark);
       font-weight: bold;
       font-family: var(--font-primary-regular);
@@ -58,7 +58,7 @@
     
     .timeContainer {
       @include dpf(flex-start, $g:8px);
-      font-size: 0.875rem; /* 14px */
+      font-size: 1rem;
       color: #666;
       padding-left: 45px;
 
@@ -79,12 +79,11 @@
         border-radius: 50%;
         @include dpf();
         font-weight: 600;
-        font-size: 0.875rem; /* 14px */
+        font-size: 1rem; 
       }
 
       .recipeTitle {
-        font-size: 1.25rem; /* 20px */
-        color: #333;
+        font-size: 1.25rem;
         font-family: var(--font-primary-regular);
         font-weight: 500;
         margin: 0;
@@ -100,7 +99,7 @@
       color: var(--color-primary-light);
       padding: 6px 15px;
       border-radius: 20px;
-      font-size: 0.875rem; /* 14px */
+      font-size: 1rem;
       font-weight: 500;
 
       &.likesTag {
@@ -121,7 +120,7 @@
   margin-top: 40px;
 
   .pageBtn, .pageDots {
-    font-size: 1.25rem; /* 20px */
+    font-size: 1.25rem;
     color: #666;
     cursor: pointer;
     background-color: transparent;
