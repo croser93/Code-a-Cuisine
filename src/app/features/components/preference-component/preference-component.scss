@@ -18,13 +18,25 @@ section {
             text-align: center;
             height: 24px;
 
-            >button {
-                border: none;
-                outline: none;
-                background-color: white;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
+            >.btnContainer{
+                width: 28px;
+                height: 28px;
+                >button {
+                    @include dpf();
+                    cursor: pointer;
+                    border: none;
+                    outline: none;
+                    background-color: white;
+                    display: flex;
+                    align-items: center;
+                    width: 28px;
+                    height: 28px;
+                    &:hover{
+                        cursor: pointer;
+                        background-color: rgba(57, 96, 57, 0.2);
+                        border-radius: 5px;
+                    }
+                }
             }
 
             div {
@@ -42,29 +54,29 @@ input {
     max-width: 32px;
     padding: 2px;
     text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
     border-radius: 4px;
-    font-family: quicksand-medium;
-    color: #10310B;
+    font-family: var(--font-primary-medium);
+    color: var(--color-primary-dark);
 }
 
 h3 {
-    font-size: 24px;
-    font-family: quicksand-medium;
-    color: #10310B;
+    font-size: 1.5rem;
+    font-family: var(--font-primary-medium);
+    color: var(--color-primary-dark);
 
 }
 
 h4 {
-    font-size: 28px;
-    font-family: quicksand-semiBold;
-    color: #10310B;
+    font-size: 1.75rem;
+    font-family: var(--font-primary-semibold);
+    color: var(--color-primary-dark);
 }
 
 span {
-    font-size: 20px;
-    font-family: quicksand-medium;
-    color: #10310B;
+    font-size: 1.25rem;
+    font-family: var(--font-primary-medium);
+    color: var(--color-primary-dark);
 }
 
 .selectionContainer {
@@ -86,9 +98,9 @@ span {
             @include dpf-col();
 
             >.menuText {
-                color: #1E5515;
-                font-size: 16px;
-                font-family: quicksand-medium;
+                color: var(--color-primary-medium);
+                font-size: 1rem;
+                font-family: var(--font-primary-medium);
             }
 
         }
@@ -105,9 +117,9 @@ span {
         cursor: pointer;
 
         >span {
-            color: #10310B;
-            font-size: 20px;
-            font-family: quicksand-semiBold;
+            color: var(--color-primary-dark);
+            font-size: 1.25rem;
+            font-family: var(--font-primary-semibold);
 
         }
 
@@ -117,7 +129,14 @@ span {
 
         &.active,
         &:active {
-            background-color: #EEB583;
+            background-color: rgba(57, 96, 57, 0.4);
         }
     }
+}
+
+button:disabled {
+    background-color: var(--color-primary-light) !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    opacity: 0.5; 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
@@ -19,32 +19,105 @@ interface Ingredient {
   styleUrl: './recipe-component.scss',
 })
 export class RecipeComponent {
-  amount: number = 100;
-  unit: string = 'gram';
+  amount: any = '';
+  unit: string = '';
   value: string = '';
 
-  ingredientsList: Ingredient[] = [
-    {
-      value: "Wurst",
-      size: 100,
-      unit: "g"
-    },
-  ];
+  unitMap: { [key: string]: string } = {
+  gram: 'g',
+  ml: 'ml',
+  piece: ''
+};
 
-  constructor(private supabase: Supabase) { }
+  reverseUnitMap: { [key: string]: string } = {
+  'g': 'gram',
+  'ml': 'ml',
+  '': 'piece'
+};
+
+  isDropdownOpen: boolean = false;
+  unitOptions: string[] = ['piece', 'ml', 'gram'];
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  selectUnit(option: string) {
+    this.unit = option;
+    this.isDropdownOpen = false;
+  }
+
+  ingredientsList: Ingredient[] = [];
+
+  // Edit Mode state
+  editingIndex: number | null = null;
+  isEditDropdownOpen: boolean = false;
+  editingIngredient: Ingredient = { value: '', size: 0, unit: 'gram' };
+
+  startEdit(index: number, ingredient: Ingredient) {
+    this.editingIndex = index;
+    this.editingIngredient = { 
+        value: ingredient.value, 
+        size: ingredient.size, 
+        unit: this.reverseUnitMap[ingredient.unit] || 'gram'
+    };
+    this.isEditDropdownOpen = false;
+  }
+
+  toggleEditDropdown() {
+    this.isEditDropdownOpen = !this.isEditDropdownOpen;
+  }
+
+  selectEditUnit(option: string) {
+    this.editingIngredient.unit = option;
+    this.isEditDropdownOpen = false;
+  }
+
+  saveEdit() {
+    if (this.editingIndex !== null) {
+      if (this.editingIngredient.value.length > 0 && this.editingIngredient.size > 0) {
+        this.ingredientsList[this.editingIndex] = {
+          value: this.editingIngredient.value,
+          size: this.editingIngredient.size,
+          unit: this.unitMap[this.editingIngredient.unit]
+        };
+      }
+      this.editingIndex = null;
+    }
+  }
+
+  constructor(private supabase: Supabase, private eRef: ElementRef) { }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.customSelectContainer')) {
+      this.isDropdownOpen = false;
+    }
+    if (!target.closest('.customSelectColumn')) {
+      this.isEditDropdownOpen = false;
+    }
+  }
+
+  onlyNumbers(event: KeyboardEvent) {
+  const char = event.key;
+
+  if (!/[0-9]/.test(char)) {
+    event.preventDefault();
+  }
+}
 
   saveIngredient() {
     const newIngredient: Ingredient = {
       value: this.value,
       size: this.amount,
-      unit: this.unit
+      unit: this.unitMap[this.unit || 'gram']
     };
     if (this.value.length > 0 && this.amount > 0) {
       this.ingredientsList.push(newIngredient);
+      console.log(this.ingredientsList)
       this.value = '';
     }
-
-    console.log('Liste aktuell:', this.ingredientsList);
   }
 
   deleteIngredient(i: number) {

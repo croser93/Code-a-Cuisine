@@ -23,7 +23,7 @@ section{
                     @include dpf-col($ai:flex-start);
                     >span{
                         font-size: 24px;
-                        font-size: quicksand-medium;
+                        font-family: var(--font-primary-medium);
                         color: #FAF0E6;
                     }
                 }
@@ -46,9 +46,9 @@ section{
 }
 
 .cardContainer{
-    @include dpf();
+
     width: 100%;
-    @include dpf($g:16px, $jc:space-between);
+    @include dpf($g:16px, $jc:space-around);
     >.card{
         background-color: #DBE0DB;
         border-radius: 20px;
@@ -84,7 +84,7 @@ section{
                 @include dpf($g:8px);
                 >span{
                     font-size: 20px;
-                    font-size: quicksand-medium;
+                    font-family: var(--font-primary-medium);
                     color: #396039
                 }
             }
@@ -93,7 +93,7 @@ section{
         >.buttonContainer{
             width: 100%;
             @include dpf($jc:flex-start);
-            >a{          
+            >a{    
                 >button{
                     border: none;
                     background-color: #FAF0E6;
@@ -111,27 +111,6 @@ section{
     }
 }
 
-.linkContainer{
-    width: 100%;
-    @include dpf($jc:flex-end);
-    >.link{
-        @include dpf($g:16px);
-        text-align: center;
-        padding: 24px;
-        cursor: pointer;
-        &:hover{
-            background-color:rgba(255,255,255, $alpha: 0.4);
-        }
-        >a{
-            font-size: 20px;
-            text-decoration: none;
-            color: #DBE0DB;
-        }
-
-    }
-
-
-}
 
 
 

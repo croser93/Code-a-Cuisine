@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Supabase } from '../../../core/services/supabase';
 
 @Component({
   selector: 'app-loading-screen',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './loading-screen.html',
   styleUrl: './loading-screen.scss',
 })

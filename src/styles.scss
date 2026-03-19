@@ -1,4 +1,5 @@
- @use 'styles/variables';
+ 
+ @use 'styles/variables' as *;
 
   @font-face {
    font-family: "ubuntu";
@@ -58,18 +59,22 @@
  }
 
   body {
-   font-family: quicksand;
+   font-family: var(--font-primary-regular);
  }
 
 .bigButton{
     padding: 12px 24px;
     min-width: 186px;
     height: 60px;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 500;
     border: none;
     cursor: pointer;
-    font-family: quicksand-semiBold;
+    font-family: var(--font-primary-semibold);
+    transition: transform 0.2s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
 }
 
 .content-beg {
@@ -78,16 +83,16 @@
 }
 
 .content-border{
-  padding: 0px 24px;
+  padding: 0px 48px;
 }
 
 .btnDark{
-  color: #008000;
+  color: var(--color-secondary);
   background-color: var(--font-color-default);
 }
 .btnLight{
-color: white;
-background-color: #055E05;
+  color: white;
+  background-color: var(--color-btn-light);
 }
  .dark { background-color: var(--bg-color);
   a { color: var(--font-color-default) }
@@ -110,8 +115,35 @@ background-color: #055E05;
   }
   >a{
     text-decoration: none;
-    color: #1E5515;
-    font-size: 16px;
-    font-family: quicksand;
+    color: var(--color-primary-medium);
+    font-size: 1rem;
+    font-family: var(--font-primary-regular);
   }
+}
+
+.linkContainer{
+    width: 100%;
+    @include dpf($jc:flex-end);
+    >a{
+        cursor: pointer;
+        text-align: center;
+        height: 50px;
+        width: 280px;
+        @include dpf($g:16px);
+        text-decoration: none;
+        color: white;
+        text-wrap-mode: nowrap;
+        font-size: 20px;
+        &:hover{
+            background-color:rgba(255,255,255, $alpha: 0.4);
+        }
+    }   
+}
+
+.bgdark {
+  color: #396039 !important;
+   &:hover{
+            background-color:rgba(57, 96, 57, 0.1) !important;
+        }
+
 }

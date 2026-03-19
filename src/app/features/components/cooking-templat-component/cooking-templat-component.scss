@@ -6,6 +6,7 @@ section{
     >.content{
         min-height: 100vh;
         @include dpf-col();
+        margin-top: 32px;
         >.mainContent{
             @include dpf-col();
             background-color: rgba(250, 240, 230, 0.3);
@@ -15,11 +16,6 @@ section{
         }
     }
 }
-
-
-
-
-
 
 .recipeHead{
     @include dpf($jc:space-around);
@@ -33,7 +29,7 @@ section{
             @include dpf($jc:flex-start, $g:8px);
             font-size: 20px;
             color: #396039;
-            font-family: quicksand-medium;
+            font-family: var(--font-primary-medium);
         }
         >h2{
             font-size: 54px;
@@ -45,7 +41,7 @@ section{
             >span{
                 font-size: 20px;
                 color: #396039;
-                font-family: quicksand-medium;
+                font-family: var(--font-primary-medium);
             }
         >.teamContainer{
              @include dpf($g:16px);
@@ -65,14 +61,14 @@ section{
                 >span{
                     font-size: 18px;
                     color: #10310B;
-                    font-family: quicksand-medium;
+                    font-family: var(--font-primary-medium);
                 }
             }
         }
         .nutriInfo{
             font-size: 24px;
             color: #10310B;
-            font-family: quicksand-medium;
+            font-family: var(--font-primary-medium);
         }
 
         table{
@@ -117,7 +113,7 @@ section{
             padding: 24px;
             >li{
                 font-size: 24px;
-                font-family: quicksand-medium;
+                font-family: var(--font-primary-medium);
                 color:#10310B;
             }
 
@@ -160,12 +156,12 @@ section{
                         width: 32px;
                         border-radius: 50%;
                         font-size: 18px;
-                        font-family: quicksand-medium;
+                        font-family: var(--font-primary-medium);
                         color:#10310B;
                     }
                     >h5{
                         font-size: 24px;
-                        font-family: quicksand-medium;
+                        font-family: var(--font-primary-medium);
                         color:#10310B;
                     }
                 }
@@ -177,7 +173,7 @@ section{
 
 .cookingText{
     font-size: 18px;
-    font-family: quicksand-medium;
+    font-family: var(--font-primary-medium);
     color:#10310B;
                     
 }
@@ -188,7 +184,7 @@ section{
      >span{
         font-size: 20px;
         color:#10310B;
-        font-family: quicksand-medium;
+        font-family: var(--font-primary-medium);
         &:first-child{
             font-size: quicksand-semiBold;
             font-size: 24px;
@@ -201,10 +197,10 @@ section{
          outline: none;
          border:none;
          background-color: transparent;
-         border-radius: 50%;
-         padding: 4px;
+         padding: 2px;
          &:hover{
-            background-color: #FAF0E6;
+            background-color: rgba(215, 223, 215, 0.6);
+            border-radius: 8px;
          }
      }
 }
@@ -215,35 +211,12 @@ section{
     width: 100%;
     padding: 40px;
     border-radius: 20px;
-    margin-top: 64px;
+    margin: 64px 0px;
     >span{
         font-size: 24px;
          font-size: quicksand-semiBold;
          color: rgba(16, 49, 11, 1);
          font-weight: 800;
-
-
     }
 }
 
-.linkContainer{
-    width: 100%;
-    margin-top: 64px;
-    @include dpf($jc:flex-end);
-    >.link{
-        @include dpf($g:16px);
-        text-align: center;
-        padding: 24px;
-        cursor: pointer;
-        &:hover{
-            background-color: rgba(57, 96, 57, 0.1);
-        }
-        >a{
-            font-size: 20px;
-            text-decoration: none;
-            color:#10310B;
-            font-weight: 600;
-        }
-
-    }
-}

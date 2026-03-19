@@ -46,8 +46,8 @@ section{
     text-align: center;
     >h3{
         font-size: 2rem;
-        font-family: ubuntu-medium;
-        color: var(--font-color-default);
+        font-family: var(--font-secondary-medium);
+        color: var(--color-text-beige);
         font-weight: 200;
         
     }
@@ -56,23 +56,23 @@ section{
         text-align: center;
         >a{
             text-decoration: none;
-            font-family: quicksand;
-            font-size: 22px;
-            color: var(--font-color-default);
+            font-family: var(--font-primary-regular);
+            font-size: 1.375rem;
+            color: var(--color-text-beige);
         }
     }
 }
 
 h1{
     font-size: 6.5rem;
-    font-family: ubuntu-bold;
-    color: var(--font-color-default);
+    font-family: var(--font-secondary-bold);
+    color: var(--color-text-beige);
     
 }
 
 h2{
     font-size: 3rem;
-    font-family: quicksand-semiBold;
-    color: var(--font-color-default);
+    font-family: var(--font-primary-semibold);
+    color: var(--color-text-beige);
 }
 

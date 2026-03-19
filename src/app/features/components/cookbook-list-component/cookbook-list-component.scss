@@ -23,10 +23,10 @@
     >.mainTitle {
       position: relative;
       z-index: 2;
-      font-size: 40px;
-      color: #10310B;
+      font-size: 2.5rem;
+      color: var(--color-primary-dark);
       font-weight: bold;
-      font-family: quicksand;
+      font-family: var(--font-primary-regular);
       text-transform: capitalize;
     }
   }
@@ -48,7 +48,7 @@
   
   &:hover {
     transform: translateX(10px);
-    background-color: #FAF0E6;
+    background-color: var(--color-bg-light);
     border-radius: 20px;
     cursor: pointer;
   }
@@ -58,7 +58,7 @@
     
     .timeContainer {
       @include dpf(flex-start, $g:8px);
-      font-size: 14px;
+      font-size: 1rem;
       color: #666;
       padding-left: 45px;
 
@@ -72,20 +72,19 @@
       @include dpf(flex-start, $g:16px);
 
       .listIndex {
-        background-color: #F3E5D8;
+        background-color: var(--color-bg-beige);
         color: #333;
         width: 30px;
         height: 30px;
         border-radius: 50%;
         @include dpf();
         font-weight: 600;
-        font-size: 14px;
+        font-size: 1rem; 
       }
 
       .recipeTitle {
-        font-size: 20px;
-        color: #333;
-        font-family: quicksand;
+        font-size: 1.25rem;
+        font-family: var(--font-primary-regular);
         font-weight: 500;
         margin: 0;
       }
@@ -96,16 +95,16 @@
     @include dpf(flex-start, $g:16px);
 
     .tag {
-      background-color: #DBE0DB;
-      color: #396039;
+      background-color: var(--color-bg-gray);
+      color: var(--color-primary-light);
       padding: 6px 15px;
       border-radius: 20px;
-      font-size: 14px;
+      font-size: 1rem;
       font-weight: 500;
 
       &.likesTag {
         @include dpf($g:8px);
-        background-color: #DBE0DB;
+        background-color: var(--color-bg-gray);
 
         .iconHeart {
           width: 16px;
@@ -121,7 +120,7 @@
   margin-top: 40px;
 
   .pageBtn, .pageDots {
-    font-size: 20px;
+    font-size: 1.25rem;
     color: #666;
     cursor: pointer;
     background-color: transparent;
@@ -132,11 +131,11 @@
   .pageBtn {
     &.active {
       font-weight: bold;
-      color: #1E5515;
+      color: var(--color-primary-medium);
     }
     
     &:hover {
-      color: #396039;
+      color: var(--color-primary-light);
     }
   }
 }

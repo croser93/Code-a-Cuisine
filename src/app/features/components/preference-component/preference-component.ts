@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Supabase, UserPreferences } from '../../../core/services/supabase';
 
 interface Cookingtime {
@@ -23,12 +23,14 @@ interface DietPreferences {
   styleUrl: './preference-component.scss',
 })
 export class PreferenceComponent {
-  portions: number = 1;
+  portions: number = 2;
   person: number = 1;
 
   addedMore(type: 'portions' | 'person') {
-    if (this[type] >= 1 && this[type] <= 19)
+    if (this[type] >= 1 && this[type] <= 3)
       this[type]++;
+    else if (this.portions >= 3 && this.portions <= 11)
+      this.portions++
   }
 
   fewer(type: 'portions' | 'person') {
@@ -75,7 +77,16 @@ export class PreferenceComponent {
     selectedDietPreference: null
   };
 
-  constructor(private supabase: Supabase) { }
+  constructor(private supabase: Supabase, private router: Router) { }
+
+  isSelectionComplete() :  boolean{
+  if (this.userPreferences.selectedCookingTime &&
+      this.userPreferences.selectedCuisines &&
+      this.userPreferences.selectedDietPreference) 
+        return true
+  else
+    return false
+  }
 
   selectCookingTime(time: string) {
     this.userPreferences.selectedCookingTime = time;
@@ -93,5 +104,6 @@ export class PreferenceComponent {
     this.userPreferences.portions = this.portions;
     this.userPreferences.person = this.person;
     this.supabase.pushData(this.userPreferences);
+    this.router.navigate(['/loading-screen']);
   }
 }
