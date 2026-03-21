@@ -2,7 +2,11 @@
 
 section {
     height: calc(100vh - 84px - 62px);
-    @include dpf-col($jc: flex-start, $g: 36px);
+    @include dpf-col($jc: flex-start);
+    >div {
+        @include dpf-col($g: 36px);
+    }
+
 }
 
 .preferences {
@@ -84,6 +88,7 @@ span {
     background-color: rgba(57, 96, 57, 0.2);
     border-radius: 20px;
     padding: 32px 24px;
+
 
     >.menuHeader {
         @include dpf($g: 8px);

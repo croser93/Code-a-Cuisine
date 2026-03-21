@@ -1,19 +1,23 @@
 @import '../../../../styles/variables';
 
-.cookbookListContainer {
-  padding: 40px;
-  max-width: 1400px;
-  margin: 0 auto;
+section {
+    margin-top: 32px;
+    height: calc(100vh - 84px - 62px - 64px);
+    @include dpf-col($jc: flex-start);
+
+    >div {
+        @include dpf-col();
+    }
+
 }
 
 .listHeader {
   @include dpf(space-between, $g:40px);
-  margin-bottom: 60px;
+  margin-bottom: 32px;
   .titleContainer {
     @include dpf(); 
     position: relative;
     width: 100%;
-    background-color: #FAF0E6;
     padding: 30px 0;
     border-radius: 20px;
 
@@ -33,13 +37,15 @@
 }
 
 .recipeList {
-  @include dpf-col(flex-start, $g:16px);
+  @include dpf-col($ai: space-around,  $g:16px);
   margin-bottom: 60px;
+  width: 80%;
+
 }
 
 .recipeListItem {
   @include dpf(space-between, $g:16px);
-  width: 90%;
+  width: 100%;
   padding: 10px 0;
   text-decoration: none;
   color: inherit;

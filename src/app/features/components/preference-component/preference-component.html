@@ -4,89 +4,91 @@
 </div>
 
 <section>
-    <h4>Choose your preferences</h4>
-    <div class="preferences">
-        <div class="selectPreferences">
-            <span>How many portions you need?</span>
-            <div class="preferenceInput">
-                <div class="btnContainer">
-                    @if (this.portions >= 2) {
-                        <button (click)="fewer('portions')"><img src="assets/icon/del.svg" alt=""></button>
-                    }
+    <div class="mainContainer">
+        <h4>Choose your preferences</h4>
+        <div class="preferences">
+            <div class="selectPreferences">
+                <span>How many portions you need?</span>
+                <div class="preferenceInput">
+                    <div class="btnContainer">
+                        @if (this.portions >= 2) {
+                            <button (click)="fewer('portions')"><img src="assets/icon/del.svg" alt=""></button>
+                        }
+                    </div>
+                    <div>
+                        <input type="text" readonly [(ngModel)]="portions">
+                        <span>Portions</span>
+                    </div>
+                    <div class="btnContainer">
+                        @if (this.portions <= 11) {
+                        <button (click)="addedMore('portions')"><img src="assets/icon/add.svg" alt=""></button>
+                        }
+                    </div>
                 </div>
-                <div>
-                    <input type="text" readonly [(ngModel)]="portions">
-                    <span>Portions</span>
-                </div>
-                <div class="btnContainer">
-                    @if (this.portions <= 11) {
-                    <button (click)="addedMore('portions')"><img src="assets/icon/add.svg" alt=""></button>
-                    }
+
+            </div>
+            <div class="selectPreferences">
+                <span>How many are cooking?</span>
+                <div class="preferenceInput">
+                    <div class="btnContainer">
+                        @if (this.person >= 2) {
+                            <button (click)="fewer('person')"><img src="assets/icon/del.svg" alt=""></button>
+                        }
+                    </div>
+                    <div>
+                        <input type="text" readonly [(ngModel)]="person">
+                        <span>Person</span>
+                    </div>
+                    <div class="btnContainer">
+                        @if (this.person <= 3) {
+                            <button (click)="addedMore('person')"><img src="assets/icon/add.svg" alt=""></button>
+                        }
+                    </div>
                 </div>
             </div>
-
         </div>
-        <div class="selectPreferences">
-            <span>How many are cooking?</span>
-            <div class="preferenceInput">
-                <div class="btnContainer">
-                    @if (this.person >= 2) {
-                        <button (click)="fewer('person')"><img src="assets/icon/del.svg" alt=""></button>
-                    }
-                </div>
-                <div>
-                    <input type="text" readonly [(ngModel)]="person">
-                    <span>Person</span>
-                </div>
-                <div class="btnContainer">
-                    @if (this.person <= 3) {
-                        <button (click)="addedMore('person')"><img src="assets/icon/add.svg" alt=""></button>
-                    }
-                </div>
+        <div class="selectionContainer">
+            <div class="menuHeader">
+                <img src="assets/icon/schedule.svg" alt="">
+                <h3>Cooking time:</h3>
+            </div>
+            <div class="cookingTimeContainer">
+                @for (cookingtime of cookingTimeList; track cookingtime){
+                    <div class="cookingTime">
+                        <button class="menuButton" [class.active]="userPreferences.selectedCookingTime === cookingtime.time"
+                            (click)="selectCookingTime(cookingtime.time)"> <span>{{cookingtime.time}}</span></button>
+                        <span class="menuText">{{cookingtime.value}}</span>
+                    </div>
+                }
+            </div>
+            <div class="menuHeader">
+                <img src="assets/icon/public.svg" alt="">
+                <h3>Cuisine</h3>
+            </div>
+            <div class="cuisineContainer">
+                @for (cuisine of cuisineList; track cuisine){
+                    <div >
+                        <button class="menuButton" [class.active]="userPreferences.selectedCuisines === cuisine.country"
+                            (click)="selectCuisine(cuisine.country)"> <span>{{cuisine.country}}</span></button>
+                    </div>
+                }
+            </div>
+            <div class="menuHeader">
+                <img src="assets/icon/fork_spoon.svg" alt="">
+                <h3>Diet preferences</h3>
+            </div>
+            <div class="preferenceContainer">
+                @for (preference of dietPreferencesList; track preference){
+                    <div >
+                        <button class="menuButton" [class.active]="userPreferences.selectedDietPreference === preference.diet"
+                            (click)="selectDietPreference(preference.diet)"><span>{{preference.diet}}</span></button>
+                    </div>
+                }
             </div>
         </div>
-    </div>
-    <div class="selectionContainer">
-        <div class="menuHeader">
-            <img src="assets/icon/schedule.svg" alt="">
-            <h3>Cooking time:</h3>
-        </div>
-        <div class="cookingTimeContainer">
-            @for (cookingtime of cookingTimeList; track cookingtime){
-                <div class="cookingTime">
-                    <button class="menuButton" [class.active]="userPreferences.selectedCookingTime === cookingtime.time"
-                        (click)="selectCookingTime(cookingtime.time)"> <span>{{cookingtime.time}}</span></button>
-                    <span class="menuText">{{cookingtime.value}}</span>
-                </div>
-            }
-        </div>
-        <div class="menuHeader">
-            <img src="assets/icon/public.svg" alt="">
-            <h3>Cuisine</h3>
-        </div>
-        <div class="cuisineContainer">
-            @for (cuisine of cuisineList; track cuisine){
-                <div >
-                    <button class="menuButton" [class.active]="userPreferences.selectedCuisines === cuisine.country"
-                        (click)="selectCuisine(cuisine.country)"> <span>{{cuisine.country}}</span></button>
-                </div>
-            }
-        </div>
-        <div class="menuHeader">
-            <img src="assets/icon/fork_spoon.svg" alt="">
-            <h3>Diet preferences</h3>
-        </div>
-        <div class="preferenceContainer">
-            @for (preference of dietPreferencesList; track preference){
-                <div >
-                    <button class="menuButton" [class.active]="userPreferences.selectedDietPreference === preference.diet"
-                        (click)="selectDietPreference(preference.diet)"><span>{{preference.diet}}</span></button>
-                </div>
-            }
-        </div>
-    </div>
 
-    <div>
-        <button [disabled]="!isSelectionComplete()" (click)="generateRecipe()" class="bigButton btnLight">Generate a recipe</button>
+        <div>
+            <button [disabled]="!isSelectionComplete()" (click)="generateRecipe()" class="bigButton btnLight">Generate a recipe</button>
+        </div>
     </div>
 </section>

@@ -8,7 +8,6 @@ section {
 
     >div {
         @include dpf-col();
-
         >.recipeHeader {
             @include dpf-col($g: 24px);
             text-align: center;

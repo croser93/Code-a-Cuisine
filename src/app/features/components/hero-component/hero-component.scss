@@ -1,41 +1,52 @@
 @use '../../../../styles/variables' as *;
 section{
-    @include dpf($jc: space-between);
     background-color: var(--bg-color);
     height: calc(100vh - 84px - 62px);
     @include border(0px, 48px);
-    >.containerLeft{
-        @include dpf($jc: flex-start);
-        >.left{
-            height: 700px;
-            @include dpf-col($ai: flex-start, $jc:space-between);
-
-        }
-
+    @include dpf();
+    width: 100%;
+       
     }
-    >.right{
-        @include dpf();
-        position: absolute;
-        z-index: 2;
-        left: 70%;
-        height: 50%;
-        transform: translate(-2%, -2.5%);
-        >.imgContainer{
-            @include dpf-col();
-                height: 100vh;
-                overflow: hidden;
-            >img {
-            margin-top: -165px;
-            height: 460px;
-            background-size: cover;
+    .container{
+        width: 100%;
+        max-width: 1920px;
+        margin: 0 auto;
+        @include dpf($jc:space-between);
+    
+     >.containerLeft{
+            @include dpf($jc: flex-start);
+            >.left{
+                height: 700px;
+                @include dpf-col($ai: flex-start, $jc:space-between);
+    
             }
-            
+    
         }
-        >.imgContainer img:first-child {
-            margin-top: -32px;
+        >.right{
+            @include dpf();
+            z-index: 2;
+            left: 70%;
+            height: 50%;
+            transform: translate(-2%, -2.5%);
+            >.imgContainer{
+                @include dpf-col();
+                    height: 100vh;
+                    overflow: hidden;
+                >img {
+                margin-top: -165px;
+                height: 460px;
+                background-size: cover;
+                }
+                
             }
+            >.imgContainer img:first-child {
+                margin-top: -32px;
+                }
+        }
+    
+    
     }
-}
+
 
 .head{
     @include dpf-col($ai: flex-start, $g:64px);
