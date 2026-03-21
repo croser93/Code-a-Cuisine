@@ -2,7 +2,7 @@
 
 section {
     margin-top: 32px;
-    height: calc(100vh - 84px - 62px - 64px);
+    min-height: calc(100vh - 84px - 62px - 64px);
     @include dpf-col($jc: flex-start);
 
     >div {

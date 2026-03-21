@@ -2,5 +2,6 @@
 
 section{
     @include border(16px, 48px);
+    @include dpf($jc: center);
 }
 
