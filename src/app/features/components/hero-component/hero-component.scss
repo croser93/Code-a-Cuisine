@@ -7,12 +7,12 @@
 
 section {
     background-color: var(--bg-color);
-    height: calc(100vh - 84px - 62px);
+    min-height: calc(100vh - 84px - 62px);
     @include border(0px, 48px);
     @include dpf-col();
     width: 100%;
     position: relative;
-    overflow-x: clip; 
+    overflow-x: clip;
 }
 
 .mainContainer {
@@ -25,7 +25,7 @@ section {
 }
 
 .left {
-    height: 700px;
+    min-height: 700px;
     @include dpf-col($ai: flex-start, $jc: space-between);
 }
 
@@ -34,8 +34,7 @@ section {
     position: absolute;
     left: 70%;
     top: -84px;
-    height: 100vh;
-    z-index: 2;
+    height: calc(100% + 84px + 62px); 
     transform: translateX(-2%);
     overflow-y: clip;
 
@@ -215,8 +214,7 @@ h2 {
     h1 span,
     h2 span,
     h3 span {
-        display: block;
-        
+        display: block;  
     }
 }
 
@@ -230,12 +228,7 @@ h2 {
     }
     .imgContainer {
             img {
-                height: 320px !important;    
-                
+                height: 320px !important;       
             }
-
         }
-
-
-
 }
