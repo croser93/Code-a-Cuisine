@@ -3,7 +3,7 @@
 
 section {
     margin-top: 64px;
-    height: calc(100vh - 84px - 62px - 64px);
+    min-height: calc(100vh - 84px - 62px - 64px);
     @include dpf-col($jc: flex-start);
 
     >div {
@@ -18,7 +18,8 @@ section {
 
 .content {
     @include dpf($g: 24px, $ai: flex-start);
-    width: 1080px;
+    max-width: 1080px;
+    width: 100%;
     margin-top: 64px;
 
     >.containerLeft {
@@ -137,31 +138,25 @@ input {
 }
 
 .dropdownOptions {
-    position: absolute;
-    top: 36px;
-    left: 0;
-    width: 100%;
-    background-color: transparent;
     list-style: none;
-    padding: 12px 0 0 0;
+    padding: 4px 0 0 0;
     margin: 0;
-    z-index: 10;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
 
     li {
         font-family: var(--font-primary-medium);
         font-size: 1rem;
         color: var(--color-primary-dark);
         text-align: center;
-        padding: 0p 4px;
+        padding: 4px 8px;
         border-radius: 20px;
+        cursor: pointer;
 
         &:hover {
             color: var(--color-primary-medium);
-            background-color: rgb(250, 240, 230, 0.5);
-
+            background-color: rgba(250, 240, 230, 0.6);
         }
     }
 }
@@ -309,5 +304,100 @@ span {
                 }
             }
         }
+    }
+}
+
+
+
+@media (max-width: 1150px) {
+    .servingInput {
+        align-items: flex-start !important;
+    }
+
+    .content {
+        padding: 0 48px;
+    }
+
+    .container {
+        min-width: 0;
+        flex: 1;
+    }
+
+    section {
+        margin-top: 32px;
+        padding: 0 24px;
+    }
+
+    section > div > .recipeHeader {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .content {
+        flex-direction: column;
+        padding: 0;
+        margin-top: 32px;
+        gap: 16px;
+    }
+
+    .container {
+        width: 100%;
+        min-width: 0;
+        min-height: auto;
+        flex-direction: column;
+        padding: 16px;
+    }
+
+    .inputContain {
+        width: 100%;
+
+        input:not(.inputShort) {
+            width: 100%;
+        }
+    }
+
+    .containerRight {
+        max-height: none;
+        width: 100%;
+    }
+    
+    .ingredientText {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .buttonContainer {
+        justify-content: center;
+    }
+
+    h2 {
+        font-size: clamp(1.5rem, 6vw, 3.375rem);
+    }
+}
+
+@media (max-width: 580px) {
+
+    section {
+        margin-top: 24px;
+        padding: 0 16px;
+    }
+
+    h2 {
+        font-size: clamp(1.5rem, 7vw, 2.5rem);
+    }
+}
+
+@media (max-width: 400px) {
+
+    section {
+        padding: 0 8px;
+        margin-top: 16px;
+    }
+
+    h2 {
+        font-size: clamp(1rem, 8vw, 1.75rem);
     }
 }
