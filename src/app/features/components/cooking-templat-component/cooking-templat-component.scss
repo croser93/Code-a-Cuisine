@@ -1,155 +1,202 @@
 @use '../../../../styles/variables' as *;
 
+section {
+    @include dpf($ai: flex-start);
+    width: 100%;
 
-section{
-    @include dpf();
-    >.content{
+    > .content {
+        width: 100%;
         min-height: 100vh;
         @include dpf-col();
         margin-top: 32px;
-        >.mainContent{
+
+        > .mainContent {
+            width: 100%;
             @include dpf-col();
             background-color: rgba(250, 240, 230, 0.3);
             border: 4px solid rgba(250, 240, 230, 1);
             border-radius: 20px;
-            padding: 24px 0px;
+                padding: 24px 24px;
         }
     }
 }
 
-.recipeHead{
-    @include dpf($jc:space-around);
+.recipeHead {
+    @include dpf($jc: space-around);
     background-color: rgba(250, 240, 230, 1);
     width: 95%;
     border-radius: 20px;
-    padding: 24px 0px;
-    >.containerLeft{
+    padding: 24px 0;
+
+    > .containerLeft {
         width: 50%;
-        >.cookingTime{
-            @include dpf($jc:flex-start, $g:8px);
-            font-size: 20px;
+
+        > .cookingTime {
+            @include dpf($jc: flex-start, $g: 8px);
+            font-size: 14px;
             color: #396039;
             font-family: var(--font-primary-medium);
         }
-        >h2{
-            font-size: 54px;
+
+        > h2 {
+            font-size: 40px;
             color: #1E5515;
-            font-size: quicksand-semiBold;
+            font-family: quicksand-semiBold;
         }
-        >.cookingPerson{
-            @include dpf($jc:flex-start, $g:16px);
-            >span{
-                font-size: 20px;
+
+        > .cookingPerson {
+            @include dpf($jc: flex-start, $g: 16px);
+
+            > span {
+                font-size: 14px;
                 color: #396039;
                 font-family: var(--font-primary-medium);
             }
-        >.teamContainer{
-             @include dpf($g:16px);
-        } 
+
+            > .teamContainer {
+                @include dpf($g: 8px);
+            }
         }
     }
-    >.containerRight{
-        @include dpf-col($ai:flex-start, $g:16px);
-        >.popUpBar{
-            @include dpf($g:8px, $jc:flex-start);
-            >.popUp{
+
+    > .containerRight {
+        @include dpf-col($ai: flex-start, $g: 16px);
+        min-width: 0;
+        max-width: 48%;
+
+        > .popUpBar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+
+            > .popUp {
                 padding: 6px 12px;
                 border-radius: 30px;
                 background-color: rgba(57, 96, 57, 0.2);
-                @include dpf($g:8px);
+                @include dpf($g: 8px);
 
-                >span{
-                    font-size: 18px;
+                > span {
+                    font-size: 14px;
                     color: #10310B;
                     font-family: var(--font-primary-medium);
                 }
             }
         }
-        .nutriInfo{
-            font-size: 24px;
-            color: #10310B;
-            font-family: var(--font-primary-medium);
-        }
 
-        table{
-        margin-top: 16px;
-        }
-        tr{
-        display: flex;
-        gap: 16px;
-        text-align: center;
-        }
-        th{
-        font-size: 22px;
-        color:#10310B;
-        width: 80px;
-        }
-        td{
-        font-size: 20px;
-        color:#10310B;
-        text-align: center;
-        width: 80px;
-        text-wrap-mode: nowrap;
-        }
-        }
-}
+        .nutriInfo {
+            @include dpf-col($ai: flex-start, $g: 12px);
+            width: 100%;
 
-.ingredients{
-    margin-top: 64px;
-    @include dpf-col();
-    width: 100%;
-    >.ingredientsContainer{
-     @include dpf($jc:space-around, $ai:flex-start);
-     padding: 24px;
-     >div{
-        @include dpf-col();
-        min-width: 480px;
-        >h5{
-           color: #008000;
-           font-size: 24px;
-           font-size: quicksand-semiBold;
-        }
-        >.ingredientsWrapper{
-            padding: 24px;
-            >li{
-                font-size: 24px;
+            > .nutriLabel {
+                font-size: 18px;
+                color: #10310B;
                 font-family: var(--font-primary-medium);
-                color:#10310B;
             }
 
+            > .nutriGrid {
+                display: flex;
+                flex-wrap: nowrap;
+                gap: 8px;
+                width: 100%;
+
+                > .nutriItem {
+                    @include dpf-col();
+                    flex: 1;
+                    background-color: rgba(250, 240, 230, 1);
+                    text-align: center;
+
+                    > .nutriTitle {
+                        font-size: 24px;
+                        color: #396039;
+                        font-family: var(--font-primary-medium);
+                    }
+
+                    > .nutriValue {
+                        font-size: 15px;
+                        color: #10310B;
+                        font-family: var(--font-primary-medium);
+                    }
+                }
+            }
         }
-     }   
     }
 }
 
-.separator{
-    background-color: #FAF0E6;
-    @include dpf();
-    width: 95%;
-    border-radius: 20px
+.ingredients {
+    margin-top: 64px;
+    @include dpf-col();
+    width: 100%;
+
+    > .ingredientsContainer {
+        @include dpf($jc: space-around, $ai: flex-start);
+        padding: 24px;
+
+        > div {
+            @include dpf-col();
+            min-width: 480px;
+
+            > h5 {
+                color: #008000;
+                font-size: 24px;
+                font-family: quicksand-semiBold;
+            }
+
+            > .ingredientsWrapper {
+                padding: 24px;
+
+                > li {
+                    font-size: 24px;
+                    font-family: var(--font-primary-medium);
+                    color: #10310B;
+                }
+            }
+        }
+    }
 }
 
-.directions{
+.separator {
+    background-color: #FAF0E6;
+    @include dpf();
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+
+    img {
+        width: clamp(200px, 100%, 800px);
+        height: auto;
+        display: block;
+    }
+
+    .sep-mobile { display: none; }
+}
+
+.directions {
     @include dpf-col();
-    .directionsContainer{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 16px;
-    padding: 24px 0px;
-        .directionsCard{
-            @include dpf-col($jc: space-between, $ai:flex-start, $g:8px);
+
+    .directionsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 16px;
+        padding: 24px 0;
+
+        .directionsCard {
+            @include dpf-col($jc: space-between, $ai: flex-start, $g: 8px);
             max-width: 740px;
             min-height: 180px;
             padding: 24px 48px;
             border: 4px solid #FAF0E6;
             border-radius: 20px;
-            >.directionsHead{
+
+            > .directionsHead {
                 width: 100%;
-                @include dpf($jc:space-between);
-                >.directionsOverview{
-                    @include dpf($jc:flex-start ,$g:6px);
-                    >span{
+                @include dpf($jc: space-between);
+
+                > .directionsOverview {
+                    @include dpf($jc: flex-start, $g: 6px);
+
+                    > span {
                         background-color: #FAF0E6;
                         @include dpf();
                         height: 32px;
@@ -157,66 +204,267 @@ section{
                         border-radius: 50%;
                         font-size: 18px;
                         font-family: var(--font-primary-medium);
-                        color:#10310B;
+                        color: #10310B;
                     }
-                    >h5{
+
+                    > h5 {
                         font-size: 24px;
                         font-family: var(--font-primary-medium);
-                        color:#10310B;
+                        color: #10310B;
                     }
                 }
             }
-
         }
     }
 }
 
-.cookingText{
+.cookingText {
     font-size: 18px;
     font-family: var(--font-primary-medium);
-    color:#10310B;
-                    
+    color: #10310B;
 }
 
-.cardFooter{
-     @include dpf($g:8px);
-     padding: 24px;
-     >span{
+.cardFooter {
+    @include dpf($g: 8px);
+    padding: 24px;
+
+    > span {
         font-size: 20px;
-        color:#10310B;
+        color: #10310B;
         font-family: var(--font-primary-medium);
-        &:first-child{
-            font-size: quicksand-semiBold;
+
+        &:first-child {
+            font-family: quicksand-semiBold;
             font-size: 24px;
             font-weight: 600;
         }
-     }
-     >button{
+    }
+
+    > button {
         @include dpf();
-         cursor: pointer;
-         outline: none;
-         border:none;
-         background-color: transparent;
-         padding: 2px;
-         &:hover{
+        cursor: pointer;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        padding: 2px;
+
+        &:hover {
             background-color: rgba(215, 223, 215, 0.6);
             border-radius: 8px;
-         }
-     }
+        }
+    }
 }
 
-.cookbookContainer{
-    @include dpf($g:24px);
+.cookbookContainer {
+    @include dpf($g: 24px);
     background-color: rgba(57, 96, 57, 0.1);
     width: 100%;
     padding: 40px;
     border-radius: 20px;
-    margin: 64px 0px;
-    >span{
+    margin: 64px 0;
+
+    > span {
         font-size: 24px;
-         font-size: quicksand-semiBold;
-         color: rgba(16, 49, 11, 1);
-         font-weight: 800;
+        font-family: quicksand-semiBold;
+        color: rgba(16, 49, 11, 1);
+        font-weight: 800;
     }
 }
 
+@media (max-width: 1150px) {
+
+    .recipeHead > .containerLeft > h2 {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .directionsCard {
+        max-width: none;
+        width: calc(50% - 16px);
+    }
+}
+
+@media (max-width: 1000px) {
+
+    .ingredients {
+        margin-top: 32px;
+
+        > .ingredientsContainer {
+            flex-direction: column;
+            gap: 16px;
+
+            > div {
+                min-width: 0;
+                width: 100%;
+                align-items: flex-start;
+
+                > h5 {
+                    font-size: clamp(1rem, 4vw, 1.5rem);
+                }
+
+                > .ingredientsWrapper {
+                    padding: 12px 16px;
+
+                    > li {
+                        font-size: clamp(1rem, 3.5vw, 1.25rem);
+                    }
+                }
+            }
+        }
+    }
+
+    .directions {
+        .directionsContainer {
+            flex-direction: column;
+
+            .directionsCard {
+                max-width: none;
+                width: 100%;
+                min-height: auto;
+                padding: 8px;
+
+                > .directionsHead > .directionsOverview > h5 {
+                    font-size: clamp(1rem, 4vw, 1.5rem);
+                }
+            }
+        }
+    }
+     .recipeHead {
+        flex-direction: column;
+        width: 100%;
+        gap: 24px;
+        padding: 24px 16px;
+
+        > .containerLeft {
+            width: 100%;
+                >.cookingPerson{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    gap: 16px;
+                    flex-direction: column;
+                }
+        }
+
+        > .containerRight {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}
+
+
+@media (max-width: 780px) {
+
+    section > .content {
+        padding: 0 24px !important;
+        margin-top: 16px;
+        box-sizing: border-box;
+    }
+
+    .cookingText {
+        font-size: clamp(1rem, 3.5vw, 1.125rem);
+    }
+
+
+        .imgIcon {
+            width: 68px;
+        }
+
+    .cardFooter {
+        flex-wrap: wrap;
+        padding: 16px;
+
+        > span {
+            font-size: clamp(1rem, 3.5vw, 1.25rem);
+
+            &:first-child {
+                font-size: clamp(1rem, 4vw, 1.5rem);
+            }
+        }
+    }
+
+    .cookbookContainer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 24px 16px;
+        margin: 32px 0;
+
+        > span {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+        }
+    }
+}
+
+@media (max-width: 600px) {
+
+    .separator {
+        .sep-desktop { display: none; }
+        .sep-mobile { display: block; }
+    }
+}
+
+@media (max-width: 580px) {
+
+    section > .content {
+        padding: 0 16px !important;
+    }
+
+    .recipeHead {
+        padding: 16px 12px;
+    }
+
+    .nutriGrid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        flex-wrap: unset;
+    }
+    .mainContent {
+
+        padding: 24px 8px !important;
+        }
+
+    .separator {
+        width: 100%;
+
+        img {
+            width: clamp(200px, 95%, 600px);
+        }
+    }
+}
+
+@media (max-width: 470px) {
+
+    section > .content {
+        padding: 0 8px !important;
+    }
+
+
+    .popUpBar {
+        flex-direction: column;
+    }
+        
+
+    .directionsCard {
+        padding: 12px 8px;
+
+        > .directionsHead {
+            align-items: flex-start  !important;;
+
+            > .directionsOverview {
+                align-items: flex-start !important;;
+
+                > span {
+                    background-color: transparent !important;
+                    height: auto !important;
+                    width: auto !important;
+                    align-items: flex-start  !important;;
+                }
+            }
+
+            > img {
+                align-self: flex-start;
+            }
+        }
+    }
+}

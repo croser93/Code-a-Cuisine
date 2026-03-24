@@ -18,7 +18,7 @@ section{
     }
     >span{
         color: white;
-        font-size: 3.5rem;
+        font-size: clamp(2.8rem, 14vw, 3.5rem);
         font-family: var(--font-primary-semibold);
     }
 }
