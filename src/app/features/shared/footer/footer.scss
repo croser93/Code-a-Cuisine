@@ -1,24 +1,26 @@
 @use '../../../../styles/variables' as *;
-section{
-    @include border(16px, 48px);
-    @include dpf($jc: space-around);
-    margin-bottom: 16px;
-    >a{
-        font-size: clamp(1rem, 4vw, 1.5rem);
-        text-decoration: none;
-        padding: 8px;
-        cursor: pointer;
-    }
+
+section {
+  padding: 16px 48px;
+  @include flex(space-around);
+  margin-bottom: 16px;
+
+  a {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    text-decoration: none;
+    padding: 8px;
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 780px) {
-    section{
-        padding: 0px 16px;
-    }
+  section {
+    padding: 0 16px;
+  }
 }
 
 @media (max-width: 400px) {
-    section{
-        @include dpf-col();
-    }
+  section {
+    @include flex-col();
+  }
 }

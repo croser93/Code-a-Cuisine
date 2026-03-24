@@ -1,14 +1,13 @@
-@import '../../../../styles/variables';
+@use '../../../../styles/variables' as *;
 
 section {
-    margin-top: 32px;
-    min-height: calc(100vh - 84px - 62px - 64px);
-    @include dpf-col($jc: flex-start);
+  margin-top: 32px;
+  min-height: calc(100vh - 84px - 62px - 64px);
+  @include flex-col($jc: flex-start);
 
-    >div {
-        @include dpf-col();
-    }
-
+  > div {
+    @include flex-col();
+  }
 }
 
 .listHeader {
@@ -18,7 +17,7 @@ section {
 
 .separator {
   position: relative;
-  @include dpf();
+  @include flex();
   width: 100%;
   border-radius: 20px;
   overflow: hidden;
@@ -29,61 +28,61 @@ section {
     display: block;
   }
 
-  .sep-mobile { display: none; }
+  .sep-mobile {
+    display: none;
+  }
 
   .mainTitle {
     position: absolute;
     z-index: 2;
-    font-size: 2.5rem;
-    color: var(--color-primary-dark);
+    font-size: $font-section-title;
+    color: var(--green-darkest);
     font-weight: bold;
-    font-family: var(--font-primary-regular);
+    font-family: var(--font-body);
     text-transform: capitalize;
     margin: 0;
   }
 }
 
 .recipeList {
-  @include dpf-col($ai: space-around, $g:16px);
+  @include flex-col($ai: space-around, $g: 16px);
   margin-bottom: 60px;
   width: 80%;
-
 }
 
 .recipeListItem {
-  @include dpf(space-between, $g:16px);
+  @include flex(space-between, center, 16px);
   width: 100%;
-  padding: 10px 0;
+  padding: 8px 16px;
   text-decoration: none;
   color: inherit;
-  padding: 8px 16px;
 
   &:hover {
-    background-color: var(--color-bg-light);
+    background-color: var(--cream);
     border-radius: 20px;
     cursor: pointer;
   }
 
   .recipeInfoLeft {
-    @include dpf(flex-start, center, $g:16px);
+    @include flex(flex-start, center, 16px);
 
     .listIndex {
-      background-color: var(--color-bg-beige);
+      background-color: var(--cream-soft);
       color: #333;
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      @include dpf();
+      @include flex();
       font-weight: 600;
       font-size: 1rem;
       flex-shrink: 0;
     }
 
     .recipeInfoStack {
-      @include dpf-col(flex-start, flex-start, $g:4px);
+      @include flex-col(flex-start, flex-start, 4px);
 
       .timeContainer {
-        @include dpf(flex-start, $g:6px);
+        @include flex(flex-start, center, 6px);
         font-size: 0.85rem;
         color: #666;
 
@@ -95,7 +94,7 @@ section {
 
       .recipeTitle {
         font-size: clamp(1.1rem, 5vw, 1.25rem);
-        font-family: var(--font-primary-regular);
+        font-family: var(--font-body);
         font-weight: 500;
         margin: 0;
       }
@@ -103,12 +102,12 @@ section {
   }
 
   .recipeTagsRight {
-    @include dpf(flex-start, $g:16px);
+    @include flex(flex-start, center, 16px);
     flex-shrink: 0;
 
     .tag {
-      background-color: var(--color-bg-gray);
-      color: var(--color-primary-light);
+      background-color: var(--gray-green);
+      color: var(--green-medium);
       padding: 4px 14px;
       border-radius: 20px;
       font-size: 1rem;
@@ -116,8 +115,7 @@ section {
       white-space: nowrap;
 
       &.likesTag {
-        @include dpf($g:8px);
-        background-color: var(--color-bg-gray);
+        @include flex($g: 8px);
 
         .iconHeart {
           width: 16px;
@@ -129,50 +127,34 @@ section {
 }
 
 .pagination {
-  @include dpf($g:16px);
+  @include flex($g: 16px);
   margin-top: 40px;
 
-  .pageBtn, .pageDots {
+  .pageBtn,
+  .pageDots {
     font-size: 1.25rem;
     color: #666;
     cursor: pointer;
     background-color: transparent;
-    border:none
-
+    border: none;
   }
 
   .pageBtn {
     &.active {
       font-weight: bold;
-      color: var(--color-primary-medium);
+      color: var(--green-dark);
     }
 
     &:hover {
-      color: var(--color-primary-light);
+      color: var(--green-medium);
     }
   }
 }
+
 
 @media (max-width: 900px) {
   .recipeList {
     width: 90%;
-  }
-}
-
-@media (max-width: 600px) {
-  .separator {
-    .sep-desktop { display: none; }
-    .sep-mobile { display: block; }
-
-    img {
-      width: clamp(200px, 90vw, 600px);
-    }
-  }
-}
-
-@media (max-width: 400px) {
-  .recipeTagsRight {
-    flex-wrap: wrap;
   }
 }
 
@@ -198,10 +180,6 @@ section {
       .recipeInfoStack .timeContainer {
         font-size: 1rem;
       }
-
-      .recipeTitle {
-        font-size: clamp(1rem, 3.5vw, 1.1rem);
-      }
     }
 
     .recipeTagsRight {
@@ -212,5 +190,26 @@ section {
         padding: 2px 10px;
       }
     }
+  }
+}
+
+@media (max-width: 600px) {
+  .separator {
+    .sep-desktop {
+      display: none;
+    }
+    .sep-mobile {
+      display: block;
+    }
+
+    img {
+      width: clamp(200px, 90vw, 600px);
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .recipeTagsRight {
+    flex-wrap: wrap;
   }
 }
