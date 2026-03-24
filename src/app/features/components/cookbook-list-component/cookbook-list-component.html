@@ -6,8 +6,9 @@
     <div class="mainContainer">
         
             <header class="listHeader">
-                <div class="titleContainer">
-                    <img class="imgHead" [src]="'assets/separator/' + selectedCuisine + '.svg'" alt="" class="headerIcon">
+                <div class="separator">
+                    <img class="sep-desktop" [src]="'assets/separator/' + selectedCuisine + '.svg'" alt="">
+                    <img class="sep-mobile" [src]="'assets/separator/' + selectedCuisine + '-responsiv.svg'" alt="">
                     <h2 class="mainTitle">{{selectedCuisine}} cuisine</h2>
                 </div>
             </header>
@@ -16,12 +17,12 @@
                 @for (recipe of cookbookList; track i; let i = $index) {
                 <div class="recipeListItem" (click)=" selectCookbookrecipe(i)">
                     <div class="recipeInfoLeft">
-                        <div class="timeContainer">
-                            <img src="assets/icon/schedule.svg" alt="Clock" class="iconClock">
-                            <span class="cookingTime">cooking time: {{cookbookList[i].recipe.recipe.info.time}}min</span>
-                        </div>
-                        <div class="titleContainer">
-                            <span class="listIndex">{{ (currentPage * pageSize) + i + 1 }}.</span>
+                        <span class="listIndex">{{ (currentPage * pageSize) + i + 1 }}.</span>
+                        <div class="recipeInfoStack">
+                            <div class="timeContainer">
+                                <img src="assets/icon/schedule.svg" alt="Clock" class="iconClock">
+                                <span class="cookingTime">cooking time: {{cookbookList[i].recipe.recipe.info.time}}min</span>
+                            </div>
                             <h2 class="recipeTitle">{{cookbookList[i].recipe.recipe.title}}</h2>
                         </div>
                     </div>
