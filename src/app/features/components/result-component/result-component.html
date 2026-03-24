@@ -1,24 +1,26 @@
 <section>
     <div class="mainContainer content content-border">
+
         <div class="containerHead">
+            <h2>The recipe results</h2>
+
+            <div class="containerRight">
+                <img src="assets/img/Visual.svg" alt="ki-img">
+            </div>
+
             <div class="containerLeft">
-                <h2>The recipe results</h2>
                 <div class="textContainer">
                     <span>We took what you have and let your our AI do the thinking.</span>
                     <span>Here are 3 easy recipes you can make right now!</span>
                 </div>
                 <div class="popupContainer">
-                    <div>{{recipeList[1].info.cuisine}}</div> 
+                    <div>{{recipeList[1].info.cuisine}}</div>
                     <div>{{recipeList[1].info.confidence}}</div>
                 </div>
-
-            </div>
-            <div class="containerRight">
-                <img src="assets/img/Visual.svg" alt="ki-img">
             </div>
         </div>
 
-        <div class="cardContainer" >
+        <div class="cardContainer">
             @for(recipe of recipeList; track recipe; let i = $index){
                 <div class="card">
                     <div class="cardContent">
@@ -33,14 +35,14 @@
                         </div>
                     </div>
                     <div class="buttonContainer">
-                    <a routerLink="/cooking-template">
-                        <button (click)="getSelectedDish(i)">View</button>
-                    </a>
+                        <a routerLink="/cooking-template">
+                            <button (click)="getSelectedDish(i)">View</button>
+                        </a>
                     </div>
                 </div>
             }
         </div>
-     
+
         <div class="linkContainer">
             <a class="linkContainer" routerLink="/recipe">Generate new recipe
                 <div class="link">
@@ -49,5 +51,4 @@
             </a>
         </div>
     </div>
-
 </section>

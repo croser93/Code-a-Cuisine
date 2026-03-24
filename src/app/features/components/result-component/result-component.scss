@@ -1,116 +1,286 @@
-
 @use '../../../../styles/variables' as *;
 
 
-section{
-    height: calc(100vh - 84px - 62px);
-    background-color: var(--bg-color);  
-    @include dpf();
-    >.content{
-        @include dpf-col($g:32px);
-        >.containerHead{
-            width: 100%;
-            @include dpf($jc: space-between, $ai:flex-start, $g:16px);
+section {
+    min-height: calc(100vh - 84px - 62px);
+    background-color: var(--bg-color);
+    @include dpf($ai: flex-start);
 
-            >.containerLeft{
-                @include dpf-col($ai:flex-start, $g:24px);
-                >h2{
-                    font-size: 54px;
-                    color: #FAF0E6;
-                    font-family: quicksand-semiBold;
-                }
-                .textContainer{
-                    @include dpf-col($ai:flex-start);
-                    >span{
-                        font-size: 24px;
-                        font-family: var(--font-primary-medium);
-                        color: #FAF0E6;
-                    }
-                }
+    > .content {
+        @include dpf-col($g: 32px);
+        width: 100%;
+    }
+}
 
-                >.popupContainer{
-                    @include dpf($g:16px);
-                    >div{
-                        @include dpf();
-                        background-color: #FAF0E6;
-                        color: #1E5515;
-                        min-width: 72px;
-                        border-radius: 30px;
-                        padding: 6px 12px;                    
-                    }
-                }
+.containerHead {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "heading image"
+        "left    image";
+    gap: 16px 32px;
+    align-items: start;
 
-            } 
+    > h2 {
+        grid-area: heading;
+        font-size: 54px;
+        color: #FAF0E6;
+        font-family: quicksand-semiBold;
+        align-self: end;
+    }
+
+    > .containerRight {
+        grid-area: image;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+
+        img {
+            width: clamp(150px, 35vw, 574px);
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+    }
+
+    > .containerLeft {
+        grid-area: left;
+        @include dpf-col($ai: flex-start, $g: 24px);
+
+        .textContainer {
+            @include dpf-col($ai: flex-start);
+
+            > span {
+                font-size: 24px;
+                font-family: var(--font-primary-medium);
+                color: #FAF0E6;
+            }
+        }
+
+        .popupContainer {
+            @include dpf($g: 16px);
+
+            > div {
+                @include dpf();
+                background-color: #FAF0E6;
+                color: #1E5515;
+                min-width: 72px;
+                border-radius: 30px;
+                padding: 6px 12px;
+            }
         }
     }
 }
 
-.cardContainer{
-
+.cardContainer {
     width: 100%;
-    @include dpf($g:16px, $jc:space-around);
-    >.card{
+    @include dpf($g: 16px, $jc: space-around);
+
+    > .card {
         background-color: #DBE0DB;
         border-radius: 20px;
         padding: 32px 24px;
         max-width: 420px;
-        height: 300px;
-        @include dpf-col($g:16px, $jc:space-between);
-        >.cardContent{
-            @include dpf-col($g:16px, $ai:flex-start);
-            >.cardHeader{
-                @include dpf($g:16px);
-                h3{
+        min-height: 300px;
+        @include dpf-col($g: 16px, $jc: space-between);
+
+        > .cardContent {
+            @include dpf-col($g: 16px, $ai: flex-start);
+
+            > .cardHeader {
+                @include dpf($g: 16px);
+
+                h3 {
                     font-size: 24px;
                     color: #1E5515;
                     font-family: quicksand-semiBold;
                 }
             }
-            >span{
+
+            > span {
                 font-size: 32px;
                 color: #10310B;
                 font-family: quicksand-semiBold;
-                line-clamp: 2;
                 display: -webkit-box;
+                line-clamp: 2;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                word-break: break-word; 
-                overflow-wrap: anywhere; 
-                width: 100%; 
+                word-break: break-word;
+                overflow-wrap: anywhere;
+                width: 100%;
             }
-            >.cardInfo{
-                @include dpf($g:8px);
-                >span{
+
+            > .cardInfo {
+                @include dpf($g: 8px);
+
+                > span {
                     font-size: 20px;
                     font-family: var(--font-primary-medium);
-                    color: #396039
+                    color: #396039;
                 }
             }
         }
-        
-        >.buttonContainer{
-            width: 100%;
-            @include dpf($jc:flex-start);
-            >a{    
-                >button{
-                    border: none;
-                    background-color: #FAF0E6;
-                    color: #008000;
-                    padding: 16px 26px;
-                    height: 60px;
-                    width: 100px;
-                    font-family: quicksand-semiBold;
-                    font-size: 24px;
-                    cursor: pointer;
-                }
-            }
 
+        > .buttonContainer {
+            width: 100%;
+            @include dpf($jc: flex-start);
+
+            > a > button {
+                border: none;
+                background-color: #FAF0E6;
+                color: #008000;
+                padding: 16px 26px;
+                height: 60px;
+                width: 100px;
+                font-family: quicksand-semiBold;
+                font-size: 24px;
+                cursor: pointer;
+            }
         }
     }
 }
 
 
+@media (max-width: 1150px) {
 
+    .containerHead > h2 {
+        font-size: clamp(1.5rem, 5vw, 3.375rem);
+    }
 
+    .containerHead > .containerLeft .textContainer > span {
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+    }
+
+    .cardContainer > .card > .cardContent > span {
+        font-size: 24px;
+    }
+
+    .cardContainer > .card > .cardContent > .cardInfo > span {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+    }
+}
+
+@media (max-width: 1050px) {
+
+    section > .content {
+        padding: 0 24px;
+        gap: 24px;
+    }
+
+    .containerHead {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        > h2 {
+            order: 1;
+            font-size: clamp(1.5rem, 7vw, 2.5rem);
+            text-align: center;
+            width: 100%;
+        }
+
+        > .containerRight {
+            order: 2;
+
+            img {
+                width: 100%;
+                max-width: 100%;
+                height: clamp(140px, 38vw, 222px);
+                object-fit: cover;
+                border-radius: 12px;
+            }
+        }
+
+        > .containerLeft {
+            order: 3;
+
+            .textContainer > span {
+                font-size: clamp(1rem, 3.5vw, 1.25rem);
+            }
+        }
+    }
+
+    .cardContainer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .cardContainer > .card {
+        max-width: none;
+        width: 100%;
+        min-height: auto;
+        padding: 24px 16px;
+        align-items: center;
+    }
+
+    .cardContainer > .card > .cardContent {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .cardContainer > .card > .cardContent > .cardHeader {
+        justify-content: center;
+    }
+
+    .cardContainer > .card > .cardContent > span {
+        text-align: center;
+    }
+
+    .cardContainer > .card > .cardContent > .cardInfo > span {
+        font-size: clamp(1rem, 3vw, 1.25rem);
+    }
+
+    .cardContainer > .card > .buttonContainer {
+        justify-content: center;
+    }
+
+    .cardContainer > .card > .buttonContainer > a > button {
+        height: 48px;
+        font-size: clamp(1rem, 3.5vw, 1.5rem);
+        padding: 12px 20px;
+        width: auto;
+    }
+}
+
+@media (max-width: 580px) {
+
+    section > .content {
+        padding: 0 16px;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    section > .content {
+        padding: 0 8px;
+    }
+
+    .cardContainer > .card {
+        padding: 16px 12px;
+        align-items: flex-start;
+    }
+
+    .cardContainer > .card > .cardContent {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .cardContainer > .card > .cardContent > .cardHeader {
+        justify-content: flex-start;
+    }
+
+    .cardContainer > .card > .cardContent > span {
+        text-align: left;
+    }
+
+    .cardContainer > .card > .buttonContainer {
+        justify-content: flex-start;
+    }
+}
