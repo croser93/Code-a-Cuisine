@@ -1,4 +1,4 @@
-@import '../../../../styles/variables';
+@use '../../../../styles/variables' as *;
 
 .cookbookContainer {
   padding: 40px;
@@ -7,7 +7,7 @@
 }
 
 .cookbookHeader {
-  background-color: rgba(57, 96, 57, 0.04);
+  background-color: $green-alpha-10;
   border-radius: 20px;
   padding: 40px;
   margin-bottom: 60px;
@@ -19,10 +19,10 @@
 
     .mainTitle {
       font-size: 4rem;
-      color: var(--bg-color);
+      color: var(--green-medium);
       margin: 0 0 20px 0;
       font-weight: bold;
-      font-family: var(--font-primary-regular);
+      font-family: var(--font-body);
     }
 
     .subtitle {
@@ -38,13 +38,13 @@
     overflow: hidden;
 
     .sectionTitle {
-      @include dpf($ai:flex-start, $g:8px);
+      @include flex($ai: flex-start, $g: 8px);
       font-size: 1.5rem;
       margin: 0 0 20px 0;
-     color: var(--color-primary-light);
+      color: var(--green-medium);
 
       .heartIcon {
-        color: var(--bg-color);
+        color: var(--green-medium);
         font-size: 1.75rem;
         font-weight: bold;
       }
@@ -54,7 +54,7 @@
       overflow-x: auto;
       padding-bottom: 10px;
       cursor: pointer;
-      @include dpf($g:8px);
+      @include flex($g: 8px);
 
       &::-webkit-scrollbar {
         display: none;
@@ -71,18 +71,18 @@
         height: 170px;
 
         .recipeCardTop {
-          @include dpf($jc:space-between, $g:8px);
+          @include flex($jc: space-between, $g: 8px);
           font-size: 1rem;
           color: #666;
 
           .recipeTime {
-            color: var(--color-primary-light);
+            color: var(--green-medium);
           }
 
           .recipeLikes {
-            @include dpf($g: 8px);
+            @include flex($g: 8px);
             background-color: #D1DED1;
-            color: var(--color-primary-medium);
+            color: var(--green-dark);
             padding: 4px 10px;
             border-radius: 20px;
             font-weight: bold;
@@ -93,7 +93,7 @@
           font-size: 1.5rem;
           margin: 0;
           font-weight: 500;
-          color: var(--color-primary-medium);
+          color: var(--green-dark);
         }
       }
     }
@@ -102,14 +102,14 @@
 
 .cuisineGrid {
   flex-wrap: wrap;
-  @include dpf($jc:space-between, $g:24px);
+  @include flex($jc: space-between, $g: 24px);
   margin-bottom: 60px;
 
   .cuisineItem {
     .cuisineTitle {
       margin-bottom: 8px;
-      font-size: 1.75rem; 
-      color: var(--bg-color);
+      font-size: 1.75rem;
+      color: var(--green-medium);
       font-weight: 600;
       text-transform: capitalize;
     }
@@ -142,12 +142,83 @@
 
   .generateLink {
     font-size: 1.5rem;
-    color: var(--color-primary-medium);
+    color: var(--green-dark);
     text-decoration: none;
     transition: color 0.2s;
 
     &:hover {
-      color: var(--bg-color);
+      color: var(--green-medium);
     }
+  }
+}
+
+
+@media (max-width: 900px) {
+  .cookbookContainer {
+    padding: 20px;
+  }
+
+  .cookbookHeader {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 20px;
+    margin-bottom: 40px;
+
+    .headerLeft {
+      max-width: 100%;
+      margin-bottom: 32px;
+
+      .mainTitle {
+        font-size: 2.5rem;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    .headerRight {
+      width: 100%;
+
+      .sectionTitle {
+        justify-content: center;
+      }
+
+      .recipeCards {
+        scroll-snap-type: x mandatory;
+        overflow-x: scroll;
+        justify-content: flex-start;
+
+        .recipeCard {
+          scroll-snap-align: start;
+          flex: 0 0 calc(42% - 4px);
+          min-width: unset;
+          height: auto;
+          min-height: 170px;
+
+          .recipeTitle {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .cuisineGrid {
+    justify-content: center;
+
+    .cuisineItem {
+      text-align: center;
+
+      .cuisineLink {
+        width: 300px;
+        height: 300px;
+      }
+    }
+  }
+
+  .cookbookFooter {
+    text-align: center;
   }
 }

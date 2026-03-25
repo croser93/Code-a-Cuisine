@@ -12,7 +12,7 @@ export class LoadingScreen implements OnInit {
   constructor(private router: Router, private supabase: Supabase) { }
 
   ngOnInit() {
-    this.startRedirectTimer();
+    // this.startRedirectTimer();
   }
 
   startRedirectTimer() {

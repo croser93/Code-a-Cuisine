@@ -4,7 +4,7 @@
 </div>
 
 <section>
-    <div class="content content-beg content-border">
+    <div class="mainContainer content content-border">
         <div class="mainContent">
             <div class="recipeHead">
                 <div class="containerLeft">
@@ -18,7 +18,7 @@
                         <div class="teamContainer">
                             @for (data of getCookIcons(recipe.info.person); track $index; let i = $index){
                                 <div>
-                                    <img [src]="'assets/icon/cook' + (i + 1) + '.svg'" alt="Cook Icon">
+                                    <img class="imgIcon" [src]="'assets/icon/cook' + (i + 1) + '.svg'" alt="Cook Icon">
                                 </div>
                             }        
                         </div>
@@ -38,22 +38,26 @@
                         </div>
                     </div>
 
-                    <div>
-                        <span class="nutriInfo">Nuttritional information</span>
-                        <table>
-                            <tr>
-                                <th>Energie</th>
-                                <th>Protein</th>
-                                <th>Fat</th>
-                                <th>Carbs</th>
-                            </tr>
-                            <tr>
-                                <td>{{recipe.nutritional.energie}}</td>
-                                <td>{{recipe.nutritional.protein}}</td>
-                                <td>{{recipe.nutritional.fat}}</td>
-                                <td>{{recipe.nutritional.carbs}}</td>
-                            </tr>
-                        </table>
+                    <div class="nutriInfo">
+                        <span class="nutriLabel">Nutritional information</span>
+                        <div class="nutriGrid">
+                            <div class="nutriItem">
+                                <span class="nutriTitle">Energie</span>
+                                <span class="nutriValue">{{recipe.nutritional.energie}}</span>
+                            </div>
+                            <div class="nutriItem">
+                                <span class="nutriTitle">Protein</span>
+                                <span class="nutriValue">{{recipe.nutritional.protein}}</span>
+                            </div>
+                            <div class="nutriItem">
+                                <span class="nutriTitle">Fat</span>
+                                <span class="nutriValue">{{recipe.nutritional.fat}}</span>
+                            </div>
+                            <div class="nutriItem">
+                                <span class="nutriTitle">Carbs</span>
+                                <span class="nutriValue">{{recipe.nutritional.carbs}}</span>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -61,7 +65,8 @@
 
             <div class="ingredients">
                 <div class="separator">
-                    <img src="assets/separator/Ingedients.svg" alt="">
+                    <img class="sep-desktop" src="assets/separator/Ingedients.svg" alt="">
+                    <img class="sep-mobile" src="assets/separator/Ingredients-responsiv.svg" alt="">
                 </div>
                 <div class="ingredientsContainer">
                     <div>
@@ -91,7 +96,8 @@
 
             <div class="directions">
                 <div class="separator">
-                    <img src="assets/separator/Directions.svg" alt="">
+                    <img class="sep-desktop" src="assets/separator/Directions.svg" alt="">
+                    <img class="sep-mobile" src="assets/separator/Directions-responsiv.svg" alt="">
                 </div>
                 <div class="directionsContainer">
                     @for (stepItem of cookingIngredientList.CookingtextList; track $index; let i = $index){
@@ -102,7 +108,7 @@
                                     <h5>{{recipe.directions.steps[i].title}}</h5>
                                 </div>
                                 <div>
-                                    <img src="assets/icon/cook1.svg" alt="">
+                                    <img class="imgIcon" src="assets/icon/cook1.svg" alt="">
                                 </div>
                             </div>
                             <div>

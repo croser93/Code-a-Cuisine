@@ -1,8 +1,26 @@
 @use '../../../../styles/variables' as *;
-section{
-    @include border(16px, 48px);
-    >a{
-        font-size: 1.5rem;
-        text-decoration: none;
-    }
+
+section {
+  padding: 16px 48px;
+  @include flex(space-around);
+  margin-bottom: 16px;
+
+  a {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    text-decoration: none;
+    padding: 8px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 780px) {
+  section {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  section {
+    @include flex-col();
+  }
 }

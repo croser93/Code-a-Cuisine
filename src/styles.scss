@@ -1,149 +1,162 @@
- 
- @use 'styles/variables' as *;
-
-  @font-face {
-   font-family: "ubuntu";
-   src: url("/assets/font/ubunt/Ubuntu-Medium.ttf") format("truetype");
-   font-weight: 400;
-   font-style: normal;
-   font-display: swap;
- }
-   @font-face {
-   font-family: "ubuntu-bold";
-   src: url("/assets/font/ubunt/Ubuntu-Bold.ttf") format("truetype");
-   font-weight: 400;
-   font-style: normal;
-   font-display: swap;
- }
-
-    @font-face {
-   font-family: "ubuntu-medium";
-   src: url("/assets/font/ubunt/Ubuntu-Medium.ttf") format("truetype");
-   font-weight: 400;
-   font-style: normal;
-   font-display: swap;
- }
+@use 'styles/variables' as *;
 
 
- @font-face {
-   font-family: "quicksand-medium";
-   src: url("/assets/font/quicksand/Quicksand-Medium.ttf") format("truetype");
-   font-style: normal;
-   font-weight: 500;
-   font-display: swap;
- }
-
- 
- @font-face {
-   font-family: "quicksand";
-   src: url("/assets/font/quicksand/Quicksand-Regular.ttf") format("truetype");
-   font-style: normal;
-   font-weight: 400;
-   font-display: swap;
- }
-
- @font-face {
-   font-family: "quicksand-semiBold";
-   src: url("/assets/font/quicksand/Quicksand-SemiBold.ttf") format("truetype");
-   font-style: normal;
-   font-weight: 400;
-   font-display: swap;
- }
-
-
- * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-   scroll-behavior: smooth;
- }
-
-  body {
-   font-family: var(--font-primary-regular);
- }
-
-.bigButton{
-    padding: 12px 24px;
-    min-width: 186px;
-    height: 60px;
-    font-size: 1.25rem;
-    font-weight: 500;
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-primary-semibold);
-    transition: transform 0.2s ease-in-out;
-    &:hover{
-      transform: scale(1.05);
-    }
+@font-face {
+  font-family: "quicksand";
+  src: url("/assets/font/quicksand/Quicksand-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-.content-beg {
-  max-width: 1920px;
+@font-face {
+  font-family: "quicksand-medium";
+  src: url("/assets/font/quicksand/Quicksand-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "quicksand-semiBold";
+  src: url("/assets/font/quicksand/Quicksand-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ubuntu-medium";
+  src: url("/assets/font/ubunt/Ubuntu-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ubuntu-bold";
+  src: url("/assets/font/ubunt/Ubuntu-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+
+.mainContainer {
   width: 100%;
+  max-width: 1920px;
 }
 
-.content-border{
-  padding: 0px 48px;
+.content-border {
+  padding: 0 48px;
 }
 
-.btnDark{
-  color: var(--color-secondary);
-  background-color: var(--font-color-default);
+
+.dark {
+  background-color: var(--green-medium);
+
+  a { color: var(--cream-warm); }
 }
-.btnLight{
+
+.light {
+  background-color: white;
+
+  a { color: var(--green-medium); }
+}
+
+
+.bigButton {
+  padding: 12px 24px;
+  min-width: 186px;
+  height: 60px;
+  font-size: 1.25rem;
+  font-family: var(--font-body-bold);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.btnDark {
+  color: var(--green-bright);
+  background-color: var(--cream-warm);
+}
+
+.btnLight {
   color: white;
-  background-color: var(--color-btn-light);
+  background-color: var(--green-btn);
 }
- .dark { background-color: var(--bg-color);
-  a { color: var(--font-color-default) }
-}
- 
-.light { background-color: white;
-          a { color: var(--bg-color) }
+
+button:disabled {
+  background-color: var(--green-medium) !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  opacity: 0.5;
 }
 
 
-.returnContainer{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
-  padding: 0px 72px;
-  >.arrow180deg{
+.returnContainer {
+  @include flex(flex-start, center, 8px);
+  padding: 0 72px;
+
+  .arrow180deg {
     transform: rotate(180deg);
-  
   }
-  >a{
+
+  a {
     text-decoration: none;
-    color: var(--color-primary-medium);
+    color: var(--green-dark);
     font-size: 1rem;
-    font-family: var(--font-primary-regular);
+    font-family: var(--font-body);
   }
 }
 
-.linkContainer{
-    width: 100%;
-    @include dpf($jc:flex-end);
-    >a{
-        cursor: pointer;
-        text-align: center;
-        height: 50px;
-        width: 280px;
-        @include dpf($g:16px);
-        text-decoration: none;
-        color: white;
-        text-wrap-mode: nowrap;
-        font-size: 20px;
-        &:hover{
-            background-color:rgba(255,255,255, $alpha: 0.4);
-        }
-    }   
+.linkContainer {
+  width: 100%;
+  @include flex(flex-end);
+
+  a {
+    @include flex($g: 16px);
+    height: 50px;
+    width: 280px;
+    text-decoration: none;
+    text-wrap-mode: nowrap;
+    color: white;
+    font-size: 1.25rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+  }
 }
 
 .bgdark {
-  color: #396039 !important;
-   &:hover{
-            background-color:rgba(57, 96, 57, 0.1) !important;
-        }
+  color: var(--green-medium) !important;
 
+  &:hover {
+    background-color: $green-alpha-10 !important;
+  }
+}
+
+
+@media (max-width: 780px) {
+  .returnContainer {
+    padding: 0 24px;
+  }
 }

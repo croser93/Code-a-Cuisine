@@ -1,142 +1,205 @@
 @use '../../../../styles/variables' as *;
 
 section {
-    height: calc(100vh - 84px - 62px);
-    @include dpf-col($jc: flex-start, $g: 36px);
+  min-height: calc(100vh - 84px - 62px);
+  @include flex-col($jc: flex-start);
+
+  > div {
+    @include flex-col($g: 36px);
+  }
 }
 
 .preferences {
-    @include dpf($jc: space-between, $g: 48px);
-    width: 820px;
+  @include flex(space-between, center, 48px);
+  max-width: 820px;
+  width: 100%;
 
-    >.selectPreferences {
-        @include dpf-col($ai: flex-start, $g: 16px);
-        text-align: center;
+  > .selectPreferences {
+    @include flex-col($ai: flex-start, $g: 16px);
+    text-align: center;
 
-        >.preferenceInput {
-            @include dpf($g: 16px);
-            text-align: center;
-            height: 24px;
+    > .preferenceInput {
+      @include flex($g: 16px);
+      text-align: center;
+      height: 24px;
 
-            >.btnContainer{
-                width: 28px;
-                height: 28px;
-                >button {
-                    @include dpf();
-                    cursor: pointer;
-                    border: none;
-                    outline: none;
-                    background-color: white;
-                    display: flex;
-                    align-items: center;
-                    width: 28px;
-                    height: 28px;
-                    &:hover{
-                        cursor: pointer;
-                        background-color: rgba(57, 96, 57, 0.2);
-                        border-radius: 5px;
-                    }
-                }
-            }
+      > .btnContainer {
+        width: 28px;
+        height: 28px;
 
-            div {
-                @include dpf($g: 16px);
-            }
+        > button {
+          @include flex();
+          cursor: pointer;
+          border: none;
+          outline: none;
+          background-color: white;
+          width: 28px;
+          height: 28px;
+
+          &:hover {
+            background-color: $green-alpha-20;
+            border-radius: 5px;
+          }
         }
+      }
 
+      div {
+        @include flex($g: 16px);
+      }
     }
+  }
 }
 
 input {
-    outline: none;
-    border: none;
-    background-color: rgba(57, 96, 57, 0.2);
-    max-width: 32px;
-    padding: 2px;
-    text-align: center;
-    font-size: 1rem;
-    border-radius: 4px;
-    font-family: var(--font-primary-medium);
-    color: var(--color-primary-dark);
+  outline: none;
+  border: none;
+  background-color: $green-alpha-20;
+  max-width: 32px;
+  padding: 2px;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 4px;
+  font-family: var(--font-body-medium);
+  color: var(--green-darkest);
 }
 
 h3 {
-    font-size: 1.5rem;
-    font-family: var(--font-primary-medium);
-    color: var(--color-primary-dark);
-
+  font-size: $font-section-title;
+  font-family: var(--font-body-medium);
+  color: var(--green-darkest);
 }
 
 h4 {
-    font-size: 1.75rem;
-    font-family: var(--font-primary-semibold);
-    color: var(--color-primary-dark);
+  font-size: $font-section-title;
+  font-family: var(--font-body-bold);
+  color: var(--green-darkest);
 }
 
 span {
-    font-size: 1.25rem;
-    font-family: var(--font-primary-medium);
-    color: var(--color-primary-dark);
+  font-size: $font-body-large;
+  font-family: var(--font-body-medium);
+  color: var(--green-darkest);
 }
 
 .selectionContainer {
-    @include dpf-col($ai: flex-start, $g: 32px);
-    background-color: rgba(57, 96, 57, 0.2);
-    border-radius: 20px;
-    padding: 32px 24px;
+  @include flex-col($ai: flex-start, $g: 32px);
+  background-color: $green-alpha-20;
+  border-radius: 20px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 820px;
 
-    >.menuHeader {
-        @include dpf($g: 8px);
+  > .menuHeader {
+    @include flex($g: 8px);
+  }
+
+  > .preferenceContainer,
+  > .cuisineContainer,
+  > .cookingTimeContainer {
+    @include flex($jc: flex-start, $g: 16px);
+    flex-wrap: wrap;
+
+    > .cookingTime {
+      @include flex-col();
+
+      > .menuText {
+        color: var(--green-dark);
+        font-size: 1rem;
+        font-family: var(--font-body-medium);
+      }
+    }
+  }
+
+  .menuButton {
+    background-color: var(--cream);
+    padding: 6px 12px;
+    min-width: 120px;
+    height: 40px;
+    border-radius: 30px;
+    border: none;
+    text-wrap-mode: nowrap;
+    cursor: pointer;
+
+    > span {
+      color: var(--green-darkest);
+      font-size: 1.25rem;
+      font-family: var(--font-body-bold);
     }
 
-    >.preferenceContainer,
-    >.cuisineContainer,
-    >.cookingTimeContainer {
-        @include dpf($jc: flex-start, $g: 24px);
-
-        >.cookingTime {
-            @include dpf-col();
-
-            >.menuText {
-                color: var(--color-primary-medium);
-                font-size: 1rem;
-                font-family: var(--font-primary-medium);
-            }
-
-        }
+    &:hover {
+      background-color: #FAE0C6;
     }
 
-    .menuButton {
-        background-color: rgba(250, 240, 230, 1);
-        padding: 6px 12px;
-        min-width: 120px;
-        height: 40px;
-        border-radius: 30px;
-        border: none;
-        text-wrap-mode: nowrap;
-        cursor: pointer;
-
-        >span {
-            color: var(--color-primary-dark);
-            font-size: 1.25rem;
-            font-family: var(--font-primary-semibold);
-
-        }
-
-        &:hover {
-            background-color: #FAE0C6;
-        }
-
-        &.active,
-        &:active {
-            background-color: rgba(57, 96, 57, 0.4);
-        }
+    &.active,
+    &:active {
+      background-color: $green-alpha-40;
     }
+  }
 }
 
-button:disabled {
-    background-color: var(--color-primary-light) !important;
-    cursor: not-allowed !important;
-    pointer-events: none !important;
-    opacity: 0.5; 
+
+@media (max-width: 1150px) {
+  section > div {
+    padding: 0 48px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .preferences,
+  .selectionContainer {
+    max-width: none;
+  }
+}
+
+@media (max-width: 780px) {
+  section > div {
+    padding: 0 24px;
+    gap: 24px;
+  }
+
+  .preferences {
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 24px 0;
+  }
+
+  .menuButton {
+    min-width: 80px !important;
+
+    > span {
+      font-size: 1rem !important;
+    }
+  }
+
+  h4 {
+    padding: 24px;
+  }
+
+  .selectionContainer {
+    padding: 24px 16px;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 580px) {
+  section > div {
+    padding: 0 16px;
+    gap: 20px;
+  }
+
+  .selectionContainer {
+    padding: 20px 12px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  section > div {
+    padding: 0 8px;
+  }
+
+  .menuButton {
+    height: 36px;
+  }
 }

@@ -1,6 +1,16 @@
 @use '../../../../styles/variables' as *;
 
-section{
-    @include border(16px, 48px);
+section {
+  padding: 16px 48px;
+  @include flex(center);
 }
 
+.logo {
+  width: clamp(96px, 32vw, 142px);
+}
+
+@media (max-width: 780px) {
+  section {
+    padding: 16px;
+  }
+}

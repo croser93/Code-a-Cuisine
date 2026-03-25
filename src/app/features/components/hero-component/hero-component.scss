@@ -1,78 +1,188 @@
 @use '../../../../styles/variables' as *;
-section{
-    @include dpf($jc: space-between);
-    background-color: var(--bg-color);
-    height: calc(100vh - 84px - 62px);
-    @include border(0px, 48px);
-    >.containerLeft{
-        @include dpf($jc: flex-start);
-        >.left{
-            height: 700px;
-            @include dpf-col($ai: flex-start, $jc:space-between);
 
-        }
+section {
+  background-color: var(--green-medium);
+  min-height: calc(100vh - 84px - 62px);
+  padding: 0 48px;
+  @include flex-col();
+  width: 100%;
+  position: relative;
+  overflow-x: clip;
+}
 
+.mainContainer {
+  @include flex(space-between);
+  width: 100%;
+}
+
+.containerLeft {
+  @include flex(flex-start);
+}
+
+.left {
+  min-height: 700px;
+  @include flex-col($ai: flex-start, $jc: space-between);
+}
+
+.right {
+  @include flex($ai: flex-start);
+  position: absolute;
+  left: 70%;
+  top: -84px;
+  height: calc(100% + 84px + 62px);
+  transform: translateX(-2%);
+  overflow-y: clip;
+
+  .imgContainer {
+    @include flex-col($jc: flex-start);
+
+    img {
+      height: 460px;
+      margin-top: -165px;
     }
-    >.right{
-        @include dpf();
-        position: absolute;
-        z-index: 2;
-        left: 70%;
-        height: 50%;
-        transform: translate(-2%, -2.5%);
-        >.imgContainer{
-            @include dpf-col();
-                height: 100vh;
-                overflow: hidden;
-            >img {
-            margin-top: -165px;
-            height: 460px;
-            background-size: cover;
-            }
-            
-        }
-        >.imgContainer img:first-child {
-            margin-top: -32px;
-            }
+
+    img:first-child {
+      margin-top: 0;
     }
+  }
 }
 
-.head{
-    @include dpf-col($ai: flex-start, $g:64px);
+.head {
+  @include flex-col($ai: flex-start, $g: 64px);
 }
 
-.heroFooter{
-    @include dpf($jc: flex-start, $g: 36px);
-    text-align: center;
-    >h3{
-        font-size: 2rem;
-        font-family: var(--font-secondary-medium);
-        color: var(--color-text-beige);
-        font-weight: 200;
-        
+.heroFooter {
+  @include flex($jc: flex-start, $g: 36px);
+
+  h3 {
+    font-size: $font-hero-lead;
+    font-family: var(--font-heading-medium);
+    color: var(--cream);
+    font-weight: 200;
+  }
+
+  .cookbookTag {
+    @include flex($g: 8px);
+
+    a {
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-size: $font-hero-link;
+      color: var(--cream);
     }
-    >.cookbookTag{
-        @include dpf($g: 8px);
-        text-align: center;
-        >a{
-            text-decoration: none;
-            font-family: var(--font-primary-regular);
-            font-size: 1.375rem;
-            color: var(--color-text-beige);
-        }
+  }
+}
+
+h1 {
+  font-size: $font-hero-title;
+  font-family: var(--font-heading-bold);
+  color: var(--cream);
+}
+
+h2 {
+  font-size: $font-hero-subtitle;
+  font-family: var(--font-body-bold);
+  color: var(--cream);
+}
+
+
+@media (max-width: 1150px) {
+  .left {
+    height: auto;
+    min-height: 50vh;
+    padding: 40px 0;
+  }
+
+  .right {
+    right: -32%;
+    top: -84px;
+    transform: none;
+
+    .imgContainer img {
+      height: clamp(370px, 42vw, 400px);
+      margin-top: clamp(-80px, -10vw, -55px);
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
+  }
+
+  .head {
+    gap: 40px;
+  }
+
+  .heroFooter {
+    gap: 8px;
+  }
 }
 
-h1{
-    font-size: 6.5rem;
-    font-family: var(--font-secondary-bold);
-    color: var(--color-text-beige);
-    
+@media (max-width: 780px) {
+  section {
+    height: auto;
+    min-height: calc(100svh - 84px);
+    padding: 0 24px;
+  }
+
+  .left {
+    padding: 32px 0;
+  }
+
+  .right {
+    right: -32%;
+    transform: none;
+
+    .imgContainer {
+      height: 100vh;
+
+      img {
+        margin-top: -90px;
+      }
+    }
+  }
+
+  .head {
+    gap: 20px;
+  }
+
+  .heroFooter {
+    margin-top: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
 }
 
-h2{
-    font-size: 3rem;
-    font-family: var(--font-primary-semibold);
-    color: var(--color-text-beige);
+@media (max-width: 580px) {
+  .right {
+    right: -48%;
+  }
+
+  .head {
+    gap: 32px;
+
+    > div {
+      @include flex-col($ai: flex-start, $g: 32px);
+    }
+  }
+
+  h1 span,
+  h2 span,
+  h3 span {
+    display: block;
+  }
 }
 
+@media (max-width: 400px) {
+  section {
+    padding: 0 8px;
+  }
+
+  .right {
+    right: -70%;
+  }
+
+  .imgContainer img {
+    height: 320px !important;
+  }
+}
