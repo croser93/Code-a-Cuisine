@@ -3,15 +3,20 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
 import { Supabase } from '../../../core/services/supabase';
+import { N8nService } from '../../../core/services/n8n.service';
 
 
 interface Recipe {
-  title: string;
-  info: {
-    time: string;
-    cuisine: string;
-    confidence: string;
-  };
+  recipe: {
+    title: string;
+    info: {
+      time: string;
+      cuisine: string;
+      confidence: string;
+    };
+  }
+  selectedCuisines: string;
+  selectedDietPreference: string;
 }
 
 
@@ -25,22 +30,25 @@ interface Recipe {
 
 export class ResultComponent implements OnInit {
   recipeList: Recipe[] = [];
-  constructor(private supabase: Supabase, private cdr: ChangeDetectorRef) { }
+  constructor(private supabase: Supabase, private n8n: N8nService  ,private cdr: ChangeDetectorRef) { }
 
   async ngOnInit() {
-   await this.supabase.selectedRecipe();
-   this.workUpRecipeList()
-   this.cdr.detectChanges()
+    await this.supabase.selectedRecipe();
+    this.workUpRecipeList();
+    const data = this.n8n.recipeResult();
+    if (data.length > 0) {
+      localStorage.setItem('dataLocalStorage', JSON.stringify(data));
+    }
+    this.cdr.detectChanges();
   }
 
   workUpRecipeList(){
-    const data = this.supabase.recipeData();
+    const data = this.n8n.recipeResult();
     if (data.length > 0){
-      const entry = data[0];
       this.recipeList = [
-          entry.recipe1, 
-          entry.recipe2, 
-          entry.recipe3
+          data[0], 
+          data[1], 
+          data[2]
     ];
   }
 }

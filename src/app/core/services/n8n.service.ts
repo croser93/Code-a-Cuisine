@@ -57,7 +57,7 @@ export class N8nService {
     const result = await response.json();
     if (result) {
         this.recipeResult.set(result);
-        console.log(this.recipeResult);
+        console.log(this.recipeResult());
         this.loadingScreen.set(false);
     } else
         console.log('no results')
