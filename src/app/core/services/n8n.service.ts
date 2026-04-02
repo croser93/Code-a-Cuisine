@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { ErrorService } from './error.service';
 
 
 export interface Ingredient {
@@ -24,50 +25,53 @@ export class N8nService {
   recipeResult = signal<any>(null);
   loadingScreen = signal<boolean>(false);
 
+  constructor(private errorService: ErrorService) {}
+
   async pushData(preferences: UserPreferences) {
-  const combinedData = {
-    ingredients: this.currentIngredients,
-    portions: preferences.portions,
-    person: preferences.person,
-    selectedCookingTime: preferences.selectedCookingTime,
-    selectedCuisines: preferences.selectedCuisines,
-    selectedDietPreference: preferences.selectedDietPreference
-  };
+    const combinedData = {
+      ingredients: this.currentIngredients,
+      portions: preferences.portions,
+      person: preferences.person,
+      selectedCookingTime: preferences.selectedCookingTime,
+      selectedCuisines: preferences.selectedCuisines,
+      selectedDietPreference: preferences.selectedDietPreference,
+    };
 
-  console.log('Sending to n8n:', combinedData);
-  this.loadingScreen.set(true)
-  try {
-    const response = await fetch(
-      'http://localhost:5678/webhook-test/0236c66a-d4c3-4216-9e1c-79a8437f952a',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(combinedData)
-    }
-    );
-    
+    this.loadingScreen.set(true);
+    this.errorService.clearError();
 
-    if (!response.ok) {
-      throw new Error(`Webhook error: ${response.status} ${response.statusText}`);
-    }
+    try {
+      const response = await fetch(
+        'http://localhost:5678/webhook-test/0236c66a-d4c3-4216-9e1c-79a8437f952a',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(combinedData),
+        }
+      );
 
-
-    const result = await response.json();
-    if (result) {
-        this.recipeResult.set(result);
-        console.log(this.recipeResult());
+      if (!response.ok) {
+        this.errorService.setError('connection');
         this.loadingScreen.set(false);
-    } else
-        console.log('no results')
+        return;
+      }
 
+      const result = await response.json();
+      const n8nErrorType = this.errorService.parseN8nError(result);
+      if (n8nErrorType) {
+        this.errorService.setError(n8nErrorType);
+        this.loadingScreen.set(false);
+        return;
+      }
 
-  } catch (error) {
-    console.error('Failed to reach n8n webhook:', error);
-    this.loadingScreen.set(false);
-    throw error;
-  }
+      if (result) {
+        this.recipeResult.set(result);
+        this.loadingScreen.set(false);
+      }
+    } catch {
+      this.errorService.setError('connection');
+      this.loadingScreen.set(false);
+    }
   }
 }
 
