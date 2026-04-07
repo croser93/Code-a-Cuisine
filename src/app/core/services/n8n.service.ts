@@ -67,13 +67,18 @@ export class N8nService {
       if (result) {
         this.recipeResult.set(result);
         this.loadingScreen.set(false);
+        this.removeLocalStorage();
       }
     } catch {
       this.errorService.setError('connection');
       this.loadingScreen.set(false);
     }
   }
+  
+  removeLocalStorage(){
+        const keysToRemove = ['ingredientsAtLocalStorage', 'portions', 'person', 'cookingTimeLocalStorage', 'cuisineLocalStorage', 'dietLocalStorage'];
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+  }
 }
-
 
 

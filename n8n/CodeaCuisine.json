@@ -141,7 +141,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=1. You are a professional chef assistant. \n2. You ALWAYS respond with ONLY valid JSON. No text before or after. No markdown. 3. No explanation.\n4. You ALWAYS generate EXACTLY 3 recipe suggestions.\n5. The JSON structure must ALWAYS match the exact format given - no exceptions.\n6. AT LEAST 70% of the recipe ingredients MUST come from the available ingredients\n7. BEFORE generating recipes, validate if the ingredients are real food items.\n   If ANY ingredient is not a real food item (random words, nonsense, numbers):\n   - Set \"valid_ingredients\" to false\n   - Return ONLY this JSON: { \"valid_ingredients\": false }\n   If ALL ingredients are real food items:\n   - Set \"valid_ingredients\": true\n   - Return the full recipe array as normal with \"valid_ingredients\": true added to each recipe\n\nGenerate exactly 3 recipes based on these inputs:\n\nAvailable ingredients: {{ $('Webhook').item.json.body.ingredients.map(i => i.size + ' ' + i.unit + ' ' + i.value).join(', ') }}\nCooking time preference: {{ $('Webhook').item.json.body.selectedCookingTime }}\nCuisine preference: {{ $('Webhook').item.json.body.selectedCuisines }}\nDiet preference: {{ $('Webhook').item.json.body.selectedDietPreference }}\nPersons: {{ $('Webhook').item.json.body.person }}\nPortions: {{ $('Webhook').item.json.body.portions }}\n\nRules you MUST follow:\n1. \"time\" = = realistic cooking time in minutes based on the actual recipe AND must respect:\n   - selectedCookingTime \"Quick\" = maximum 20 minutes\n   - selectedCookingTime \"Medium\" = between 25 and 40 minutes\n   - selectedCookingTime \"Complex\" = minimum 45 minutes\n2. \"likes\" = random number between 50 and 500\n3. \"nutritional\" values must reflect the actual recipe ingredients realistically\n4. \"steps\" must have EXACTLY 4 steps maximum\n5. Assign steps to persons based on this logic:\n   - 1 person  → all 4 steps assigned to person 1\n   - 2 persons → person 1 gets steps 1+2, person 2 gets steps 3+4\n   - 3 persons → distribute randomly but ALL 4 steps must be assigned\n   - 4 persons → each person gets exactly 1 step\n   Current persons: {{ $('Webhook').item.json.body.person }}\n\nReturn ONLY this JSON array with exactly 3 recipes:\n[\n  {\n    \"title\": \"Recipe Name\",\n    \"info\": {\n      \"time\": 35,\n      \"selectedtime\": \"{{ $('Webhook').item.json.body.selectedCookingTime }}\",\n      \"cuisine\": \"{{ $('Webhook').item.json.body.selectedCuisines }}\",\n      \"confidence\": \"{{ $('Webhook').item.json.body.selectedDietPreference }}\",\n      \"person\": \"{{ $('Webhook').item.json.body.person }}\",\n      \"portion\": \"{{ $('Webhook').item.json.body.portions }}\",\n      \"likes\": 243\n    },\n    \"nutritional\": {\n      \"energie\": \"750 kcal\",\n      \"protein\": \"42 g\",\n      \"fat\": \"28 g\",\n      \"carbs\": \"65 g\"\n    },\n    \"ingredients\": {\n      \"available\": [\"150 g Chicken\"],\n      \"missing\": [\"1 piece Onion\"]\n    },\n    \"directions\": {\n      \"steps\": [\n        {\n          \"step\": 1,\n          \"title\": \"Prepare Ingredients\",\n          \"person\": 1,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 2,\n          \"title\": \"Cook Base\",\n          \"person\": 1,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 3,\n          \"title\": \"Combine & Season\",\n          \"person\": 2,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 4,\n          \"title\": \"Serve\",\n          \"person\": 2,\n          \"instructions\": \"Detailed instructions here.\"\n        }\n      ]\n    }\n  }\n]",
+        "text": "=1. You are a professional chef assistant. \n2. You ALWAYS respond with ONLY valid JSON. No text before or after. No markdown. 3. No explanation.\n4. You ALWAYS generate EXACTLY 3 recipe suggestions.\n5. The JSON structure must ALWAYS match the exact format given - no exceptions.\n6. The recipe MUST use AT LEAST 70% of the provided available ingredients. \n   Not all ingredients need to be used, but at least 70% of the given ingredients \n   must appear in the recipe.\n   Example: If 10 ingredients are provided, at least 7 must be used in the recipe.\n   The remaining 30% can be ignored or replaced with missing ingredients.\n7. BEFORE generating recipes, validate if the ingredients are real food items.\n   If ANY ingredient is not a real food item (random words, nonsense, numbers):\n   - Set \"valid_ingredients\" to false\n   - Return ONLY this JSON: { \"valid_ingredients\": false }\n   If ALL ingredients are real food items:\n   - Set \"valid_ingredients\": true\n   - Return the full recipe array as normal with \"valid_ingredients\": true added to each recipe\n\nGenerate exactly 3 recipes based on these inputs:\n\nAvailable ingredients: {{ $('Webhook').item.json.body.ingredients.map(i => i.size + ' ' + i.unit + ' ' + i.value).join(', ') }}\nCooking time preference: {{ $('Webhook').item.json.body.selectedCookingTime }}\nCuisine preference: {{ $('Webhook').item.json.body.selectedCuisines }}\nDiet preference: recipe.info.diet || recipe.info.confidence\nPersons: {{ $('Webhook').item.json.body.person }}\nPortions: {{ $('Webhook').item.json.body.portions }}\n\nRules you MUST follow:\n1. \"time\" = = realistic cooking time in minutes based on the actual recipe AND must respect:\n   - selectedCookingTime \"Quick\" = maximum 20 minutes\n   - selectedCookingTime \"Medium\" = between 25 and 40 minutes\n   - selectedCookingTime \"Complex\" = minimum 45 minutes\n2. \"likes\" = random number between 50 and 500\n3. \"nutritional\" values must reflect the actual recipe ingredients realistically\n4. \"steps\" must have EXACTLY 4 steps maximum\n5. Assign steps to persons based on this logic:\n   - 1 person  → all 4 steps assigned to person 1\n   - 2 persons → person 1 gets steps 1+2, person 2 gets steps 3+4\n   - 3 persons → distribute randomly but ALL 4 steps must be assigned\n   - 4 persons → each person gets exactly 1 step\n   Current persons: {{ $('Webhook').item.json.body.person }}\n6. \"instructions\" for each step MUST be 2-4 sentences long. Describe what to do in detail — include techniques, temperatures, timing, and visual cues. Not too long, but informative and practical for a home cook.\n\nReturn ONLY this JSON array with exactly 3 recipes:\n[\n  {\n    \"title\": \"Recipe Name\",\n    \"info\": {\n      \"time\": 35,\n      \"selectedtime\": \"{{ $('Webhook').item.json.body.selectedCookingTime }}\",\n      \"cuisine\": \"{{ $('Webhook').item.json.body.selectedCuisines }}\",\n      \"confidence\": \"{{ $('Webhook').item.json.body.selectedDietPreference }}\",\n      \"person\": \"{{ $('Webhook').item.json.body.person }}\",\n      \"portion\": \"{{ $('Webhook').item.json.body.portions }}\",\n      \"likes\": 243\n    },\n    \"nutritional\": {\n      \"energie\": \"750 kcal\",\n      \"protein\": \"42 g\",\n      \"fat\": \"28 g\",\n      \"carbs\": \"65 g\"\n    },\n    \"ingredients\": {\n      \"available\": [\"150 g Chicken\"],\n      \"missing\": [\"1 piece Onion\"]\n    },\n    \"directions\": {\n      \"steps\": [\n        {\n          \"step\": 1,\n          \"title\": \"Prepare Ingredients\",\n          \"person\": 1,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 2,\n          \"title\": \"Cook Base\",\n          \"person\": 1,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 3,\n          \"title\": \"Combine & Season\",\n          \"person\": 2,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 4,\n          \"title\": \"Serve\",\n          \"person\": 2,\n          \"instructions\": \"Detailed instructions here.\"\n        }\n      ]\n    }\n  }\n]",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -727,7 +727,63 @@
       "name": "work with real count"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "localhost:5678",
+            "connection": "keep-alive",
+            "content-length": "261",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"",
+            "content-type": "application/json",
+            "sec-ch-ua-mobile": "?0",
+            "accept": "*/*",
+            "origin": "http://localhost:4200",
+            "sec-fetch-site": "same-site",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-dest": "empty",
+            "referer": "http://localhost:4200/",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "accept-language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "ingredients": [
+              {
+                "value": "potato",
+                "size": "200",
+                "unit": "g"
+              },
+              {
+                "value": "tomato",
+                "size": "200",
+                "unit": "g"
+              },
+              {
+                "value": "cheese",
+                "size": "200",
+                "unit": "g"
+              }
+            ],
+            "portions": 2,
+            "person": 1,
+            "selectedCookingTime": "Quick",
+            "selectedCuisines": "German",
+            "selectedDietPreference": "Vegan"
+          },
+          "webhookUrl": "http://localhost:5678/webhook-test/0236c66a-d4c3-4216-9e1c-79a8437f952a",
+          "executionMode": "test"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
   "connections": {
     "Webhook": {
       "main": [
@@ -1091,7 +1147,7 @@
     "timezone": "Europe/Amsterdam",
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "0616d10e-75f7-4e89-af39-80cb904903a9",
+  "versionId": "8e7e8d2b-749f-44ca-a804-3daa27629a45",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "fdcd0223a6d76807c574f255784355ca62f988d682bba7ea328f1930c8a5807e"

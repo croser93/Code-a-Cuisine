@@ -124,6 +124,7 @@ export class RecipeComponent {
       this.ingredientsList.push(newIngredient);
       localStorage.setItem('ingredientsAtLocalStorage', JSON.stringify(this.ingredientsList))
       this.value = '';
+      this.amount = '';
     }
   }
 
