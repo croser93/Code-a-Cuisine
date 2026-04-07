@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 
-export type ErrorType = 'connection' | 'rate_limit' | 'validation' | 'unknown';
+export type ErrorType = 'connection' | 'rate_limit' | 'validation' | 'unknown' | 'wrong_ingredients';
 
 export interface AppError {
   type: ErrorType;
@@ -31,6 +31,11 @@ const ERROR_DEFINITIONS: Record<ErrorType, AppError> = {
     title: 'Unknown error',
     message: 'An unexpected error has occurred. Please try again.',
   },
+  wrong_ingredients: {
+    type: 'wrong_ingredients',
+    title: 'wrong Ingredients',
+    message: 'You must have entered the wrong ingredients. Please check your input and try again.',
+  },
 };
 
 @Injectable({
@@ -46,7 +51,7 @@ export class ErrorService {
 
   parseN8nError(response: any): ErrorType | null {
     if (response && typeof response.error === 'string') {
-      const knownTypes: ErrorType[] = ['connection', 'rate_limit', 'validation', 'unknown'];
+      const knownTypes: ErrorType[] = ['connection', 'rate_limit', 'validation', 'unknown', 'wrong_ingredients'];
       const type = response.error as ErrorType;
       return knownTypes.includes(type) ? type : 'unknown';
     }

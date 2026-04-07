@@ -21,7 +21,7 @@ export class LoadingScreen {
     else if (this.n8n.loadingScreen() === false && this.n8n.recipeResult() === null) {
       setTimeout(() => {
         this.router.navigate(['/']);
-      }, 10000); 
+      }, 8000); 
     }
   });
   }
