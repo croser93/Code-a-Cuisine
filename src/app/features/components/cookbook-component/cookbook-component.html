@@ -32,7 +32,7 @@
         @for (cuisine of cuisines; track cuisine ){
             <div class="cuisineItem">
                 <h3 class="cuisineTitle">{{cuisine.name}} cousine</h3>
-                <a [routerLink]="['/cookbook-list', cuisine.name.toLowerCase()]" class="cuisineLink">
+                <a [routerLink]="['/cookbook-list', cuisine.name]" class="cuisineLink">
                     <img [src]="'assets/img/' + cuisine.image" [alt]="cuisine.name" class="cuisineImage">
                 </a>
             </div>

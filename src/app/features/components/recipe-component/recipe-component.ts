@@ -123,7 +123,6 @@ export class RecipeComponent {
     if (this.value.length > 0 && this.amount > 0) {
       this.ingredientsList.push(newIngredient);
       localStorage.setItem('ingredientsAtLocalStorage', JSON.stringify(this.ingredientsList))
-      console.log(this.ingredientsList)
       this.value = '';
     }
   }
