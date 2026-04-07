@@ -19,6 +19,7 @@ export class Supabase {
   cookbookData = signal<any[]>([]);
   counter = signal<number>(0);
   currentSelectedRecipe: any = null;
+  fromCookBook = signal<boolean>(false);
 
     async fetchCookbookList(cuisine: string, page: number = 0){
     const pageSize = 15;

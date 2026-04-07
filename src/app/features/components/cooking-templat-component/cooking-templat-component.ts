@@ -50,12 +50,14 @@ interface RecipeIngredients {
 export class CookingTemplatComponent {
   recipe: any;
   selectAddLike:boolean = false;
+  fromCookbook: boolean = false;
 
   constructor(private supabase: Supabase) {}
 
   ngOnInit() {
     this.recipe = this.supabase.currentSelectedRecipe.recipe;
-      console.log(this.recipe);
+    this.fromCookbook = this.supabase.fromCookBook();
+
     }
   
     addLike(){

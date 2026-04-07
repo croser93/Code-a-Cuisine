@@ -48,7 +48,7 @@ export class CookbookListComponent {
 
   selectCookbookrecipe(index: any){
     this.supabase.currentSelectedRecipe = this.cookbookList[index];
-    console.log(this.supabase.currentSelectedRecipe)
+    this.supabase.fromCookBook.set(true);
     this.router.navigate(['/cooking-template']);
   }
 

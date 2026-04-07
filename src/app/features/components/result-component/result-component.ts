@@ -31,6 +31,7 @@ interface Recipe {
 export class ResultComponent implements OnInit {
   recipeList: Recipe[] = [];
   selectedRecipe = signal<any>(null);
+
   constructor(private supabase: Supabase, private n8n: N8nService  ,private cdr: ChangeDetectorRef) { }
 
   async ngOnInit() {
@@ -53,6 +54,7 @@ export class ResultComponent implements OnInit {
 
 getSelectedDish(i : number){
   this.supabase.currentSelectedRecipe = this.recipeList[i];
+  this.supabase.fromCookBook.set(false);
   console.log(this.supabase.currentSelectedRecipe);
 }
 

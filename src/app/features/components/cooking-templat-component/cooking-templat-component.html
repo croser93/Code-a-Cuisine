@@ -1,6 +1,10 @@
 <div class="returnContainer">
     <img class="arrow180deg" src="assets/icon/Arrow-dark.svg" alt="">
-    <a routerLink="/results">Recipe reults</a>
+    @if (fromCookbook){
+        <a routerLink="/cookbook">Cookbook</a>
+    }@else{
+        <a routerLink="/results">Recipe results</a>
+    }
 </div>
 
 <section>
@@ -10,19 +14,21 @@
                 <div class="containerLeft">
                     <div class="cookingTime">
                         <img src="assets/icon/clock.svg" alt="clock">
-                        <span>Coocking time: {{recipe.info.time}} min</span>
+                        <span>Cooking time: {{recipe.info.time}} min</span>
                     </div>
                     <h2>{{recipe.title}}</h2>
-                    <div class="cookingPerson">
-                        <span>coocking person: {{recipe.info.person}}</span>
-                        <div class="teamContainer">
-                            @for (data of getCookIcons(recipe.info.person); track $index; let i = $index){
-                                <div>
-                                    <img class="imgIcon" [src]="'assets/icon/cook' + (i + 1) + '.svg'" alt="Cook Icon">
-                                </div>
-                            }        
+                    @if(!fromCookbook){
+                        <div class="cookingPerson">
+                            <span>cooking person: {{recipe.info.person}}</span>
+                            <div class="teamContainer">
+                                @for (data of getCookIcons(recipe.info.person); track $index; let i = $index){
+                                    <div>
+                                        <img class="imgIcon" [src]="'assets/icon/cook' + (i + 1) + '.svg'" alt="Cook Icon">
+                                    </div>
+                                }        
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
                 <div class="containerRight">
                     <div class="popUpBar">
@@ -107,9 +113,11 @@
                                     <span>{{i +1}}.</span>
                                     <h5>{{recipe.directions.steps[i].title}}</h5>
                                 </div>
-                                <div>
-                                    <img class="imgIcon" src="assets/icon/cook1.svg" alt="">
-                                </div>
+                                @if(!fromCookbook){
+                                    <div>
+                                        <img class="imgIcon" src="assets/icon/cook1.svg" alt="">
+                                    </div>
+                                }
                             </div>
                             <div>
                                 <span class="cookingText">{{recipe.directions.steps[i].instructions}}</span>
