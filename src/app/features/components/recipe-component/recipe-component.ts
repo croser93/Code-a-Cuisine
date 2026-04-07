@@ -2,7 +2,7 @@ import { Component, HostListener, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
-import { Supabase } from '../../../core/services/supabase';
+import { N8nService } from '../../../core/services/n8n.service';
 
 
 interface Ingredient {
@@ -38,6 +38,14 @@ export class RecipeComponent {
   isDropdownOpen: boolean = false;
   unitOptions: string[] = ['piece', 'ml', 'gram'];
 
+
+  ngOnInit(){
+    const localstorage = localStorage.getItem('ingredientsAtLocalStorage')
+    if (localstorage)
+      this.ingredientsList = JSON.parse(localstorage) as Ingredient[]
+
+  }
+
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
@@ -49,7 +57,6 @@ export class RecipeComponent {
 
   ingredientsList: Ingredient[] = [];
 
-  // Edit Mode state
   editingIndex: number | null = null;
   isEditDropdownOpen: boolean = false;
   editingIngredient: Ingredient = { value: '', size: 0, unit: 'gram' };
@@ -86,7 +93,7 @@ export class RecipeComponent {
     }
   }
 
-  constructor(private supabase: Supabase, private eRef: ElementRef) { }
+  constructor(private n8n: N8nService, private eRef: ElementRef) { }
 
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
@@ -115,7 +122,7 @@ export class RecipeComponent {
     };
     if (this.value.length > 0 && this.amount > 0) {
       this.ingredientsList.push(newIngredient);
-      console.log(this.ingredientsList)
+      localStorage.setItem('ingredientsAtLocalStorage', JSON.stringify(this.ingredientsList))
       this.value = '';
     }
   }
@@ -126,6 +133,6 @@ export class RecipeComponent {
   }
 
   saveToService() {
-    this.supabase.currentIngredients = this.ingredientsList;
+    this.n8n.currentIngredients = this.ingredientsList;
   }
 }

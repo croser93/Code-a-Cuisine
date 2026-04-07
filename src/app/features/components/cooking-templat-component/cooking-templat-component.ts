@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { Supabase } from '../../../core/services/supabase';
 import { RouterLink } from "@angular/router";
 
+
+
 interface InfoItem {
   time?: string;
   diet?: string;
@@ -52,8 +54,7 @@ export class CookingTemplatComponent {
   constructor(private supabase: Supabase) {}
 
   ngOnInit() {
-    this.recipe = this.supabase.currentSelectedRecipe;
-
+    this.recipe = this.supabase.currentSelectedRecipe.recipe;
       console.log(this.recipe);
     }
   

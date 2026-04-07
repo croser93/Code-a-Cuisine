@@ -14,8 +14,8 @@
                     <span>Here are 3 easy recipes you can make right now!</span>
                 </div>
                 <div class="popupContainer">
-                    <div>{{recipeList[1].info.cuisine}}</div>
-                    <div>{{recipeList[1].info.confidence}}</div>
+                    <div>{{recipeList[0].selectedCuisines || "##"}}</div>
+                    <div>{{recipeList[0].selectedDietPreference || "##"}}</div>
                 </div>
             </div>
         </div>
@@ -28,10 +28,10 @@
                             <img src="assets/icon/icon.svg" alt="">
                             <h3>Recipe {{i + 1 || "##"}}</h3>
                         </div>
-                        <span>{{recipeList[i].title || "##"}}</span>
+                        <span>{{recipeList[i].recipe.title || "##"}}</span>
                         <div class="cardInfo">
                             <img src="assets/icon/clock.svg" alt="">
-                            <span>Cooking time: {{recipeList[i].info.time || "##"}} min</span>
+                            <span>Cooking time: {{recipeList[i].recipe.info.time || "##"}} min</span>
                         </div>
                     </div>
                     <div class="buttonContainer">

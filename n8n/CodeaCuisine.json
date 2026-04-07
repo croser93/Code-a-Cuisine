@@ -1,0 +1,1101 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "0236c66a-d4c3-4216-9e1c-79a8437f952a",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1088,
+        -64
+      ],
+      "id": "098193db-2f0e-43be-a6b5-ac80c164fcef",
+      "name": "Webhook",
+      "webhookId": "0236c66a-d4c3-4216-9e1c-79a8437f952a"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ip = \n  $input.first().json.headers['x-forwarded-for'] || \n  $input.first().json.headers['x-real-ip'] || \n  '111.111.111.26'; // localhost fallback\n\nreturn [{ json: { \n  ...$input.first().json,\n  ip_address: ip\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -912,
+        -64
+      ],
+      "id": "e36f1e71-f9ba-4bcc-9c3d-c3240a349ad8",
+      "name": "filter ip adress"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "User Request",
+        "returnAll": true,
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Ip Adress",
+              "condition": "gte",
+              "keyValue": "={{ $json.ip_address }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        -64
+      ],
+      "id": "fef393e2-8a7b-4694-a430-2a3a72853622",
+      "name": "Fetch User Data per IP",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "HqCLlpOXJSlTB8BC",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "4d07b9c9-59ce-4cab-813b-7ce82ba6f54c",
+              "leftValue": "={{ $json['Ip Adress'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -624,
+        -64
+      ],
+      "id": "8037e3b1-dbb7-4b97-8ca6-355381135b75",
+      "name": "Check is possible",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "tableId": "User Request",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "Ip Adress",
+              "fieldValue": "={{ $('filter ip adress').item.json.ip_address }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        48
+      ],
+      "id": "29a8f937-b97e-44ea-8eea-0976d5b748d6",
+      "name": "else = create new row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HqCLlpOXJSlTB8BC",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const row = $input.first().json;\nconst requestCount = row.count;\nconst lastRequest = $input.first().json['last request']\n\n// Mitternacht heute\nconst midnight = new Date();\nmidnight.setHours(0, 0, 0, 0);\n\n\nconst limitReached = requestCount >= 3;\n\n// can_request = false wenn limit erreicht UND kein neuer Tag\nconst can_request = limitReached ? false : true;\n\nreturn [{ json: {\n  ...row,\n  limit_reached: limitReached,\n  can_request: can_request\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -288,
+        -80
+      ],
+      "id": "092e7bac-658c-4677-8492-3e64a4b9c254",
+      "name": "if = give qoutes form user and vilidate",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=1. You are a professional chef assistant. \n2. You ALWAYS respond with ONLY valid JSON. No text before or after. No markdown. 3. No explanation.\n4. You ALWAYS generate EXACTLY 3 recipe suggestions.\n5. The JSON structure must ALWAYS match the exact format given - no exceptions.\n6. AT LEAST 70% of the recipe ingredients MUST come from the available ingredients\n7. BEFORE generating recipes, validate if the ingredients are real food items.\n   If ANY ingredient is not a real food item (random words, nonsense, numbers):\n   - Set \"valid_ingredients\" to false\n   - Return ONLY this JSON: { \"valid_ingredients\": false }\n   If ALL ingredients are real food items:\n   - Set \"valid_ingredients\": true\n   - Return the full recipe array as normal with \"valid_ingredients\": true added to each recipe\n\nGenerate exactly 3 recipes based on these inputs:\n\nAvailable ingredients: {{ $('Webhook').item.json.body.ingredients.map(i => i.size + ' ' + i.unit + ' ' + i.value).join(', ') }}\nCooking time preference: {{ $('Webhook').item.json.body.selectedCookingTime }}\nCuisine preference: {{ $('Webhook').item.json.body.selectedCuisines }}\nDiet preference: {{ $('Webhook').item.json.body.selectedDietPreference }}\nPersons: {{ $('Webhook').item.json.body.person }}\nPortions: {{ $('Webhook').item.json.body.portions }}\n\nRules you MUST follow:\n1. \"time\" = = realistic cooking time in minutes based on the actual recipe AND must respect:\n   - selectedCookingTime \"Quick\" = maximum 20 minutes\n   - selectedCookingTime \"Medium\" = between 25 and 40 minutes\n   - selectedCookingTime \"Complex\" = minimum 45 minutes\n2. \"likes\" = random number between 50 and 500\n3. \"nutritional\" values must reflect the actual recipe ingredients realistically\n4. \"steps\" must have EXACTLY 4 steps maximum\n5. Assign steps to persons based on this logic:\n   - 1 person  → all 4 steps assigned to person 1\n   - 2 persons → person 1 gets steps 1+2, person 2 gets steps 3+4\n   - 3 persons → distribute randomly but ALL 4 steps must be assigned\n   - 4 persons → each person gets exactly 1 step\n   Current persons: {{ $('Webhook').item.json.body.person }}\n\nReturn ONLY this JSON array with exactly 3 recipes:\n[\n  {\n    \"title\": \"Recipe Name\",\n    \"info\": {\n      \"time\": 35,\n      \"selectedtime\": \"{{ $('Webhook').item.json.body.selectedCookingTime }}\",\n      \"cuisine\": \"{{ $('Webhook').item.json.body.selectedCuisines }}\",\n      \"confidence\": \"{{ $('Webhook').item.json.body.selectedDietPreference }}\",\n      \"person\": \"{{ $('Webhook').item.json.body.person }}\",\n      \"portion\": \"{{ $('Webhook').item.json.body.portions }}\",\n      \"likes\": 243\n    },\n    \"nutritional\": {\n      \"energie\": \"750 kcal\",\n      \"protein\": \"42 g\",\n      \"fat\": \"28 g\",\n      \"carbs\": \"65 g\"\n    },\n    \"ingredients\": {\n      \"available\": [\"150 g Chicken\"],\n      \"missing\": [\"1 piece Onion\"]\n    },\n    \"directions\": {\n      \"steps\": [\n        {\n          \"step\": 1,\n          \"title\": \"Prepare Ingredients\",\n          \"person\": 1,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 2,\n          \"title\": \"Cook Base\",\n          \"person\": 1,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 3,\n          \"title\": \"Combine & Season\",\n          \"person\": 2,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 4,\n          \"title\": \"Serve\",\n          \"person\": 2,\n          \"instructions\": \"Detailed instructions here.\"\n        }\n      ]\n    }\n  }\n]",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        64,
+        272
+      ],
+      "id": "fa296af8-e54c-46e9-83ba-98a064aca1d7",
+      "name": "AI Agent",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "model": "llama-3.1-8b-instant",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        32,
+        480
+      ],
+      "id": "3e1cf3b5-a299-4bd0-a400-d7c7232062e6",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "drbic9dld9xr6YZ4",
+          "name": "Groq account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 3,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        768,
+        272
+      ],
+      "id": "6087906a-838c-47a6-83be-690703899c7f",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        288
+      ],
+      "id": "037e2bfb-f0e2-4bfd-9925-2ebea6c181ad"
+    },
+    {
+      "parameters": {
+        "jsCode": "const webhook = $('Webhook').first().json.body;\n\nconst ingredients = webhook.ingredients\n  .map(i => `${i.size}${i.unit}${i.value.toLowerCase()}`)\n  .sort()\n  .join('|');\n\nconst key = `${ingredients}_${webhook.selectedCookingTime}_${webhook.selectedCuisines}_${webhook.selectedDietPreference}_${webhook.person}_${webhook.portions}`.toLowerCase();\n\nlet hash = 0;\nfor (let i = 0; i < key.length; i++) {\n  hash = ((hash << 5) - hash) + key.charCodeAt(i);\n  hash |= 0;\n}\n\nreturn [{ json: {\n  ...($input.first().json),\n  cookbook_id: Math.abs(hash).toString(16)\n}}];\n\nreturn [{ json: {\n  ...($input.first().json),\n  cookbook_id: Math.abs(hash).toString(16)\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -80
+      ],
+      "id": "0bf3377c-62c3-4dd5-bf71-ce62f6fd1377",
+      "name": "Generate Cookbook Hash Id"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "Cookbook",
+        "limit": 3,
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "cookbook_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.cookbook_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1152,
+        0
+      ],
+      "id": "b314f62b-86b1-43f5-85df-8f1f9fee82e2",
+      "name": "3 dishes with hash ID",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HqCLlpOXJSlTB8BC",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "Cookbook",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "selectedCuisines",
+              "fieldValue": "={{ $json.selectedCuisines }}"
+            },
+            {
+              "fieldId": "selectedDietPreference",
+              "fieldValue": "={{ $json.selectedDietPreference }}"
+            },
+            {
+              "fieldId": "recipe",
+              "fieldValue": "={{ $json.recipe }}"
+            },
+            {
+              "fieldId": "cookbook_id",
+              "fieldValue": "={{ $json.cookbook_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        288
+      ],
+      "id": "9ba7973e-6788-4587-aff0-d4039ea5de62",
+      "name": "Generate Recipe with Hash ID",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HqCLlpOXJSlTB8BC",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "Cookbook",
+        "limit": 1,
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "cookbook_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.cookbook_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        640,
+        -64
+      ],
+      "id": "cbb00a92-8c7b-47ec-95d6-525d3d68e0c0",
+      "name": "show cookbook_id (Hash ID) exists",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "HqCLlpOXJSlTB8BC",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "ed2a2b78-5aef-48c4-ab01-666a718a7aa6",
+              "leftValue": "={{ $json.cookbook_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        800,
+        0
+      ],
+      "id": "24d804d1-e06c-4ec9-b6e9-213b03d8b255",
+      "name": "(Hash id) exist or not"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.output;\nconst cleaned = raw.replace(/```json|```/g, '').trim();\nconst recipes = JSON.parse(cleaned);\n\nif (recipes.length !== 3) {\n  throw new Error(`KI hat ${recipes.length} Rezepte generiert, erwartet waren 3.`);\n}\n\n// cookbook_id neu berechnen aus Webhook Daten\nconst webhook = $('Webhook').item.json.body;\nconst ingredients = webhook.ingredients\n  .map(i => `${i.size}${i.unit}${i.value.toLowerCase()}`)\n  .sort()\n  .join('|');\n\nconst key = `${ingredients}_${webhook.selectedCookingTime}_${webhook.selectedCuisines}_${webhook.selectedDietPreference}_${webhook.person}_${webhook.portions}`.toLowerCase();\n\nlet hash = 0;\nfor (let i = 0; i < key.length; i++) {\n  hash = ((hash << 5) - hash) + key.charCodeAt(i);\n  hash |= 0;\n}\nconst cookbook_id = Math.abs(hash).toString(16);\n\nreturn recipes.map(recipe => ({ \n  json: {\n    recipe: {\n      title: recipe.title,\n      info: recipe.info,\n      nutritional: recipe.nutritional,\n      ingredients: recipe.ingredients,\n      directions: recipe.directions\n    },\n    cookbook_id: cookbook_id,\n    selectedCuisines: recipe.info.cuisine,\n    selectedDietPreference: recipe.info.confidence\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        592,
+        272
+      ],
+      "id": "c906161c-b3d8-4fc5-ae78-76aa203cd3a2",
+      "name": "3 individual ones"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "543d764c-edf7-40d1-8b4e-6be92dc2f844",
+              "leftValue": "={{ $json.limit_reached.toBoolean() }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "7e5cec86-288c-410a-b970-0bb1ef2d13fa",
+              "leftValue": "={{ $json.can_request.toBoolean() }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        128,
+        -64
+      ],
+      "id": "0af2f27b-58ec-492d-a9fa-797c5c608063",
+      "name": "Daily more than 3?"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { \n  cookbook_id: $input.first().json.cookbook_id \n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        160
+      ],
+      "id": "6bbb9464-9af0-4ba9-8de8-ad63ab1e592b",
+      "name": "3item to 1 item"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d64cbd1b-5da4-4cb5-b321-7c8c5065f996",
+              "leftValue": true,
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1328,
+        0
+      ],
+      "id": "15aee3ad-2317-4af0-8097-e78fcf2a3527",
+      "name": "Request successful created",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "086bc9cf-03f4-4429-ba21-be0d56ffb607",
+              "leftValue": "={{ $json['last request'].split('T')[0] }}",
+              "rightValue": "={{ new Date().toISOString().split('T')[0] }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "before"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -80,
+        -80
+      ],
+      "id": "bb2c691b-c898-4722-980d-96731898ac96",
+      "name": "Last Request last day?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "User Request",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Ip Adress",
+              "condition": "eq",
+              "keyValue": "={{ $('Fetch User Data per IP').item.json['Ip Adress'] }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "count",
+              "fieldValue": "={{ $json.count = 0 }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -368
+      ],
+      "id": "c1c225cc-ccf9-4256-8e83-25209d8fbad3",
+      "name": "Set count to 0",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HqCLlpOXJSlTB8BC",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "User Request",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Ip Adress",
+              "condition": "eq",
+              "keyValue": "={{ $('Fetch User Data per IP').item.json['Ip Adress'] }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "count",
+              "fieldValue": "={{ $('work with real count').item.json.count +1 }}"
+            },
+            {
+              "fieldId": "last request",
+              "fieldValue": "={{ new Date().toISOString() }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1856,
+        -16
+      ],
+      "id": "8ee8da90-f73e-475b-b0a6-9fdb7651d286",
+      "name": "Update a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HqCLlpOXJSlTB8BC",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1600,
+        -16
+      ],
+      "id": "1596d528-e405-4fce-863f-98751d33c2d8",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"error\": \"rate_limit\" }\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        496,
+        -432
+      ],
+      "id": "ad7523dd-923c-4f5d-88a1-cd8a77393ab7",
+      "name": "Error Rate Limit"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "24efdd73-83d5-4b64-a923-622bc9997ad1",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": true,
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        368,
+        272
+      ],
+      "id": "5783149e-f2ad-40ff-b953-c48fa96b66c8",
+      "name": "if recipe generatet?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a234fa81-5aa5-4dd5-b8c5-89d343c051cf",
+              "leftValue": "={{ $json.output.toBoolean() }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        592,
+        496
+      ],
+      "id": "2d9f630c-d95b-4197-bf89-26f450ff3b81",
+      "name": "why not generated?"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"error\": \"wrong_ingredients\" }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1104,
+        496
+      ],
+      "id": "ba148f5d-7af3-4cdf-a9c2-e780a2f09091",
+      "name": "Wrong Ingredients"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"error\": \"unknown\" }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1696,
+        592
+      ],
+      "id": "8091baa4-e62d-46aa-8023-2b6f01f3747f",
+      "name": "Unknow Error"
+    },
+    {
+      "parameters": {
+        "fromEmail": "contact@maik-groth.com",
+        "toEmail": "contact@maik-groth.com",
+        "subject": "test",
+        "html": "Hello",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1952,
+        592
+      ],
+      "id": "5e036ac4-0832-46a8-be61-ecdf860c8357",
+      "name": "Send an Email",
+      "webhookId": "cd791756-3acc-4ddd-bfe4-cd862b4574e0",
+      "credentials": {
+        "smtp": {
+          "id": "n7s9pz4E5GhW0RBB",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let count;\n\ntry {\n  count = $('Set count to 0').first().json.count;\n} catch(e) {\n  count = $input.first().json.count;\n}\n\nreturn [{ json: {\n  ...$input.first().json,\n  count: count\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        304,
+        -80
+      ],
+      "id": "f07868f9-e1a5-40c4-8f66-3c66db0f5f37",
+      "name": "work with real count"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "filter ip adress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "filter ip adress": {
+      "main": [
+        [
+          {
+            "node": "Fetch User Data per IP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch User Data per IP": {
+      "main": [
+        [
+          {
+            "node": "Check is possible",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check is possible": {
+      "main": [
+        [
+          {
+            "node": "if = give qoutes form user and vilidate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "else = create new row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "else = create new row": {
+      "main": [
+        [
+          {
+            "node": "if = give qoutes form user and vilidate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "if = give qoutes form user and vilidate": {
+      "main": [
+        [
+          {
+            "node": "Last Request last day?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "if recipe generatet?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "3item to 1 item",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generate Recipe with Hash ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Cookbook Hash Id": {
+      "main": [
+        [
+          {
+            "node": "show cookbook_id (Hash ID) exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3 dishes with hash ID": {
+      "main": [
+        [
+          {
+            "node": "Request successful created",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Recipe with Hash ID": {
+      "main": [
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "show cookbook_id (Hash ID) exists": {
+      "main": [
+        [
+          {
+            "node": "(Hash id) exist or not",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "(Hash id) exist or not": {
+      "main": [
+        [
+          {
+            "node": "3 dishes with hash ID",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3 individual ones": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily more than 3?": {
+      "main": [
+        [
+          {
+            "node": "Error Rate Limit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "work with real count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3item to 1 item": {
+      "main": [
+        [
+          {
+            "node": "3 dishes with hash ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Request successful created": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Unknow Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Last Request last day?": {
+      "main": [
+        [
+          {
+            "node": "Set count to 0",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Daily more than 3?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set count to 0": {
+      "main": [
+        [
+          {
+            "node": "work with real count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        []
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "if recipe generatet?": {
+      "main": [
+        [
+          {
+            "node": "3 individual ones",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "why not generated?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "why not generated?": {
+      "main": [
+        [
+          {
+            "node": "Wrong Ingredients",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Unknow Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wrong Ingredients": {
+      "main": [
+        []
+      ]
+    },
+    "Unknow Error": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "work with real count": {
+      "main": [
+        [
+          {
+            "node": "Generate Cookbook Hash Id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "Europe/Amsterdam",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "0616d10e-75f7-4e89-af39-80cb904903a9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fdcd0223a6d76807c574f255784355ca62f988d682bba7ea328f1930c8a5807e"
+  },
+  "id": "PkDOZKIgZhije1bp",
+  "tags": []
+}

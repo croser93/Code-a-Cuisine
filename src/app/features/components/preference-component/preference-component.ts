@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { Supabase, UserPreferences } from '../../../core/services/supabase';
+import { N8nService, UserPreferences  } from '../../../core/services/n8n.service';
 
 interface Cookingtime {
   time: string;
@@ -26,16 +26,36 @@ export class PreferenceComponent {
   portions: number = 2;
   person: number = 1;
 
+
+  ngOnInit() {
+    const portions = localStorage.getItem('portions');
+    if (portions) this.portions = JSON.parse(portions);
+
+    const person = localStorage.getItem('person');
+    if (person) this.person = JSON.parse(person);
+
+    const cookingTime = localStorage.getItem('cookingTimeLocalStorage');
+    if (cookingTime) this.userPreferences.selectedCookingTime = JSON.parse(cookingTime);
+
+    const cuisine = localStorage.getItem('cuisineLocalStorage');
+    if (cuisine) this.userPreferences.selectedCuisines = JSON.parse(cuisine);
+
+    const diet = localStorage.getItem('dietLocalStorage');
+    if (diet) this.userPreferences.selectedDietPreference = JSON.parse(diet);
+  }
+
   addedMore(type: 'portions' | 'person') {
     if (this[type] >= 1 && this[type] <= 3)
       this[type]++;
     else if (this.portions >= 3 && this.portions <= 11)
       this.portions++
+    localStorage.setItem(type, JSON.stringify(this[type]))
   }
 
   fewer(type: 'portions' | 'person') {
     if (this[type] > 1)
       this[type]--;
+    localStorage.setItem(type, JSON.stringify(this[type]))
   }
 
   cookingTimeList: Cookingtime[] = [
@@ -77,7 +97,7 @@ export class PreferenceComponent {
     selectedDietPreference: null
   };
 
-  constructor(private supabase: Supabase, private router: Router) { }
+  constructor(private n8n: N8nService, private router: Router) { }
 
   isSelectionComplete() :  boolean{
   if (this.userPreferences.selectedCookingTime &&
@@ -90,20 +110,24 @@ export class PreferenceComponent {
 
   selectCookingTime(time: string) {
     this.userPreferences.selectedCookingTime = time;
+    localStorage.setItem('cookingTimeLocalStorage', JSON.stringify(this.userPreferences.selectedCookingTime))
+
   }
 
   selectCuisine(cuisine: string) {
     this.userPreferences.selectedCuisines = cuisine;
+    localStorage.setItem('cuisineLocalStorage', JSON.stringify(this.userPreferences.selectedCuisines))
   }
 
   selectDietPreference(diet: string) {
     this.userPreferences.selectedDietPreference = diet;
+    localStorage.setItem('dietLocalStorage', JSON.stringify(this.userPreferences.selectedDietPreference))
   }
 
   generateRecipe() {
     this.userPreferences.portions = this.portions;
     this.userPreferences.person = this.person;
-    this.supabase.pushData(this.userPreferences);
+    this.n8n.pushData(this.userPreferences);
     this.router.navigate(['/loading-screen']);
   }
 }
