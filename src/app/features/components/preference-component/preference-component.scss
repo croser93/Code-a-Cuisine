@@ -1,11 +1,12 @@
 @use '../../../../styles/variables' as *;
 
 section {
-  min-height: calc(100vh - 84px - 62px);
-  @include flex-col($jc: flex-start);
+  min-height: calc(100vh - 84px - 92px);
+  @include flex-col($jc: center);
 
   > div {
     @include flex-col($g: 36px);
+    padding: 48px;
   }
 }
 

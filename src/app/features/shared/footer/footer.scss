@@ -1,16 +1,32 @@
 @use '../../../../styles/variables' as *;
 
 section {
-  padding: 16px 48px;
-  @include flex(space-around);
-  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  
+  main{
+    padding: 8px 48px;
+    @include flex($jc: space-between);
 
-  a {
-    font-size: clamp(1rem, 4vw, 1.5rem);
-    text-decoration: none;
-    padding: 8px;
-    cursor: pointer;
+    div{
+       @include flex-col($ai: flex-start, $g: 8px);
+       a{
+         text-decoration: none;
+        cursor: pointer;
+       }
+    }
+
+    span{
+      font-size: 1.25rem;
+      &.dark  { color: var(--cream-warm); }
+      &.light { color: var(--green-medium); }
+    }
   }
+}
+
+
+img{
+  width: 104px;
 }
 
 @media (max-width: 780px) {

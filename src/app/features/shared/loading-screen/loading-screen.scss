@@ -3,7 +3,7 @@
 section {
   @include flex();
   background-color: var(--green-medium);
-  height: calc(100vh - 84px - 62px);
+  height: calc(100vh - 84px);
 }
 
 .loading-container {

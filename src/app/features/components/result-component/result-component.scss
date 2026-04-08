@@ -1,9 +1,9 @@
 @use '../../../../styles/variables' as *;
 
 section {
-  min-height: calc(100vh - 84px - 62px);
+  min-height: calc(100vh - 84px - 92px);
   background-color: var(--green-medium);
-  @include flex($ai: flex-start);
+  @include flex($ai: center);
 
   > .content {
     @include flex-col($g: 32px);

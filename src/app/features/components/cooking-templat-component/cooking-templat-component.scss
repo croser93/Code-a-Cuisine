@@ -1,7 +1,7 @@
 @use '../../../../styles/variables' as *;
 
 section {
-  @include flex($ai: flex-start);
+  @include flex($ai: center);
   width: 100%;
 
   > .content {
