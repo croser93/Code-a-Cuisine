@@ -42,6 +42,17 @@ section {
     }
   }
 
+.errorContainer{
+  height: 16px;
+  padding: 0px 4px;
+  .errorMassage{
+    color: red;
+    font-size: 1rem;
+
+  }
+
+}
+
   > .containerRight {
     max-height: 420px;
     overflow: auto;
@@ -62,6 +73,19 @@ section {
         font-size: 1.125rem;
       }
     }
+  }
+}
+
+.emptyListWrapper{
+  max-width: 420px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  .emptyListText{
+    color: var(--green-darkest);
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    text-align: center;
   }
 }
 
@@ -149,9 +173,11 @@ input[type="number"] {
 
 .dropdownOptions {
   list-style: none;
-  padding: 4px 0 0 0;
+  padding: 2px 8px;
   margin: 0;
   @include flex-col($ai: stretch, $g: 4px);
+  position: absolute;
+  z-index: 2;
 
   li {
     font-family: var(--font-body-medium);

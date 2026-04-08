@@ -6,15 +6,21 @@
         </div>
 
         <div class="content">
-            <div class="containerLeft container">
+            <form class="containerLeft container"  #contactForm="ngForm" autocomplete="off">
                 <div class="ingredientContainer inputContain">
                     <h5>Ingredient</h5>
-                    <input type="text" maxlength="25" [(ngModel)]="value">
+                    <input #ingredientInput="ngModel" name="ingredient" [(ngModel)]="value" type="text" placeholder="potato" maxlength="25" required minlength="2">
+
+                    <div class="errorContainer">
+                        @if (saveAttempted && !ingredientInput.valid) {
+                            <span class="errorMassage">Enter a valid ingredient</span>
+                        }
+                    </div>
                 </div>
                 <div class="servingContainer inputContain">
                     <h5>Serving size</h5>
                     <div class="servingInput">
-                        <input type="text" placeholder="100" maxlength="5" class="inputShort" [(ngModel)]="amount" (keypress)="onlyNumbers($event)">
+                        <input #amountInput="ngModel" name="amount" type="text" placeholder="100" maxlength="5" class="inputShort" [(ngModel)]="amount" (keypress)="onlyNumbers($event)" required>
                         <div class="customSelectContainer inputShort">
                             <div class="customSelect selectServing" (click)="toggleDropdown()">
                                 <span>{{ unit || 'gram' }}</span>
@@ -28,13 +34,23 @@
                                 </ul>
                             }
                         </div>
-                        <button (click)="saveIngredient()"><img src="assets/icon/addBig.svg" alt=""></button>
+                        <button type="button" (click)="saveIngredient(contactForm)"><img src="assets/icon/addBig.svg" alt=""></button>
+                    </div>
+                    <div class="errorContainer">
+                        @if (saveAttempted && !amountInput.valid) {
+                            <span class="errorMassage">Enter a serving size</span>
+                        }
                     </div>
                 </div>
-            </div>
+            </form>
 
             <div class="containerRight container">
                 <h5>List of your Ingredients</h5>
+                @if(ingredientsList.length === 0){
+                    <div class="emptyListWrapper">
+                        <span class="emptyListText">Your list is empty. Please add at least 3 ingredients.</span>
+                    </div>
+                }
                 @for (ingredient of ingredientsList; track ingredient; let i = $index){
                     @if (editingIndex === i) {
                         <div class="inlineEditWrapper ingredientsWrapper">
