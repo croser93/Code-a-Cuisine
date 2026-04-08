@@ -24,7 +24,7 @@ section {
 .recipeHead {
   @include flex(space-around);
   background-color: var(--cream);
-  width: 95%;
+  width: 100%;
   border-radius: 20px;
   padding: 24px 0;
 

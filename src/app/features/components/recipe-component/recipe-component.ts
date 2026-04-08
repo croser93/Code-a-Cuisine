@@ -38,8 +38,6 @@ export class RecipeComponent {
 
   ingredient = {
     ingredient: "",
-    email: "",
-
   }
 
   saveAttempted: boolean = false;

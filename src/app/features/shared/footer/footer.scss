@@ -31,12 +31,24 @@ img{
 
 @media (max-width: 780px) {
   section {
-    padding: 0 16px;
+    padding: 24px;
+  }
+  main{
+    @include flex-col();
+    gap: 16px !important;
+    div{
+      text-align: center;
+      align-items: center !important;
+    };
+    span{
+      font-size: 1.05rem !important;
+    }
   }
 }
 
-@media (max-width: 400px) {
-  section {
-    @include flex-col();
+@media (max-width: 420px) {
+  a > img{
+    display: none;
   }
 }
+

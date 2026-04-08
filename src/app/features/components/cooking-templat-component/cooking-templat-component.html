@@ -115,7 +115,7 @@
                                 </div>
                                 @if(!fromCookbook){
                                     <div>
-                                        <img class="imgIcon" src="assets/icon/cook1.svg" alt="">
+                                        <img class="imgIcon" [src]="'assets/icon/cook' + (i % recipe.info.person + 1) + '.svg'" alt="Cook Icon">
                                     </div>
                                 }
                             </div>

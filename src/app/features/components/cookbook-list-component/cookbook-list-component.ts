@@ -11,10 +11,6 @@ import { Supabase } from '../../../core/services/supabase';
   styleUrl: './cookbook-list-component.scss',
 })
 export class CookbookListComponent {
-  dummyRecipes = Array.from({ length: 15 }, (_, i) => ({
-    vegetarian: i % 3 === 0,
-    quick: true
-  }));
 
   constructor(
     private supabase: Supabase, 

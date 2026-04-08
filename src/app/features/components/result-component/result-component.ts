@@ -55,7 +55,6 @@ export class ResultComponent implements OnInit {
 getSelectedDish(i : number){
   this.supabase.currentSelectedRecipe = this.recipeList[i];
   this.supabase.fromCookBook.set(false);
-  console.log(this.supabase.currentSelectedRecipe);
 }
 
 }
