@@ -4,9 +4,8 @@ import { Header } from './features/shared/header/header';
 import { Footer } from './features/shared/footer/footer';
 import { ThemeService } from './core/services/theme.service';
 import { filter } from 'rxjs/operators';
-import { LoadingScreen } from './features/shared/loading-screen/loading-screen';
 import { Supabase } from './core/services/supabase';
-import { JsonPipe } from '@angular/common';
+
 
 
 @Component({
@@ -17,10 +16,11 @@ import { JsonPipe } from '@angular/common';
 })
 export class App {
   protected readonly title = signal('codecuisine');
-
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
   private themeService = inject(ThemeService);
+
+  hideFooter = signal(false);
 
   constructor() {
     this.router.events.pipe(
@@ -32,8 +32,11 @@ export class App {
       }
       
       const theme = route.snapshot.data['theme'] || 'dark';
-  
       this.themeService.currentTheme.set(theme);
+
+      const hideFooter = route.snapshot.data['hideFooter'] ?? false;
+      this.hideFooter.set(hideFooter);
+
     });
   }
 

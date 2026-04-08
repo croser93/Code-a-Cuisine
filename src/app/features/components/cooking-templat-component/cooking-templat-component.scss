@@ -33,7 +33,7 @@ section {
 
     > .cookingTime {
       @include flex($jc: flex-start, $g: 8px);
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: var(--green-medium);
       font-family: var(--font-body-medium);
     }
@@ -48,7 +48,7 @@ section {
       @include flex($jc: flex-start, $g: 16px);
 
       > span {
-        font-size: 0.875rem;
+        font-size: 1rem;
         color: var(--green-medium);
         font-family: var(--font-body-medium);
       }
@@ -75,7 +75,7 @@ section {
         background-color: $green-alpha-20;
 
         > span {
-          font-size: 0.875rem;
+          font-size: 1rem;
           color: var(--green-darkest);
           font-family: var(--font-body-medium);
         }

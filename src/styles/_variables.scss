@@ -29,14 +29,14 @@ $cream-alpha-80: rgba(250, 240, 230, 0.80);
 
 
 $font-hero-title:    clamp(2rem,    7vw, 6.5rem);
-$font-hero-subtitle: clamp(1rem,    4vw, 3rem);
+$font-hero-subtitle: clamp(1.2rem,    4vw, 3rem);
 $font-hero-lead:     clamp(1rem,    3vw, 2rem);
 $font-hero-link:     clamp(1rem,  2.5vw, 1.375rem);
 $font-page-title:    clamp(1.5rem,  5vw, 3.375rem);
 $font-section-title: clamp(1.25rem, 3vw, 1.75rem);
 $font-body-large:    clamp(1rem,    2vw, 1.375rem);
-$font-body:          clamp(0.875rem,1.5vw, 1.125rem);
-$font-small:         clamp(0.75rem, 1.2vw, 1rem);
+$font-body:          clamp(1rem,1.5vw, 1.125rem);
+$font-small:         clamp(1rem, 1.2vw, 1rem);
 
 
 @mixin flex($jc: center, $ai: center, $g: 0) {
