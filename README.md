@@ -11,6 +11,9 @@ An intelligent recipe discovery application that generates personalized dish rec
 
 ## 🍳 About The Project
 
+<img width="1248" height="746" style="border-radius:16" alt="mockup Hellgate Shadowfall" src="https://github.com/user-attachments/assets/d05445a5-5487-48d2-943e-506de1489f07"/>
+<img width="1248" height="746" style="border-radius:16" alt="mockup Hellgate Shadowfall" src="https://github.com/user-attachments/assets/7f46d8dc-dc9c-4c2f-8e2a-31959d5af234"/>
+<img width="1248" height="746" style="border-radius:16" alt="mockup Hellgate Shadowfall" src="https://github.com/user-attachments/assets/0d77dbda-4b59-47a4-b5ae-68520144682c"/>
 
 
 
