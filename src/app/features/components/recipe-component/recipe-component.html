@@ -93,11 +93,11 @@
             </div>
         </div>
 
-        @if (ingredientsList.length > 2) {
-            <div class="buttonContainer">
-                <a routerLink="/preferences"><button (click)="saveToService()" class="bigButton btnLight">Next step</button></a>
-            </div>
-        }
+        
+        <div class="buttonContainer">
+            <button (click)="saveToService()" [disabled]="ingredientsList.length <= 2" [routerLink]="ingredientsList.length > 2 ? '/preferences' : null" class="bigButton btnLight">Next step</button>
+        </div>
+        
     </div>
 
 </section>
