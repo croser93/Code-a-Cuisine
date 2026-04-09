@@ -1,5 +1,17 @@
-<section [ngClass]="themeservice.currentTheme()">
-    <a [ngClass]="themeservice.currentTheme()"href="#">Impressum</a>
-    <a href="https://github.com/croser93/Code-a-Cuisine">Github</a>
-    <a href="https://github.com/croser93/Code-a-Cuisine">privacy policy</a>
-</section>
+ 
+    <section [ngClass]="themeservice.currentTheme()">
+
+        <main class="mainContainer">  
+            <div>
+                <a routerLink="/legal-notice">Legal Notice</a>
+                <a href="https://github.com/croser93/Code-a-Cuisine" target="_blank">Github</a>
+                <a routerLink="/privacy-policy">Privacy Policy</a>
+            </div>
+      
+            <span [ngClass]="themeservice.currentTheme()">© Maik Groth 2026</span>
+           
+            <div>
+                <a routerLink="/"><img [src]="themeservice.currentTheme() === 'dark' ? 'assets/img/logo.svg' : 'assets/img/logo-default.svg'" alt="CodeCuisine Logo" class="logo"></a>
+            </div>
+        </main> 
+    </section>

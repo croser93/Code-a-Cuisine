@@ -1,0 +1,113 @@
+@use '../../../../../styles/variables' as *;
+
+.notice-page {
+  @include flex-col($jc: flex-start, $ai: center);
+  min-height: 100vh;
+  padding: 60px 48px;
+}
+
+.notice-container {
+  @include flex-col($jc: flex-start, $ai: stretch, $g: 48px);
+  max-width: 1200px;
+  width: 100%;
+  background-color: rgba(57, 96, 57, 0.3);
+  padding: 48px;
+  border-radius: 20px;
+}
+
+.notice-header {
+  @include flex-col($ai: flex-start, $g: 8px);
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--gray-green);
+
+  h1 {
+    font-family: var(--font-heading-bold);
+    font-size: $font-page-title;
+    color: var(--green-darkest);
+  }
+
+  .notice-subtitle {
+    font-family: var(--font-body);
+    font-size: $font-small;
+    color: var(--green-medium);
+  }
+}
+
+.notice-section {
+  @include flex-col($ai: flex-start, $g: 16px);
+
+  h2 {
+    font-family: var(--font-heading-bold);
+    font-size: $font-section-title;
+    color: var(--green-darkest);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-green);
+    width: 100%;
+  }
+
+  a {
+    color: var(--green-medium);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.provider-card {
+  @include flex-col($ai: stretch, $g: 16px);
+  background: var(--cream);
+  border: 1px solid var(--gray-green);
+  border-radius: 8px;
+  padding: 20px 24px;
+  width: 100%;
+
+  .provider-details {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 8px 16px;
+    align-items: start;
+
+    .label {
+      font-family: var(--font-body-bold);
+      font-size: $font-small;
+      color: var(--green-medium);
+      padding-top: 1px;
+    }
+
+    .value {
+      font-family: var(--font-body);
+      font-size: $font-small;
+      color: #444;
+      a {
+        color: var(--green-medium);
+      }
+    }
+  }
+}
+
+.notice-footer {
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-green);
+
+  p {
+    font-family: var(--font-body);
+    font-size: $font-small;
+    color: var(--green-medium);
+  }
+}
+
+@media (max-width: 780px) {
+  .notice-page {
+    padding: 8px;
+  }
+
+  .notice-container {
+    padding: 8px;
+  }
+
+  .provider-card .provider-details {
+    grid-template-columns: 1fr;
+  }
+}

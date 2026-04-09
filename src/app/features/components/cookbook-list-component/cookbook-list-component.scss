@@ -2,8 +2,8 @@
 
 section {
   margin-top: 32px;
-  min-height: calc(100vh - 84px - 62px - 64px);
-  @include flex-col($jc: flex-start);
+  min-height: calc(100vh - 84px - 92px);
+  @include flex-col($jc: center);
 
   > div {
     @include flex-col();
@@ -211,5 +211,8 @@ section {
 @media (max-width: 400px) {
   .recipeTagsRight {
     flex-wrap: wrap;
+  }
+  .likesTag{
+    display: none !important;
   }
 }

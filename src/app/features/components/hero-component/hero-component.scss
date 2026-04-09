@@ -2,7 +2,7 @@
 
 section {
   background-color: var(--green-medium);
-  min-height: calc(100vh - 84px - 62px);
+  min-height: calc(100vh - 84px);
   padding: 0 48px;
   @include flex-col();
   width: 100%;
@@ -29,7 +29,7 @@ section {
   position: absolute;
   left: 70%;
   top: -84px;
-  height: calc(100% + 84px + 62px);
+  height: calc(100% + 84px);
   transform: translateX(-2%);
   overflow-y: clip;
 

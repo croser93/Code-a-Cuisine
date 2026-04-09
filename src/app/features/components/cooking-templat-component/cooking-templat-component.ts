@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { Supabase } from '../../../core/services/supabase';
 import { RouterLink } from "@angular/router";
 
-
-
 interface InfoItem {
   time?: string;
   diet?: string;
@@ -38,9 +36,6 @@ interface RecipeIngredients {
   extraIngredients: Ingredient[];
   CookingtextList: CookingStep[];
 }
-
-
-
 @Component({
   selector: 'app-cooking-templat-component',
   imports: [FormsModule, CommonModule, RouterLink],
@@ -50,24 +45,25 @@ interface RecipeIngredients {
 export class CookingTemplatComponent {
   recipe: any;
   selectAddLike:boolean = false;
+  fromCookbook: boolean = false;
 
   constructor(private supabase: Supabase) {}
 
   ngOnInit() {
     this.recipe = this.supabase.currentSelectedRecipe.recipe;
-      console.log(this.recipe);
+    this.fromCookbook = this.supabase.fromCookBook();
+    console.log(this.recipe);
+
     }
   
     addLike(){
       if(!this.selectAddLike){
         this.recipe.info.likes += 1
         this.selectAddLike = true
-        console.log(this.recipe.info.likes)
       }
       else{
         this.recipe.info.likes -= 1
         this.selectAddLike = false
-        console.log(this.recipe.info.likes)
       }
 
     }

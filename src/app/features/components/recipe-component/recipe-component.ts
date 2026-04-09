@@ -1,8 +1,9 @@
 import { Component, HostListener, ElementRef } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
 import { N8nService } from '../../../core/services/n8n.service';
+
 
 
 interface Ingredient {
@@ -35,6 +36,11 @@ export class RecipeComponent {
   '': 'piece'
 };
 
+  ingredient = {
+    ingredient: "",
+  }
+
+  saveAttempted: boolean = false;
   isDropdownOpen: boolean = false;
   unitOptions: string[] = ['piece', 'ml', 'gram'];
 
@@ -43,7 +49,6 @@ export class RecipeComponent {
     const localstorage = localStorage.getItem('ingredientsAtLocalStorage')
     if (localstorage)
       this.ingredientsList = JSON.parse(localstorage) as Ingredient[]
-
   }
 
   toggleDropdown() {
@@ -114,25 +119,30 @@ export class RecipeComponent {
   }
 }
 
-  saveIngredient() {
+  saveIngredient(form: NgForm) {
+    if (!form.valid) {
+      this.saveAttempted = true;
+      return;
+    }
     const newIngredient: Ingredient = {
       value: this.value,
       size: this.amount,
       unit: this.unitMap[this.unit || 'gram']
     };
-    if (this.value.length > 0 && this.amount > 0) {
-      this.ingredientsList.push(newIngredient);
-      localStorage.setItem('ingredientsAtLocalStorage', JSON.stringify(this.ingredientsList))
-      this.value = '';
-    }
+    this.ingredientsList.push(newIngredient);
+    localStorage.setItem('ingredientsAtLocalStorage', JSON.stringify(this.ingredientsList));
+    this.saveAttempted = false;
+    form.resetForm();
   }
 
   deleteIngredient(i: number) {
     this.ingredientsList.splice(i, 1);
+    localStorage.setItem('ingredientsAtLocalStorage', JSON.stringify(this.ingredientsList));
 
   }
 
   saveToService() {
     this.n8n.currentIngredients = this.ingredientsList;
   }
+
 }

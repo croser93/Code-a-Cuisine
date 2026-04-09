@@ -11,10 +11,6 @@ import { Supabase } from '../../../core/services/supabase';
   styleUrl: './cookbook-list-component.scss',
 })
 export class CookbookListComponent {
-  dummyRecipes = Array.from({ length: 15 }, (_, i) => ({
-    vegetarian: i % 3 === 0,
-    quick: true
-  }));
 
   constructor(
     private supabase: Supabase, 
@@ -47,8 +43,8 @@ export class CookbookListComponent {
   }
 
   selectCookbookrecipe(index: any){
-    this.supabase.currentSelectedRecipe = this.cookbookList[index].recipe.recipe;
-    console.log(this.supabase.currentSelectedRecipe)
+    this.supabase.currentSelectedRecipe = this.cookbookList[index];
+    this.supabase.fromCookBook.set(true);
     this.router.navigate(['/cooking-template']);
   }
 
