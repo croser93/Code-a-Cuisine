@@ -16,7 +16,6 @@ section {
 
 .content {
   @include flex($g: 24px, $ai: flex-start);
-  max-width: 1080px;
   width: 100%;
   margin-top: 64px;
 
@@ -77,12 +76,13 @@ section {
 }
 
 .emptyListWrapper{
-  max-width: 420px;
+  width: 100%;
   margin-top: 16px;
   display: flex;
   justify-content: center;
   .emptyListText{
-    color: var(--green-darkest);
+    color: rgba(0, 0, 0, 0.6);
+    font-style: italic;
     font-family: var(--font-body);
     font-size: 1.2rem;
     text-align: center;
@@ -217,7 +217,7 @@ span {
   min-height: 240px;
   padding: 24px;
   border-radius: 20px;
-  min-width: 480px;
+  min-width: 520px;
 }
 
 .inputContain {

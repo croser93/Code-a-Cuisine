@@ -52,8 +52,6 @@ export class CookingTemplatComponent {
   ngOnInit() {
     this.recipe = this.supabase.currentSelectedRecipe.recipe;
     this.fromCookbook = this.supabase.fromCookBook();
-    console.log(this.recipe);
-
     }
   
     addLike(){

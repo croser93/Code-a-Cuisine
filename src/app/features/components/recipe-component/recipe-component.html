@@ -51,10 +51,15 @@
                         <span class="emptyListText">Your list is empty. Please add at least 3 ingredients.</span>
                     </div>
                 }
-                @for (ingredient of ingredientsList; track ingredient; let i = $index){
-                    @if (editingIndex === i) {
-                        <div class="inlineEditWrapper ingredientsWrapper">
-                            <div class="inlineInputs">
+                @else if (ingredientsList.length <= 2){
+                    <div class="emptyListWrapper">
+                        <span class="emptyListText">{{ 3 - ingredientsList.length }} ingredient left.</span>
+                    </div>
+                }
+                    @for (ingredient of ingredientsList; track ingredient; let i = $index){
+                        @if (editingIndex === i) {
+                            <div class="inlineEditWrapper ingredientsWrapper">
+                                <div class="inlineInputs">
                                 <input type="text" maxlength="5" class="inputShort editPill" [(ngModel)]="editingIngredient.size" (keypress)="onlyNumbers($event)">
                                 
                                 <div class="customSelectColumn inputShort">
