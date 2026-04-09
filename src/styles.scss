@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: "quicksand";
-  src: url("/assets/font/quicksand/Quicksand-Regular.ttf") format("truetype");
+  src: url("./fonts/quicksand/Quicksand-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -11,7 +11,7 @@
 
 @font-face {
   font-family: "quicksand-medium";
-  src: url("/assets/font/quicksand/Quicksand-Medium.ttf") format("truetype");
+  src: url("./fonts/quicksand/Quicksand-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -19,7 +19,7 @@
 
 @font-face {
   font-family: "quicksand-semiBold";
-  src: url("/assets/font/quicksand/Quicksand-SemiBold.ttf") format("truetype");
+  src: url("./fonts/quicksand/Quicksand-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -27,7 +27,7 @@
 
 @font-face {
   font-family: "ubuntu-medium";
-  src: url("/assets/font/ubunt/Ubuntu-Medium.ttf") format("truetype");
+  src: url("./fonts/ubunt/Ubuntu-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -35,7 +35,7 @@
 
 @font-face {
   font-family: "ubuntu-bold";
-  src: url("/assets/font/ubunt/Ubuntu-Bold.ttf") format("truetype");
+  src: url("./fonts/ubunt/Ubuntu-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

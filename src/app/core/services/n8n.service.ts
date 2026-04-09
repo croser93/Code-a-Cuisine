@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { ErrorService } from './error.service';
-
+import { ErrorService, ErrorType } from './error.service';
+import { environment } from '../../../environments/environment.development';
 
 export interface Ingredient {
   value: string;
@@ -20,15 +20,16 @@ export interface UserPreferences {
   providedIn: 'root',
 })
 export class N8nService {
-  currentIngredients: Ingredient[] = [];
+  n8nWebhookURL = environment.n8nWebhookURL;
 
+  currentIngredients: Ingredient[] = [];
   recipeResult = signal<any>(null);
   loadingScreen = signal<boolean>(false);
 
   constructor(private errorService: ErrorService) {}
 
-  async pushData(preferences: UserPreferences) {
-    const combinedData = {
+  setData(preferences: UserPreferences){
+      const combinedData = {
       ingredients: this.currentIngredients,
       portions: preferences.portions,
       person: preferences.person,
@@ -36,44 +37,63 @@ export class N8nService {
       selectedCuisines: preferences.selectedCuisines,
       selectedDietPreference: preferences.selectedDietPreference,
     };
+    return combinedData;
+  }
 
+  async pushData(preferences: UserPreferences) {
     this.loadingScreen.set(true);
     this.errorService.clearError();
 
     try {
       const response = await fetch(
-        'http://localhost:5678/webhook-test/0236c66a-d4c3-4216-9e1c-79a8437f952a',
+        this.n8nWebhookURL,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(combinedData),
+          body: JSON.stringify(this.setData(preferences)),
         }
       );
-
-      if (!response.ok) {
-        this.errorService.setError('connection');
-        this.loadingScreen.set(false);
-        return;
-      }
-
       const result = await response.json();
       const n8nErrorType = this.errorService.parseN8nError(result);
-      if (n8nErrorType) {
-        this.errorService.setError(n8nErrorType);
-        this.loadingScreen.set(false);
-        return;
-      }
 
-      if (result) {
-        this.recipeResult.set(result);
-        this.loadingScreen.set(false);
-        this.removeLocalStorage();
-      }
-    } catch {
-      this.errorService.setError('connection');
-      this.loadingScreen.set(false);
+      if (!response.ok) 
+        this.badRequest();
+
+      else if (n8nErrorType) 
+        this.n8nErrorTrigger(n8nErrorType);
+      
+      else if (result) 
+        this.goodRequest(result);  
+    } 
+    catch {
+        this.catchError();
     }
   }
+
+  badRequest(){
+    this.recipeResult.set(null);
+    this.errorService.setError('connection');
+    this.loadingScreen.set(false);
+    return;
+  }
+
+  n8nErrorTrigger(n8nErrorType: ErrorType){
+    this.recipeResult.set(null);
+    this.errorService.setError(n8nErrorType);
+    this.loadingScreen.set(false);
+    return;
+  }
+
+  goodRequest(result: string){
+      this.recipeResult.set(result);
+      this.loadingScreen.set(false);
+      this.removeLocalStorage();
+  }
+
+  catchError(){
+      this.recipeResult.set(null);
+      this.errorService.setError('connection');
+      this.loadingScreen.set(false);}
   
   removeLocalStorage(){
         const keysToRemove = ['ingredientsAtLocalStorage', 'portions', 'person', 'cookingTimeLocalStorage', 'cuisineLocalStorage', 'dietLocalStorage'];

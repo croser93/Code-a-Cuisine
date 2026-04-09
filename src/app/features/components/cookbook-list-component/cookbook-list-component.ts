@@ -29,17 +29,14 @@ export class CookbookListComponent {
   this.selectedCuisine = this.route.snapshot.paramMap.get('type');
   if(this.selectedCuisine){
    await this.supabase.fetchCookbookList(this.selectedCuisine);
-   this.log();
+   this.setSupabase();
    this.cdr.detectChanges();
   }
   }
 
-  log(){
+  setSupabase(){
     this.cookbookList = this.supabase.cookbookData();
     this.recipeCount = this.supabase.counter();
-
-    console.log(this.cookbookList)
-    console.log(this.supabase.counter())
   }
 
   selectCookbookrecipe(index: any){
@@ -56,7 +53,7 @@ async changePage(newPage: number) {
   if (newPage >= 0 && newPage < this.totalPages) {
     this.currentPage = newPage;
     await this.supabase.fetchCookbookList(this.selectedCuisine, this.currentPage);
-    this.log()
+    this.setSupabase()
     this.cdr.detectChanges();
     window.scrollTo(0, 0);
     
