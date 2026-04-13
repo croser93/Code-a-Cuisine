@@ -337,7 +337,10 @@ span {
     min-width: 0;
     min-height: auto;
     flex-direction: column;
-    padding: 16px;
+    padding: 24px 16px;
+    gap: 4px;
+    height: 300px;
+    justify-content: flex-start;
   }
 
   .inputContain {
