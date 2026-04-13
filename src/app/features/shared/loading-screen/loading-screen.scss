@@ -3,7 +3,7 @@
 section {
   @include flex();
   background-color: var(--green-medium);
-  height: calc(100vh - 84px);
+  height: calc(100vh - 71px);
 }
 
 .loading-container {
@@ -29,14 +29,9 @@ section {
 
 .dialog {
   color: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border: 1px solid white;
   background-color: var(--green-medium);
-  height: 340px;
-  width: 580px;
+  min-height: 340px;
   border-radius: 20px;
   display: flex;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
@@ -46,13 +41,28 @@ section {
     padding: 44px 64px;
 
     > h5 {
-      font-size: 1.75rem;
+      font-size: clamp(1.25rem, 5vw, 1.75rem);
       font-family: var(--font-body-bold);
     }
 
     > span {
-      font-size: 1.125rem;
+      font-size: clamp(0.9rem, 3.5vw, 1.125rem);
       font-family: var(--font-body);
     }
   }
+}
+
+
+@media (max-width: 500px) {
+  
+.linkContainer a {
+    gap: 8px;
+}
+.dialogContainer {
+    padding: 24px 8px !important;
+}
+
+.dialog{
+  width: 95%;
+}
 }
