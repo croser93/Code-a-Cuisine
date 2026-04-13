@@ -145,4 +145,11 @@ export class RecipeComponent {
     this.n8n.currentIngredients = this.ingredientsList;
   }
 
+  onlyLetters(event: KeyboardEvent) {
+  const allowed = /^[a-zA-ZäöüÄÖÜß\s]$/;
+  if (!allowed.test(event.key) && event.key.length === 1) {
+    event.preventDefault();
+  }
+}
+
 }

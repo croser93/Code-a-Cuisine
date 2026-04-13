@@ -1,5 +1,5 @@
 {
-  "name": "My workflow",
+  "name": "Code a Cuisine",
   "nodes": [
     {
       "parameters": {
@@ -11,24 +11,24 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -1088,
-        -64
+        -1888,
+        352
       ],
-      "id": "098193db-2f0e-43be-a6b5-ac80c164fcef",
+      "id": "0ecbe2f3-9fa0-4091-8616-e498f65ce297",
       "name": "Webhook",
       "webhookId": "0236c66a-d4c3-4216-9e1c-79a8437f952a"
     },
     {
       "parameters": {
-        "jsCode": "const ip = \n  $input.first().json.headers['x-forwarded-for'] || \n  $input.first().json.headers['x-real-ip'] || \n  '111.111.111.26'; // localhost fallback\n\nreturn [{ json: { \n  ...$input.first().json,\n  ip_address: ip\n}}];"
+        "jsCode": "const ip = \n  $input.first().json.headers['cf-connecting-ip'] ||\n  $input.first().json.headers['x-real-ip'] || \n  '111.111.111.26';\n\nreturn [{ json: { \n  ...$input.first().json,\n  ip_address: ip\n}}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -912,
-        -64
+        -1712,
+        352
       ],
-      "id": "e36f1e71-f9ba-4bcc-9c3d-c3240a349ad8",
+      "id": "45a38d87-11c2-40e6-b325-3816b7f45196",
       "name": "filter ip adress"
     },
     {
@@ -40,8 +40,8 @@
           "conditions": [
             {
               "keyName": "Ip Adress",
-              "condition": "gte",
-              "keyValue": "={{ $json.ip_address }}"
+              "condition": "eq",
+              "keyValue": "={{ $('filter ip adress').item.json.ip_address }}"
             }
           ]
         }
@@ -49,15 +49,15 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        -752,
-        -64
+        -1552,
+        352
       ],
-      "id": "fef393e2-8a7b-4694-a430-2a3a72853622",
+      "id": "e2216c9b-ebea-439d-92e4-22bcd1f3b230",
       "name": "Fetch User Data per IP",
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "HqCLlpOXJSlTB8BC",
+          "id": "bIFwd8RDPfclBKoQ",
           "name": "Supabase account"
         }
       }
@@ -90,10 +90,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -624,
-        -64
+        -1392,
+        352
       ],
-      "id": "8037e3b1-dbb7-4b97-8ca6-355381135b75",
+      "id": "fe56c8f4-ead0-42a0-a807-0c9892ddcfc5",
       "name": "Check is possible",
       "alwaysOutputData": false
     },
@@ -105,6 +105,10 @@
             {
               "fieldId": "Ip Adress",
               "fieldValue": "={{ $('filter ip adress').item.json.ip_address }}"
+            },
+            {
+              "fieldId": "last request",
+              "fieldValue": "2000-01-01"
             }
           ]
         }
@@ -112,14 +116,14 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        -464,
-        48
+        -1248,
+        464
       ],
-      "id": "29a8f937-b97e-44ea-8eea-0976d5b748d6",
+      "id": "fa1114d0-9bcd-47ac-bd08-2a884dad2dfd",
       "name": "else = create new row",
       "credentials": {
         "supabaseApi": {
-          "id": "HqCLlpOXJSlTB8BC",
+          "id": "bIFwd8RDPfclBKoQ",
           "name": "Supabase account"
         }
       }
@@ -131,46 +135,46 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -288,
-        -80
+        -1088,
+        336
       ],
-      "id": "092e7bac-658c-4677-8492-3e64a4b9c254",
+      "id": "f365afd7-2826-4dd4-aab3-115b58bce049",
       "name": "if = give qoutes form user and vilidate",
       "alwaysOutputData": true
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "=1. You are a professional chef assistant. \n2. You ALWAYS respond with ONLY valid JSON. No text before or after. No markdown. 3. No explanation.\n4. You ALWAYS generate EXACTLY 3 recipe suggestions.\n5. The JSON structure must ALWAYS match the exact format given - no exceptions.\n6. The recipe MUST use AT LEAST 70% of the provided available ingredients. \n   Not all ingredients need to be used, but at least 70% of the given ingredients \n   must appear in the recipe.\n   Example: If 10 ingredients are provided, at least 7 must be used in the recipe.\n   The remaining 30% can be ignored or replaced with missing ingredients.\n7. BEFORE generating recipes, validate if the ingredients are real food items.\n   If ANY ingredient is not a real food item (random words, nonsense, numbers):\n   - Set \"valid_ingredients\" to false\n   - Return ONLY this JSON: { \"valid_ingredients\": false }\n   If ALL ingredients are real food items:\n   - Set \"valid_ingredients\": true\n   - Return the full recipe array as normal with \"valid_ingredients\": true added to each recipe\n\nGenerate exactly 3 recipes based on these inputs:\n\nAvailable ingredients: {{ $('Webhook').item.json.body.ingredients.map(i => i.size + ' ' + i.unit + ' ' + i.value).join(', ') }}\nCooking time preference: {{ $('Webhook').item.json.body.selectedCookingTime }}\nCuisine preference: {{ $('Webhook').item.json.body.selectedCuisines }}\nDiet preference: recipe.info.diet || recipe.info.confidence\nPersons: {{ $('Webhook').item.json.body.person }}\nPortions: {{ $('Webhook').item.json.body.portions }}\n\nRules you MUST follow:\n1. \"time\" = = realistic cooking time in minutes based on the actual recipe AND must respect:\n   - selectedCookingTime \"Quick\" = maximum 20 minutes\n   - selectedCookingTime \"Medium\" = between 25 and 40 minutes\n   - selectedCookingTime \"Complex\" = minimum 45 minutes\n2. \"likes\" = random number between 50 and 500\n3. \"nutritional\" values must reflect the actual recipe ingredients realistically\n4. \"steps\" must have EXACTLY 4 steps maximum\n5. Assign steps to persons based on this logic:\n   - 1 person  → all 4 steps assigned to person 1\n   - 2 persons → person 1 gets steps 1+2, person 2 gets steps 3+4\n   - 3 persons → distribute randomly but ALL 4 steps must be assigned\n   - 4 persons → each person gets exactly 1 step\n   Current persons: {{ $('Webhook').item.json.body.person }}\n6. \"instructions\" for each step MUST be 2-4 sentences long. Describe what to do in detail — include techniques, temperatures, timing, and visual cues. Not too long, but informative and practical for a home cook.\n\nReturn ONLY this JSON array with exactly 3 recipes:\n[\n  {\n    \"title\": \"Recipe Name\",\n    \"info\": {\n      \"time\": 35,\n      \"selectedtime\": \"{{ $('Webhook').item.json.body.selectedCookingTime }}\",\n      \"cuisine\": \"{{ $('Webhook').item.json.body.selectedCuisines }}\",\n      \"confidence\": \"{{ $('Webhook').item.json.body.selectedDietPreference }}\",\n      \"person\": \"{{ $('Webhook').item.json.body.person }}\",\n      \"portion\": \"{{ $('Webhook').item.json.body.portions }}\",\n      \"likes\": 243\n    },\n    \"nutritional\": {\n      \"energie\": \"750 kcal\",\n      \"protein\": \"42 g\",\n      \"fat\": \"28 g\",\n      \"carbs\": \"65 g\"\n    },\n    \"ingredients\": {\n      \"available\": [\"150 g Chicken\"],\n      \"missing\": [\"1 piece Onion\"]\n    },\n    \"directions\": {\n      \"steps\": [\n        {\n          \"step\": 1,\n          \"title\": \"Prepare Ingredients\",\n          \"person\": 1,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 2,\n          \"title\": \"Cook Base\",\n          \"person\": 1,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 3,\n          \"title\": \"Combine & Season\",\n          \"person\": 2,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 4,\n          \"title\": \"Serve\",\n          \"person\": 2,\n          \"instructions\": \"Detailed instructions here.\"\n        }\n      ]\n    }\n  }\n]",
+        "text": "=1. You are a professional chef assistant. \n2. You ALWAYS respond with ONLY valid JSON. No text before or after. No markdown. 3. No explanation.\n4. You ALWAYS generate EXACTLY 3 recipe suggestions.\n5. The JSON structure must ALWAYS match the exact format given - no exceptions.\n6. The recipe MUST use AT LEAST 70% of the provided available ingredients. \n   Not all ingredients need to be used, but at least 70% of the given ingredients \n   must appear in the recipe.\n   Example: If 10 ingredients are provided, at least 7 must be used in the recipe.\n   The remaining 30% can be ignored or replaced with missing ingredients.\n7. BEFORE generating recipes, validate if the ingredients are real food items.\n   If ANY ingredient is not a real food item (random words, nonsense, numbers):\n   - Set \"valid_ingredients\" to false\n   - Return ONLY this JSON: { \"valid_ingredients\": false }\n   If ALL ingredients are real food items:\n   - Set \"valid_ingredients\": true\n   - Return the full recipe array as normal with \"valid_ingredients\": true added to each recipe\n8. The \"confidence\" field MUST be EXACTLY the value from \"Diet preference\" input above. \n   Do NOT change, translate, or interpret it. Copy it exactly as provided.\n\nGenerate exactly 3 recipes based on these inputs:\n\nAvailable ingredients: {{ $('Webhook').item.json.body.ingredients.map(i => i.size + ' ' + i.unit + ' ' + i.value).join(', ') }}\nCooking time preference: {{ $('Webhook').item.json.body.selectedCookingTime }}\nCuisine preference: {{ $('Webhook').item.json.body.selectedCuisines }}\nDiet preference: {{ $('Webhook').first().json.body.selectedDietPreference }}\nPersons: {{ $('Webhook').item.json.body.person }}\nPortions: {{ $('Webhook').item.json.body.portions }}\n\nRules you MUST follow:\n1. \"time\" = = realistic cooking time in minutes based on the actual recipe AND must respect:\n   - selectedCookingTime \"Quick\" = maximum 20 minutes\n   - selectedCookingTime \"Medium\" = between 25 and 40 minutes\n   - selectedCookingTime \"Complex\" = minimum 45 minutes\n2. \"likes\" = random number between 50 and 500\n3. \"nutritional\" values must reflect the actual recipe ingredients realistically\n4. \"steps\" must have EXACTLY 4 steps maximum\n5. Assign steps to persons based on this logic:\n   - 1 person  → all 4 steps assigned to person 1\n   - 2 persons → person 1 gets steps 1+2, person 2 gets steps 3+4\n   - 3 persons → distribute randomly but ALL 4 steps must be assigned\n   - 4 persons → each person gets exactly 1 step\n   Current persons: {{ $('Webhook').item.json.body.person }}\n6. \"instructions\" for each step MUST be 2-4 sentences long. Describe what to do in detail — include techniques, temperatures, timing, and visual cues. Not too long, but informative and practical for a home cook.\n\nReturn ONLY this JSON array with exactly 3 recipes:\n[\n  {\n    \"title\": \"Recipe Name\",\n    \"info\": {\n      \"time\": 35,\n      \"selectedtime\": \"{{ $('Webhook').item.json.body.selectedCookingTime }}\",\n      \"cuisine\": \"{{ $('Webhook').item.json.body.selectedCuisines }}\",\n      \"confidence\": {{ $('Webhook').item.json.body.selectedDietPreference }},\n      \"person\": \"{{ $('Webhook').item.json.body.person }}\",\n      \"portion\": \"{{ $('Webhook').item.json.body.portions }}\",\n      \"likes\": 243\n    },\n    \"nutritional\": {\n      \"energie\": \"750 kcal\",\n      \"protein\": \"42 g\",\n      \"fat\": \"28 g\",\n      \"carbs\": \"65 g\"\n    },\n    \"ingredients\": {\n      \"available\": [\"150 g Chicken\"],\n      \"missing\": [\"1 piece Onion\"]\n    },\n    \"directions\": {\n      \"steps\": [\n        {\n          \"step\": 1,\n          \"title\": \"Prepare Ingredients\",\n          \"person\": 1,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 2,\n          \"title\": \"Cook Base\",\n          \"person\": 1,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 3,\n          \"title\": \"Combine & Season\",\n          \"person\": 2,\n          \"instructions\": \"Detailed instructions here.\"\n        },\n        {\n          \"step\": 4,\n          \"title\": \"Serve\",\n          \"person\": 2,\n          \"instructions\": \"Detailed instructions here.\"\n        }\n      ]\n    }\n  }\n]",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        64,
-        272
+        -736,
+        688
       ],
-      "id": "fa296af8-e54c-46e9-83ba-98a064aca1d7",
+      "id": "743284c6-d9e0-47e3-b282-f8b57cece7ee",
       "name": "AI Agent",
       "alwaysOutputData": true
     },
     {
       "parameters": {
-        "model": "llama-3.1-8b-instant",
+        "model": "llama-3.3-70b-versatile",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
       "typeVersion": 1,
       "position": [
-        32,
-        480
+        -768,
+        896
       ],
-      "id": "3e1cf3b5-a299-4bd0-a400-d7c7232062e6",
+      "id": "db825a0a-679d-4695-a66e-708dbb056ba9",
       "name": "Groq Chat Model",
       "credentials": {
         "groqApi": {
-          "id": "drbic9dld9xr6YZ4",
-          "name": "Groq account 2"
+          "id": "mZoq8JZWvOvUklxW",
+          "name": "Groq account"
         }
       }
     },
@@ -182,10 +186,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        768,
-        272
+        -32,
+        688
       ],
-      "id": "6087906a-838c-47a6-83be-690703899c7f",
+      "id": "438103c8-d959-4c66-9379-63857116e264",
       "name": "Loop Over Items"
     },
     {
@@ -194,10 +198,10 @@
       "name": "Replace Me",
       "typeVersion": 1,
       "position": [
-        1344,
-        288
+        544,
+        704
       ],
-      "id": "037e2bfb-f0e2-4bfd-9925-2ebea6c181ad"
+      "id": "7b16be70-d44b-47e5-bd0a-49f5e9577cf5"
     },
     {
       "parameters": {
@@ -206,10 +210,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        480,
-        -80
+        -320,
+        336
       ],
-      "id": "0bf3377c-62c3-4dd5-bf71-ce62f6fd1377",
+      "id": "23be006b-1857-4c53-8a3c-bdf593784596",
       "name": "Generate Cookbook Hash Id"
     },
     {
@@ -230,14 +234,14 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        1152,
-        0
+        352,
+        416
       ],
-      "id": "b314f62b-86b1-43f5-85df-8f1f9fee82e2",
+      "id": "b0c57b69-d219-4309-9806-5dacd1077720",
       "name": "3 dishes with hash ID",
       "credentials": {
         "supabaseApi": {
-          "id": "HqCLlpOXJSlTB8BC",
+          "id": "bIFwd8RDPfclBKoQ",
           "name": "Supabase account"
         }
       }
@@ -269,14 +273,14 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        1104,
-        288
+        304,
+        704
       ],
-      "id": "9ba7973e-6788-4587-aff0-d4039ea5de62",
+      "id": "f0a62fc4-8e53-4c90-8cf5-ce2045696855",
       "name": "Generate Recipe with Hash ID",
       "credentials": {
         "supabaseApi": {
-          "id": "HqCLlpOXJSlTB8BC",
+          "id": "bIFwd8RDPfclBKoQ",
           "name": "Supabase account"
         }
       }
@@ -299,15 +303,15 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        640,
-        -64
+        -160,
+        352
       ],
-      "id": "cbb00a92-8c7b-47ec-95d6-525d3d68e0c0",
+      "id": "073d7312-64f9-42f5-84fe-62074497fdf4",
       "name": "show cookbook_id (Hash ID) exists",
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "HqCLlpOXJSlTB8BC",
+          "id": "bIFwd8RDPfclBKoQ",
           "name": "Supabase account"
         }
       }
@@ -340,10 +344,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        800,
-        0
+        0,
+        416
       ],
-      "id": "24d804d1-e06c-4ec9-b6e9-213b03d8b255",
+      "id": "84caaf46-da22-4cb3-ab61-cebbdbc4a204",
       "name": "(Hash id) exist or not"
     },
     {
@@ -353,10 +357,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        592,
-        272
+        -208,
+        688
       ],
-      "id": "c906161c-b3d8-4fc5-ae78-76aa203cd3a2",
+      "id": "78f933ab-aaf0-48ac-a1b0-c21e1e78b72b",
       "name": "3 individual ones"
     },
     {
@@ -365,7 +369,7 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict",
+            "typeValidation": "loose",
             "version": 3
           },
           "conditions": [
@@ -392,15 +396,16 @@
           ],
           "combinator": "and"
         },
+        "looseTypeValidation": true,
         "options": {}
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        128,
-        -64
+        -672,
+        352
       ],
-      "id": "0af2f27b-58ec-492d-a9fa-797c5c608063",
+      "id": "cd36db94-1f8a-431a-a136-a1a97813f82e",
       "name": "Daily more than 3?"
     },
     {
@@ -410,10 +415,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        960,
-        160
+        160,
+        576
       ],
-      "id": "6bbb9464-9af0-4ba9-8de8-ad63ab1e592b",
+      "id": "bb8b72d9-77c0-4144-80b9-638e1bffed53",
       "name": "3item to 1 item"
     },
     {
@@ -444,10 +449,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1328,
-        0
+        528,
+        416
       ],
-      "id": "15aee3ad-2317-4af0-8097-e78fcf2a3527",
+      "id": "658f70af-bc65-40b4-931d-3ef8e794fc9f",
       "name": "Request successful created",
       "alwaysOutputData": true
     },
@@ -471,18 +476,19 @@
               }
             }
           ],
-          "combinator": "and"
+          "combinator": "or"
         },
         "options": {}
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -80,
-        -80
+        -880,
+        336
       ],
-      "id": "bb2c691b-c898-4722-980d-96731898ac96",
-      "name": "Last Request last day?"
+      "id": "a42c3a09-4d48-4943-899d-8e75725b3811",
+      "name": "Last Request last day?",
+      "alwaysOutputData": false
     },
     {
       "parameters": {
@@ -493,7 +499,7 @@
             {
               "keyName": "Ip Adress",
               "condition": "eq",
-              "keyValue": "={{ $('Fetch User Data per IP').item.json['Ip Adress'] }}"
+              "keyValue": "={{ $('filter ip adress').item.json.ip_address }}"
             }
           ]
         },
@@ -509,14 +515,14 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        128,
-        -368
+        -672,
+        48
       ],
-      "id": "c1c225cc-ccf9-4256-8e83-25209d8fbad3",
+      "id": "46a074d1-62ef-43d9-86f5-b66d77ff4148",
       "name": "Set count to 0",
       "credentials": {
         "supabaseApi": {
-          "id": "HqCLlpOXJSlTB8BC",
+          "id": "bIFwd8RDPfclBKoQ",
           "name": "Supabase account"
         }
       }
@@ -531,7 +537,7 @@
             {
               "keyName": "Ip Adress",
               "condition": "eq",
-              "keyValue": "={{ $('Fetch User Data per IP').item.json['Ip Adress'] }}"
+              "keyValue": "={{ $('filter ip adress').item.json.ip_address }}"
             }
           ]
         },
@@ -551,14 +557,14 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        1856,
-        -16
+        1056,
+        400
       ],
-      "id": "8ee8da90-f73e-475b-b0a6-9fdb7651d286",
+      "id": "06ee70d5-6997-42c2-9c0d-5549776a19a8",
       "name": "Update a row",
       "credentials": {
         "supabaseApi": {
-          "id": "HqCLlpOXJSlTB8BC",
+          "id": "bIFwd8RDPfclBKoQ",
           "name": "Supabase account"
         }
       }
@@ -571,10 +577,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1600,
-        -16
+        800,
+        400
       ],
-      "id": "1596d528-e405-4fce-863f-98751d33c2d8",
+      "id": "65664175-cb34-450e-964b-3ac3d6698f10",
       "name": "Respond to Webhook"
     },
     {
@@ -586,10 +592,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        496,
-        -432
+        -304,
+        -16
       ],
-      "id": "ad7523dd-923c-4f5d-88a1-cd8a77393ab7",
+      "id": "b1876948-3334-4372-bb53-d273be618d3f",
       "name": "Error Rate Limit"
     },
     {
@@ -620,10 +626,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        368,
-        272
+        -432,
+        688
       ],
-      "id": "5783149e-f2ad-40ff-b953-c48fa96b66c8",
+      "id": "0489cb59-1156-4f30-bf34-4479fabc7d65",
       "name": "if recipe generatet?"
     },
     {
@@ -653,10 +659,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        592,
-        496
+        -208,
+        912
       ],
-      "id": "2d9f630c-d95b-4197-bf89-26f450ff3b81",
+      "id": "5ca3fd85-f1ea-4260-b04e-66e76ffd1634",
       "name": "why not generated?"
     },
     {
@@ -668,10 +674,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1104,
-        496
+        304,
+        912
       ],
-      "id": "ba148f5d-7af3-4cdf-a9c2-e780a2f09091",
+      "id": "dc66a52c-c6de-4ff9-b59b-3d6766df957d",
       "name": "Wrong Ingredients"
     },
     {
@@ -683,35 +689,11 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1696,
-        592
+        896,
+        1008
       ],
-      "id": "8091baa4-e62d-46aa-8023-2b6f01f3747f",
+      "id": "6fe19c06-6250-4e04-8870-c6a4dd0c83d7",
       "name": "Unknow Error"
-    },
-    {
-      "parameters": {
-        "fromEmail": "contact@maik-groth.com",
-        "toEmail": "contact@maik-groth.com",
-        "subject": "test",
-        "html": "Hello",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.emailSend",
-      "typeVersion": 2.1,
-      "position": [
-        1952,
-        592
-      ],
-      "id": "5e036ac4-0832-46a8-be61-ecdf860c8357",
-      "name": "Send an Email",
-      "webhookId": "cd791756-3acc-4ddd-bfe4-cd862b4574e0",
-      "credentials": {
-        "smtp": {
-          "id": "n7s9pz4E5GhW0RBB",
-          "name": "SMTP account"
-        }
-      }
     },
     {
       "parameters": {
@@ -720,70 +702,14 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        304,
-        -80
+        -496,
+        336
       ],
-      "id": "f07868f9-e1a5-40c4-8f66-3c66db0f5f37",
+      "id": "84d91034-f8df-4674-8fa2-cb1d53807910",
       "name": "work with real count"
     }
   ],
-  "pinData": {
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "localhost:5678",
-            "connection": "keep-alive",
-            "content-length": "261",
-            "sec-ch-ua-platform": "\"Windows\"",
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
-            "sec-ch-ua": "\"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"",
-            "content-type": "application/json",
-            "sec-ch-ua-mobile": "?0",
-            "accept": "*/*",
-            "origin": "http://localhost:4200",
-            "sec-fetch-site": "same-site",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-dest": "empty",
-            "referer": "http://localhost:4200/",
-            "accept-encoding": "gzip, deflate, br, zstd",
-            "accept-language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "ingredients": [
-              {
-                "value": "potato",
-                "size": "200",
-                "unit": "g"
-              },
-              {
-                "value": "tomato",
-                "size": "200",
-                "unit": "g"
-              },
-              {
-                "value": "cheese",
-                "size": "200",
-                "unit": "g"
-              }
-            ],
-            "portions": 2,
-            "person": 1,
-            "selectedCookingTime": "Quick",
-            "selectedCuisines": "German",
-            "selectedDietPreference": "Vegan"
-          },
-          "webhookUrl": "http://localhost:5678/webhook-test/0236c66a-d4c3-4216-9e1c-79a8437f952a",
-          "executionMode": "test"
-        },
-        "pairedItem": {
-          "item": 0
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "connections": {
     "Webhook": {
       "main": [
@@ -1058,11 +984,6 @@
         ]
       ]
     },
-    "Update a row": {
-      "main": [
-        []
-      ]
-    },
     "Respond to Webhook": {
       "main": [
         [
@@ -1110,20 +1031,9 @@
         ]
       ]
     },
-    "Wrong Ingredients": {
-      "main": [
-        []
-      ]
-    },
     "Unknow Error": {
       "main": [
-        [
-          {
-            "node": "Send an Email",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "work with real count": {
@@ -1138,20 +1048,16 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate",
-    "availableInMCP": false,
-    "timeSavedMode": "fixed",
-    "timezone": "Europe/Amsterdam",
-    "callerPolicy": "workflowsFromSameOwner"
+    "binaryMode": "separate"
   },
-  "versionId": "8e7e8d2b-749f-44ca-a804-3daa27629a45",
+  "versionId": "df323279-cf05-4285-911d-75afd198668f",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "fdcd0223a6d76807c574f255784355ca62f988d682bba7ea328f1930c8a5807e"
+    "instanceId": "fc7ea48c18f680555e89576ebba81676b22ef9442212c23c279fea16a61b32bd"
   },
-  "id": "PkDOZKIgZhije1bp",
+  "id": "TlspvzfPiWJb0bcv",
   "tags": []
 }

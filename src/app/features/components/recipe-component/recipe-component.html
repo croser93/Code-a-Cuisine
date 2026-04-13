@@ -9,7 +9,7 @@
             <form class="containerLeft container"  #contactForm="ngForm" autocomplete="off">
                 <div class="ingredientContainer inputContain">
                     <h5>Ingredient</h5>
-                    <input #ingredientInput="ngModel" name="ingredient" [(ngModel)]="value" type="text" placeholder="potato" maxlength="25" required minlength="2">
+                    <input #ingredientInput="ngModel" name="ingredient" [(ngModel)]="value" type="text" placeholder="potato" maxlength="25" required minlength="2" (keydown)="onlyLetters($event)">
 
                     <div class="errorContainer">
                         @if (saveAttempted && !ingredientInput.valid) {
@@ -51,10 +51,15 @@
                         <span class="emptyListText">Your list is empty. Please add at least 3 ingredients.</span>
                     </div>
                 }
-                @for (ingredient of ingredientsList; track ingredient; let i = $index){
-                    @if (editingIndex === i) {
-                        <div class="inlineEditWrapper ingredientsWrapper">
-                            <div class="inlineInputs">
+                @else if (ingredientsList.length <= 2){
+                    <div class="emptyListWrapper">
+                        <span class="emptyListText">{{ 3 - ingredientsList.length }} ingredient left.</span>
+                    </div>
+                }
+                    @for (ingredient of ingredientsList; track ingredient; let i = $index){
+                        @if (editingIndex === i) {
+                            <div class="inlineEditWrapper ingredientsWrapper">
+                                <div class="inlineInputs">
                                 <input type="text" maxlength="5" class="inputShort editPill" [(ngModel)]="editingIngredient.size" (keypress)="onlyNumbers($event)">
                                 
                                 <div class="customSelectColumn inputShort">
@@ -93,11 +98,11 @@
             </div>
         </div>
 
-        @if (ingredientsList.length > 2) {
-            <div class="buttonContainer">
-                <a routerLink="/preferences"><button (click)="saveToService()" class="bigButton btnLight">Next step</button></a>
-            </div>
-        }
+        
+        <div class="buttonContainer">
+            <button (click)="saveToService()" [disabled]="ingredientsList.length <= 2" [routerLink]="ingredientsList.length > 2 ? '/preferences' : null" class="bigButton btnLight">Next step</button>
+        </div>
+        
     </div>
 
 </section>

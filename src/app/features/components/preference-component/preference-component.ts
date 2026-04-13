@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { N8nService, UserPreferences  } from '../../../core/services/n8n.service';
+import { ErrorService } from '../../../core/services/error.service';
 
 interface Cookingtime {
   time: string;
@@ -97,7 +98,7 @@ export class PreferenceComponent {
     selectedDietPreference: null
   };
 
-  constructor(private n8n: N8nService, private router: Router) { }
+  constructor(private n8n: N8nService, private router: Router, private errorService: ErrorService) { }
 
   isSelectionComplete() :  boolean{
   if (this.userPreferences.selectedCookingTime &&
@@ -125,9 +126,24 @@ export class PreferenceComponent {
   }
 
   generateRecipe() {
-    this.userPreferences.portions = this.portions;
-    this.userPreferences.person = this.person;
-    this.n8n.pushData(this.userPreferences);
-    this.router.navigate(['/loading-screen']);
+    if (this.quiteEnough()) {
+      this.userPreferences.portions = this.portions;
+      this.userPreferences.person = this.person;
+      this.n8n.pushData(this.userPreferences);
+      this.router.navigate(['/loading-screen']);
+    }else{
+      this.router.navigate(['/loading-screen']);
+    }
+  }
+
+  quiteEnough(): boolean {
+    const stored = localStorage.getItem('ingredientsAtLocalStorage');
+    const ingredients = stored ? JSON.parse(stored) : [];
+    if (ingredients.length >= this.portions) {
+      return true;
+    } else {
+      this.errorService.setError('quite_enough');
+      return false;
+    }
   }
 }
